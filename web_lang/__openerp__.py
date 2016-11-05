@@ -20,18 +20,17 @@
 
 {
     'name': 'Web_lang',
-    'version': '1.0',
-        'sequence': 1,
+    'version': '8.0.2.0',
     'category': 'Web',
     'summary': 'Web client lang based CSS',
-    'description':"Multi-lang based CSS support for Web client to allow setting language direction (RTL,LTR) and fonts, colors.",
+    'description':""" Multi-lang based CSS support for Web client to allow setting language based attributes like
+     direction (RTL,LTR), fonts and colors.""",
     'author': 'DVIT',
     'website': 'https://www.dvit.me',
-    'depends': ['web',
-                ],
+    'depends': ['web'],
     'data': ['views/webclient_templates.xml'],
     'installable': True,
-    'auto_install': False,
+    'auto_install': True,
     'application': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

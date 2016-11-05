@@ -2,8 +2,8 @@
     <data>
 	<template id="web_lang" inherit_id="web.webclient_bootstrap">
 		<xpath expr="//script" position="after">
-				<link rel="stylesheet" t-attf-href="/web_lang/static/src/css/#{lang[:2]}.css"/>
-				<link rel="stylesheet" t-attf-href="/web_lang/static/src/css/#{lang}.css" />
+				<link rel="stylesheet" t-attf-href="/web_lang/static/src/css/#{env.lang[:2]}.css"/>
+				<link rel="stylesheet" t-attf-href="/web_lang/static/src/css/#{env.lang}.css" />
 		</xpath>
 	</template>
 	</data>
