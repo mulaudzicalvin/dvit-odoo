@@ -1,6 +1,6 @@
 
 /*----------------- OpenERP 7 Style -------------*/
-.navbar-inverse .navbar-nav > li > a {color:#ccc;font-weight:600;font-size:11px !important;transition:all .2s ease-out;border-right:1px grey dotted;height:30px;min-width:60px;text-align:center;}
+.navbar-inverse .navbar-nav > li > a {color:#ccc;font-weight:600;font-size:11px !important;transition:all .2s ease-out;border-right:1px grey dotted;min-width:60px;text-align:center;}
 .navbar-inverse .navbar-nav>.active>a{background-color:#ccc !important; color: #333 !important;}
 .navbar-inverse .navbar-collapse{border-top:0px; background-image:linear-gradient(to bottom,#646060,#262626);}
 .navbar-inverse .navbar-nav>li>a:hover{background:grey;}
