@@ -530,3 +530,5 @@ th,.openerp td{text-align:right}
 .openerp .oe_bank_statement_reconciliation .oe_bank_statement_reconciliation_line .accounting_view caption .tip_reconciliation_not_balanced { float: left;}
 .oe_form td.oe_form_group_cell_label label {text-align:left;padding-left:10px;}
 .openerp .oe_application .oe_breadcrumb_title>* {padding-right: 10px !important;}
+.openerp button, .openerp .oe_button, .openerp .oe_highlight { font-size: 12px;}
+
