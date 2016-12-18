@@ -16,5 +16,6 @@
 .openerp .oe_leftbar > div a.oe_logo img { max-height: 120px !important;}
 .openerp .oe_view_manager_new .oe_form_nosheet > header {position:relative !important;}
 .openerp .oe_i {font-size: 15px !important;}
-.openerp .oe_title {float:none !important;}
+.openerp .oe_title {max-width: 65% !important;}
+.openerp .oe_button_box {width: auto !important; max-width: 30% !important;}
 /*----------------- OpenERP 7 Style -------------*/
