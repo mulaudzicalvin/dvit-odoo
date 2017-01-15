@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<template id="dvit_left_menu" inherit_id="web.menu_secondary" name="DVIT left menu">
+			<xpath expr="//a[@class='oe_logo']" position="before">
+				<!-- <div id="dvit_space" style="height:125px; display:none;"></div> -->
+			</xpath>
+			<xpath expr="//div[@class='oe_secondary_menus_container']" position="replace">
+
+				<div class="oe_secondary_menus_container">
+					<div class="cssmenu">
+						<h3 class="leftbar_toggle menu_heading">
+							<ul class="menu-toogle "></ul>
+						</h3>
+					</div>
+					<t t-foreach="menu_data['children']" t-as="menu">
+						<div class="cssmenu">
+							<h3 class="menu_heading" t-if="menu['children']" t-att-title="menu['name']">
+								<i t-att-class="menu['dv_icon']"></i>
+								<span class="menu_title"><t t-esc="menu['name']"/></span>
+							</h3>
+							<h3 class="menu_heading" t-if="not menu['children']"  t-att-title="menu['name']">
+								<t t-set="debug_param" t-value="'?&amp;debug=' if debug else ''"/>
+								<a t-att-href="'/web%s#menu_id=%s&amp;action=%s' % (debug_param, menu['id'], menu['action'] and menu['action'].split(',')[1] or '')"
+								t-att-data-menu="menu['id']"
+								t-att-data-action-model="menu['action'] and menu['action'].split(',')[0] or ''"
+								t-att-data-action-id="menu['action'] and menu['action'].split(',')[1] or ''">
+								<span class="menu_title"><t t-esc="menu['name']"/></span>
+								</a>
+							</h3>
+							<div style="display: none" class="oe_secondary_menu" t-att-data-menu-parent="menu['id']">
+								<h3 class="side_menu_heading" t-if="menu['children']" t-att-title="menu['name']">
+									<span><t t-esc="menu['name']"/></span>
+								</h3>
+								<t t-foreach="menu['children']" t-as="menu">
+									<div class="oe_secondary_menu_section">
+										<t t-esc="menu['name']"/>
+									</div>
+									<t t-call="web.menu_secondary_submenu"/>
+								</t>
+							</div>
+						</div>
+					</t>
+				</div>
+			</xpath>
+		</template>
+		<!-- <template id="dvit_menu_secondary_submenu" inherit_id="web.menu_secondary_submenu" name="DVIT secondary submenu">
+		  <xpath expr="//ul" position="replace">
+		    <ul t-if="menu['children']" class="oe_secondary_submenu nav nav-pills nav-stacked">
+		        <li t-foreach="menu['children']" t-as="menu">
+		            <t t-call="web.menu_link"/>
+		            <t t-call="dvit_menus.dvit_menu_secondary_sub_submenu"/>
+		        </li>
+		    </ul>
+		  </xpath>
+		</template>
+		<template id="dvit_menu_secondary_sub_submenu" name="DVIT secondary sub submenu">
+		    <ul t-if="menu['children']" class="oe_secondary_submenu nav nav-pills nav-stacked" style="display:none;">
+		        <li t-foreach="menu['children']" t-as="menu">
+		            <t t-call="web.menu_link"/>
+		            <t t-call="dvit_menus.dvit_menu_secondary_sub_submenu"/>
+		        </li>
+		    </ul>
+		</template> -->
+		<template id="dvit_common_assets" inherit_id="web.assets_common" name="dvit common assets">
+		  <xpath expr="//link[@href='/web/static/lib/fontawesome/css/font-awesome.css']" position="replace">
+		    <link href="/dvit_menus/static/src/lib/font-awesome-4.5.0/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+		  </xpath>
+		</template>
+		<template id="dvitbt_assets" inherit_id="web.layout" name="DVIT assets">
+		  <xpath expr="." position="inside">
+		    <script src="/dvit_menus/static/src/js/main.js"></script>
+		    <link rel="stylesheet" href="/dvit_menus/static/src/css/main.css" />
+		    <link rel="stylesheet" t-attf-href="/dvit_menus/static/src/css/#{env.lang[:2]}.css"/>
+		    <link rel="stylesheet" t-attf-href="/dvit_menus/static/src/css/#{env.lang}.css" />
+		  </xpath>
+		</template>
+		<!-- <template id="dvit_top_menu" inherit_id="web.menu" name="DVIT top menu">
+		  <xpath expr="//ul[1]" position="replace">
+		  </xpath>
+		  <xpath expr="//ul[last()]" position="before">
+		    
+		  </xpath>
+		</template> -->
+
+<record model='ir.ui.view' id='menu_icons_form'>
+			<field name='name'>menu_icons.form</field>
+			<field name='model'>icons.model</field>
+			<field name='arch' type='xml'>
+				<form string='Menu Icon'>
+					<header>
+					</header>
+					<sheet>
+						<group>
+							<p style="margin: 3px;">menu:</p> <field name='menu'/>
+							<p style="margin: 3px;">icon:</p> <field name='icon'/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model='ir.ui.view' id='menu_icons_tree'>
+			<field name='name'>menu_icons.tree</field>
+			<field name='model'>icons.model</field>
+			<field name='arch' type='xml'>
+				<tree string='Menu Icons'>
+					<field name='menu'/>
+					<field name='icon'/>
+				</tree>
+			</field>
+		</record>
+
+		<record id='action_menu_icons' model='ir.actions.act_window'>
+			<field name='name'>menu_icons.action</field>
+			<field name='res_model'>icons.model</field>
+			<field name='view_type'>form</field>
+			<field name='view_mode'>tree,form</field>
+		</record>
+
+		<menuitem id="icons_model_menu" name="Menu Icons" parent="base.next_id_2" action="action_menu_icons"/>
+
+		<record id="mail_feeds_main" model="icons.model">
+		  <field name='menu'>mail.mail_feeds_main</field>
+		  <field name="icon">fa fa-envelope-o</field>
+		</record>
+
+		<record id="menu_sales" model="icons.model">
+		  <field name='menu'>base.menu_base_partner</field>
+		  <field name="icon">fa fa-tags</field>
+		</record>
+
+		<record id="menu_finance" model="icons.model">
+		  <field name='menu'>account.menu_finance</field>
+		  <field name="icon">fa fa-file-text-o</field>
+		</record>
+
+		<record id="menu_purchase_root" model="icons.model">
+		  <field name='menu'>base.menu_purchase_root</field>
+		  <field name="icon">fa fa-credit-card-alt</field>
+		</record>
+
+		<record id="menu_stock_root" model="icons.model">
+		  <field name='menu'>stock.menu_stock_root</field>
+		  <field name="icon">fa fa-building-o</field>
+		</record>
+
+		<record id="menu_reporting" model="icons.model">
+		  <field name='menu'>base.menu_reporting</field>
+		  <field name="icon">fa fa-file-text</field>
+		</record>
+
+		<record id="menu_website" model="icons.model">
+		  <field name='menu'>website.menu_website</field>
+		  <field name="icon">fa fa-globe</field>
+		</record>
+
+		<record id="menu_projects" model="icons.model">
+		  <field name='menu'>base.menu_main_pm</field>
+		  <field name="icon">fa fa-tasks</field>
+		</record>
+
+		<record id="menu_administration" model="icons.model">
+		  <field name='menu'>base.menu_administration</field>
+		  <field name="icon">fa fa-cog</field>
+		</record>
+
+		<record id="menu_manufactures" model="icons.model">
+		  <field name='menu'>base.menu_mrp_root</field>
+		  <field name="icon">fa fa-industry</field>
+		</record>
+
+		<record id="menu_hr_root" model="icons.model">
+		  <field name='menu'>hr.menu_hr_root</field>
+		  <field name="icon">fa fa-users</field>
+		</record>
+
+		<record id="menu_fleet" model="icons.model">
+		  <field name='menu'>fleet.menu_root</field>
+		  <field name="icon">fa fa-car</field>
+		</record>
+
+		<record id="menu_pos" model="icons.model">
+		  <field name='menu'>point_of_sale.menu_point_root</field>
+		  <field name="icon">fa fa-shopping-cart</field>
+		</record>
+		<record id="menu_know" model="icons.model">
+		  <field name='menu'>knowledge.menu_document</field>
+		  <field name="icon">fa fa-book</field>
+		</record>
+		<record id="menu_marketing" model="icons.model">
+		  <field name='menu'>base.marketing_menu</field>
+		  <field name="icon">fa fa-at</field>
+		</record>
+	</data>
+</openerp>

@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
-#
-#    Copyright (C) 2015 Mohamed M. Hagag.
+#    
+#    OpenERP, Open Source Management Solution
+#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -14,27 +15,15 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
 
+import account_bank_statement
+import point_of_sale
+import report
+import res_users
+import res_partner
+import restaurant
 
-{
-    'name': 'Report RTL',
-    'version': '8.0.1.0',
-    'author': 'DVIT',
-    'sequence': 1,
-    'summary': 'Report printing in RTL direction',
-    'description':
-        """
-Report printing in RTL direction
-========================
-**Note: if you have website installed install Report RTL website**
-        """,
-    'depends': ['report'],
-    'auto_install': False,
-    'installable': True,
-    'data': [
-        'views/layout.xml',
-    ],
-}
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
