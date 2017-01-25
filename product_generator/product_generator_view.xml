@@ -1,0 +1,78 @@
+<openerp>
+    <data>
+        <!--<record id="dvit_product_generator_form_view" model="ir.ui.view">-->
+            <!--<field name="name">Product Generator Form</field>-->
+            <!--<field name="model">product.generator</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<form string="">-->
+                    <!--<sheet>-->
+                        <!--<group>-->
+                            <!--<field name="product_name"/>-->
+                            <!--<field name="product_uom"/>-->
+                            <!--<field name="product_uom_category"/>-->
+                            <!--<button string="Generate" name="generate_product" type="object" class="oe_highlight"-->
+                                    <!--con="gtk-execute"/>-->
+                        <!--</group>-->
+                        <!--&lt;!&ndash;<notebook>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<page string="Uoms">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<group>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<field name="uom_ids" editable="bottom">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<tree editable="bottom">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<field name="name"/>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<field name="category_id"/>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<field name="uom_type"/>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<field name="rounding"/>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</tree>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</field>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</group>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</page>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</notebook>&ndash;&gt;-->
+
+                    <!--</sheet>-->
+                <!--</form>-->
+            <!--</field>-->
+        <!--</record>-->
+        <!--<record id="dvit_product_generator_action" model="ir.actions.act_window">-->
+            <!--<field name="name">Product Generator Action</field>-->
+            <!--<field name="type">ir.actions.act_window</field>-->
+            <!--<field name="res_model">product.generator</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+            <!--<field name="help" type="html">-->
+                <!--<p class="oe_view_nocontent_create">-->
+                    <!--&lt;!&ndash; Add Text Here &ndash;&gt;-->
+                <!--</p>-->
+                <!--<p>-->
+                    <!--&lt;!&ndash; More details about what a user can do with this object will be OK &ndash;&gt;-->
+                <!--</p>-->
+            <!--</field>-->
+        <!--</record>-->
+        <!--&lt;!&ndash; This Menu Item Must have a parent &ndash;&gt;-->
+        <!--<menuitem id="dvit_Product_generator_menuitem" name="Product Generator" parent="stock.menu_stock_root"-->
+                  <!--sequence="1"/>-->
+        <!--&lt;!&ndash; This Menu Item must have a parent and an action &ndash;&gt;-->
+        <!--<menuitem id="dvit_product_generator_menuitem_action" name="Product Generator"-->
+                  <!--parent="dvit_Product_generator_menuitem" action="dvit_product_generator_action" sequence="2"/>-->
+        <!--&lt;!&ndash; Inherit Form View to Modify it &ndash;&gt;-->
+
+        <record id="dvit_product_template_form_inherit" model="ir.ui.view">
+            <field name="name">Product Template Inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <page string="Inventory" position="after">
+                    <page string="Uoms" groups="base.group_sale_manager,stock.group_stock_manager">
+                            <field name="uom_ids" editable="bottom">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="category_id"/>
+                                    <field name="uom_type"/>
+                                    <field name="rounding"/>
+                                </tree>
+                            </field>
+                    </page>
+                </page>
+            </field>
+        </record>
+
+    </data>
+</openerp>
