@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <openerp>
 <data>
-    <template priority="26" inherit_id="account.report_invoice_document">
+    <template id="invoice_discount_report" priority="26" inherit_id="account.report_invoice_document">
         <xpath expr="//th[@groups='sale.group_discount_per_so_line']" position="attributes">
             <attribute name="t-if">o.disc_total != 0.0</attribute>
         </xpath>
