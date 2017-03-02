@@ -13,6 +13,7 @@
         </style>
     </head>
     <body>
+        <center>${helper.embed_image('png', company.logo, 250, 128)|n}</center>
         <%!
         def amount(text):
             return text.replace('-', '&#8209;')  # replace by a non-breaking hyphen (it will not word-wrap between hyphen and numbers)
