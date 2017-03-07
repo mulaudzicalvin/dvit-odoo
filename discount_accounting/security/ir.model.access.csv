@@ -1,0 +1,2 @@
+"id","model","access_ids/group_id/id","access_ids/perm_create","access_ids/perm_unlink","access_ids/perm_read","access_ids/perm_write","access_ids/name"
+"discount_accounting.model_discount_account_config","discount.account_config","base.group_user","False","False","True","False","emp"
