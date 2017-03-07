@@ -1,2 +1,2 @@
-"id","name","model_id/id","perm_read","perm_write","perm_create","perm_unlink"
-"__export__.ir_model_access_1624","da_mp","discount_accounting.model_discount_account_config","True","False","False","False"
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+discount_accounting_account_config,account_config_employee,discount_accounting.model_discount_account_config,base.group_user,1,0,0,0
