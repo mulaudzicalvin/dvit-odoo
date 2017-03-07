@@ -1,0 +1,57 @@
+<openerp>
+	<data>
+		<record id="view_discount_account_config_installer" model="ir.ui.view">
+			<field name="name">discount.account_config.form</field>
+			<field name="model">discount.account_config</field>
+			<field name="inherit_id" ref="base.res_config_installer"/>
+			<field name="arch" type="xml">
+				<form position="attributes">
+					<attribute name="string">Discount Accounting Configuration</attribute>
+				</form>
+				<footer position="replace">
+					<footer>
+					  <button name="save" type="object" string="Save" class="oe_highlight"/>
+					</footer>
+				</footer>
+				<separator string="title" position="replace">
+					<p>
+						Select discount account for sale order discount.
+					</p>
+					<group>
+						<field name="sale_discount_account"/>
+					</group>
+				</separator>
+			</field>
+		</record>
+
+		<record id="view_account_config_settings_inherit" model="ir.ui.view">
+			<field name="name">account settings</field>
+			<field name="model">account.config.settings</field>
+			<field name="inherit_id" ref="account.view_account_config_settings"/>
+			<field name="arch" type="xml">
+			   <xpath expr="//separator[@string='Accounting &amp; Finance']" position="after">
+			   		<label string="Discount Accounts"/>
+					<button type="object" name="open_discount_accounting_form" string="Configure"
+					 class="oe_link"/>
+					<br />
+				</xpath>         
+			</field>
+		</record>
+
+		<record id="action_discount_account_config_installer" model="ir.actions.act_window">
+			<field name="name">Configure Discount Accounting</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">discount.account_config</field>
+			<field name="view_id" ref="view_discount_account_config_installer"/>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+
+		<record id="discount_account_config_todo" model="ir.actions.todo">
+			<field name="action_id" ref="action_discount_account_config_installer"/>
+			<field name="sequence">3</field>
+			<field name="type">automatic</field>
+		</record>
+	</data>
+</openerp>
