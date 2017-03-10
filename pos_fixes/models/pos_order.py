@@ -6,9 +6,8 @@ class pos_order(models.Model):
     _inherit = "pos.order"
 
     '''This code will complete the anglo-saxon STJ entries
-        in COGS / Stock accounts per order, plz
-        keep in mind that this module depends on the product_pack
-        created by IngAdhoc to process packs also'''
+        in COGS / Stock accounts per order, and if installed IngAdhoc's
+        product_pack it will process it also.'''
 
     def create_picking(self, cr, uid, ids, context=None):
         super(pos_order, self).create_picking(cr,
