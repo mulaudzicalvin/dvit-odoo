@@ -15,19 +15,17 @@
     - prevent barcode on payment screen by preventing payments greater than order amount * 100 .
 
      """,
-    'version': '8.0.3.5',
+    'version': '10.0.0.1',
     'category': 'Point of Sale',
     'author': 'DVIT.me',
     'website': 'http://dvit.me',
-    'license': 'AGPL-3',
+    'license': 'LGPL-3',
+    'price': '20.0'
     'depends': [
-        'account_anglo_saxon',
         'account',
         'account_voucher',
         'point_of_sale',
     ],
-    'conflicts': ['pos_anglo_saxon',
-                  'pos_invoice_reconcile'],
     'data': ['views.xml'],
     'demo': [],
     'installable': True,
