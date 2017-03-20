@@ -9,7 +9,6 @@
             <xpath expr="//group" position="replace">
                 <group>
                 <group>
-
                     <field name="in_number" required="True"/>
                     <field name="date_assigned" required="True"/>
                     <field name="user_id" string="Project Manager"
@@ -44,8 +43,7 @@
             <xpath expr="//group" position="replace">
                 <group>
                     <group>
-                        <field name="billable"/>
-
+                    <field name="billable"/>
                     <field name="project_id" required="True"
                         domain="[('state','not in', ('close', 'cancelled'))]"
                         on_change="onchange_project(project_id)"
@@ -56,8 +54,13 @@
                         context="{'default_groups_ref':
                         ['base.group_user', 'base.group_partner_manager',
                         'project.group_project_user']}"/>
+
+                    <field name="date_start"
+                            attrs="{'invisible':[('billable','=',False)], 'required':[('billable','=',True)]}"/>
+                    <field name="date_end"
+                            attrs="{'invisible':[('billable','=',False)], 'required':[('billable','=',True)]}"/>
                     <field name="date_valuated"
-                        attrs="{'invisible':[('billable','=',False)], 'required':[('billable','=',True)]}"/>
+                            attrs="{'invisible':[('billable','=',False)], 'required':[('billable','=',True)]}"/>
                     <field name="date_budget_start"
                         attrs="{'invisible':[('billable','=',False)], 'required':[('billable','=',True)]}"/>
                     <field name="date_budget_end"
