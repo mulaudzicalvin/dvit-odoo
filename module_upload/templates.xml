@@ -1,0 +1,40 @@
+<openerp>
+    <data>
+        <record id="upload_module_form" model="ir.ui.view">
+            <field name="name">Upload Module Form</field>
+            <field name="model">upload.module</field>
+            <field name="arch" type="xml">
+                <form string="Upload Module">
+                    <sheet>
+                        <group>
+                            <field name="addons_paths"/>
+                            <field name="binary_field" widget="module_upload"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="upload_module_tree" model="ir.ui.view">
+            <field name="name">Upload Module Tree</field>
+            <field name="model">upload.module</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="addons_paths"/>
+                </tree>
+            </field>
+        </record>
+        <record id="upload_module_action" model="ir.actions.act_window">
+            <field name="name">Upload Module</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">upload.module</field>
+        </record>
+        <menuitem id="upload_module_categ" name="Upload Module" parent="base.menu_administration" sequence="2"/>
+        <menuitem id="dvit_upload_module_action_menu" parent="upload_module_categ" name="Upload Module" sequence="10" action="upload_module_action"/>
+        <template id="dvit_common_assets" inherit_id="web.assets_common" name="dvit backend theme common assets">
+          <xpath expr="//link[@href='/web/static/lib/fontawesome/css/font-awesome.css']" position="replace">
+            <script type="text/javascript" src="/module_upload/static/src/js/jquery.form.min.js"></script>
+            <script type="text/javascript" src="/module_upload/static/src/js/uploadWidget.js"></script>
+          </xpath>
+        </template>
+    </data>
+</openerp>

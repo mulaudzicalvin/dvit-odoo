@@ -1,0 +1,18 @@
+<templates xml:space="preserve">
+    <t t-name="MAKUpload">
+        <div>
+            <t t-if="! widget.get('effective_readonly')">
+                <form action="/upload_module" id="uploadModuleForm" method="post" enctype="multipart/form-data" name="upload_form" style="margin-right: 10px !important;display: -webkit-inline-box;">
+                        <p id="pFileName"><t t-raw='widget.get_this_value()'></t></p>
+                        <input type="file" id="upload_module" name="uploaded_file" style="display:none" />
+                    <input type="submit" id="uploadSubmit" style="display:none"/>
+                </form>
+                <button id="BrowseButton">Browse</button>
+            </t>
+            <t t-if="widget.get('effective_readonly')">
+                <p id="pFileName" style="margin-right: 10px !important;display: -webkit-inline-box;"><t t-raw='widget.get_this_value()'></t></p>
+                <button id="downloadButton">Download</button>
+            </t>
+        </div>
+    </t>
+</templates>
