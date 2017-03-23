@@ -1,5 +1,5 @@
-from openerp import models, fields, api
-from openerp.tools.float_utils import float_round as round
+from odoo import models, fields, api
+from odoo.tools.float_utils import float_round as round
 
 
 class pos_order(models.Model):
@@ -10,31 +10,22 @@ class pos_order(models.Model):
         keep in mind that this module depends on the product_pack
         created by IngAdhoc to process packs also'''
 
-    def create_picking(self, cr, uid, ids, context=None):
-        super(pos_order, self).create_picking(cr,
-                                              uid, ids,
-                                              context=context)
-
-        pos_order_obj = self.pool.get('pos.order')
-        account_move_obj = self.pool.get('account.move')
-        move_line_obj = self.pool.get('account.move.line')
-        company_id = self.pool.get('res.users').browse(cr, uid,
-                                                       uid, context=context).company_id.id
-
-        for order in self.browse(cr, uid, ids, context=context):
+    def create_picking(self):
+        pos_order_obj = self.env['pos.order']
+        account_move_obj = self.env['account.move']
+        move_line_obj = self.env['account.move.line']
+        company_id = self.env['res.users'].browse(1).company_id.id
+        for order in self.browse():
             session = order.session_id
             # if move_id is None:
             # Create an entry for the sale
-            move_id = pos_order_obj._create_account_move(cr,
-                                                         uid,
-                                                         session.start_at,
+            move_id = pos_order_obj._create_account_move(session.start_at,
                                                          session.name,
                                                          session.config_id.journal_id.id,
                                                          company_id,
-                                                         context=context)
+                                                         )
 
-            move = account_move_obj.browse(cr, uid,
-                                           move_id, context=context)
+            move = account_move_obj.browse(move_id)
 
             amount_total = order.amount_total
 
@@ -83,8 +74,8 @@ class pos_order(models.Model):
                             'debit': amount,
                         }
                         daml.update(line_vals)
-                        move_line_obj.create(cr, uid, caml)
-                        move_line_obj.create(cr, uid, daml)
+                        move_line_obj.create( caml)
+                        move_line_obj.create( daml)
 
                     if amount_total < 0:
                         # create move.lines to credit cogs and
@@ -101,8 +92,8 @@ class pos_order(models.Model):
                             'debit': -amount,
                         }
                         daml.update(line_vals)
-                        move_line_obj.create(cr, uid, caml)
-                        move_line_obj.create(cr, uid, daml)
+                        move_line_obj.create( caml)
+                        move_line_obj.create( daml)
 
                 '''Due to the Pack nature we need to process it separately'''
                 if hasattr(o_line.product_id, 'pack'):
@@ -152,9 +143,9 @@ class pos_order(models.Model):
                                         }
                                         daml.update(line_vals)
                                         move_line_obj.create(
-                                            cr, uid, caml)
+                                             caml)
                                         move_line_obj.create(
-                                            cr, uid, daml)
+                                             daml)
 
                                     if amount_total < 0:
                                         # create move.lines to credit cogs and
@@ -172,10 +163,10 @@ class pos_order(models.Model):
                                         }
                                         daml.update(line_vals)
                                         move_line_obj.create(
-                                            cr, uid, caml)
+                                             caml)
                                         move_line_obj.create(
-                                            cr, uid, daml)
-
+                                             daml)
+        super(pos_order, self).create_picking()
         return True
 
 
