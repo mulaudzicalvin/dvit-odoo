@@ -14,6 +14,9 @@
 
     - prevent barcode on payment screen by preventing payments greater than order amount * 100 .
 
+   ToDo:
+    - Migrate IngAdhoc's product_pack and product_pack_pos to v 10 and add it to this module as original one.
+
      """,
     'version': '10.0.0.1',
     'category': 'Point of Sale',
@@ -21,14 +24,11 @@
     'website': 'http://dvit.me',
     'license': 'AGPL-3',
     'depends': [
-        # 'account_anglo_saxon',
         'account',
         'account_voucher',
         'point_of_sale',
     ],
     'data': ['views.xml'],
-    'conflicts': ['pos_anglo_saxon',
-                  'pos_invoice_reconcile'],
     'installable': True,
     'auto_install': True,
     'application': False,
