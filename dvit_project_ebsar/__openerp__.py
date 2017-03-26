@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'DVIT Ebsar',
-    'summary': 'ADVIT Ebsar',
+    'name': 'DVIT Absar',
+    'summary': 'DVIT Absar',
     'description': """
     ADVIT Ebsar
      """,
-    'version': '8.0.0.8',
+    'version': '8.0.1.0',
     'category': 'Productivity',
     'author': 'DVIT.me',
     'website': 'http://dvit.me',
