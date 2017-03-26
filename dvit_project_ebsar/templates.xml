@@ -58,15 +58,16 @@
                             attrs="{'invisible':[('licensable','=',False)], 'required':[('licensable','=',True)]}"/>
                     <field name="date_end"
                         attrs="{'invisible':[('licensable','=',False)], 'required':[('licensable','=',True)]}"/>
+
+                </group>
+                <group>
+                    <field name="billable"/>
                     <field name="date_valuated"
                             attrs="{'invisible':[('billable','=',False)], 'required':[('billable','=',True)]}"/>
                     <field name="date_budget_start"
                         attrs="{'invisible':[('billable','=',False)], 'required':[('billable','=',True)]}"/>
                     <field name="date_budget_end"
                         attrs="{'invisible':[('billable','=',False)], 'required':[('billable','=',True)]}"/>
-                </group>
-                <group>
-                    <field name="billable"/>
                     <field name="date_certificate"
                         attrs="{'invisible':[('billable','=',False)], 'required':[('billable','=',True)]}"/>
                     <field name="date_sent"
