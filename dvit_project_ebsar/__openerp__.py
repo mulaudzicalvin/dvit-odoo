@@ -11,8 +11,9 @@
     'website': 'http://dvit.me',
     'license': 'AGPL-3',
     'depends': ['project_category',
-                    'project_stage_closed',
-                    'project_task_materials_stock',
+                'wh_contract',
+                'project_stage_closed',
+                'project_task_materials_stock',
                     ],
     'data': [
         'templates.xml',
