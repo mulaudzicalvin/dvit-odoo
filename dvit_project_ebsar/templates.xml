@@ -42,7 +42,6 @@
             <xpath expr="//group" position="replace">
                 <group>
                     <group>
-                    <field name="billable"/>
                     <field name="licensable"/>
                     <field name="project_id" required="True"
                         domain="[('state','not in', ('close', 'cancelled'))]"
@@ -67,6 +66,7 @@
                         attrs="{'invisible':[('billable','=',False)], 'required':[('billable','=',True)]}"/>
                 </group>
                 <group>
+                    <field name="billable"/>
                     <field name="date_certificate"
                         attrs="{'invisible':[('billable','=',False)], 'required':[('billable','=',True)]}"/>
                     <field name="date_sent"
