@@ -19,7 +19,7 @@
             <xpath expr="//group" position="replace">
                 <group>
                 <group>
-                    <field name="type_id" required="True"/>
+                    <field name="type_id" attrs="{'required':1" required="True"/>
                     <field name="user_id" string="Project Manager" required="True"
                         attrs="{'readonly':[('state','in',['close', 'cancelled'])]}"
                         context="{'default_groups_ref':
