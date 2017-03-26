@@ -19,15 +19,15 @@
             <xpath expr="//group" position="replace">
                 <group>
                 <group>
-                    <field name="in_number" required="True"/>
-                    <field name="date_assigned" required="True"/>
+                    <field name="type_id" required="True"/>
                     <field name="user_id" string="Project Manager" required="True"
                         attrs="{'readonly':[('state','in',['close', 'cancelled'])]}"
                         context="{'default_groups_ref':
                         ['base.group_user', 'base.group_partner_manager',
                         'project.group_project_user']}" />
-                    <field name="type_id" required="True"/>
                     <field name="partner_id" on_change="onchange_partner_id(partner_id)" string="Customer"/>
+                    <field name="in_number" required="True"/>
+                    <field name="date_assigned" required="True"/>
                 </group>
                 <group>
                     <field name="order_number" required="True"/>
