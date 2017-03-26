@@ -72,6 +72,8 @@
                             attrs="{'invisible':[('licensable','=',False)], 'required':[('licensable','=',True)]}"/>
                     <field name="date_end"
                         attrs="{'invisible':[('licensable','=',False)], 'required':[('licensable','=',True)]}"/>
+                    <field name="planned_hours"
+                        attrs="{'required':['|',('licensable','=',True),('billable','=',True)]}"/>
 
                 </group>
                 <group>
