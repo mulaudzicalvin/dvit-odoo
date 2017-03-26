@@ -7,7 +7,7 @@
         <field name="model">project.project</field>
         <field name="inherit_id" ref="project_category.project_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field" position="replace"></xpath>
+            <xpath expr="//field[@name='type_id']" position="replace"></xpath>
         </field>
     </record>
 
