@@ -1,0 +1,51 @@
+<openerp>
+    <data>
+        <record id="model_script_form" model="ir.ui.view">
+            <field name="name">Model Script Form</field>
+            <field name="model">model.script</field>
+            <field name="arch" type="xml">
+                <form string="Command Panel">
+                    <header>
+                        <button name="cmd_execute" string="Run" class="oe_highlight" type="object"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="desc"/>
+                            <field name="command"/>
+                            <field name="command_args"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="model_script_tree" model="ir.ui.view">
+            <field name="name">Model Script Tree</field>
+            <field name="model">model.script</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                    <field name="desc"/>
+                    <field name="command"/>
+                    <field name="command_args"/>
+                    <button name="cmd_execute" string="Run" type="object" class="oe_highlight"/>
+                </tree>
+            </field>
+        </record>
+        <record id="model_script_action" model="ir.actions.act_window">
+            <field name="name">Commands Panel</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">model.script</field>
+            <!--<field name="view_mode">tree,form</field>-->
+            <!--<field name="help" type="html">-->
+              <!--<p class="oe_view_nocontent_create">-->
+                <!--&lt;!&ndash; Add Text Here &ndash;&gt;-->
+              <!--</p><p>-->
+                <!--&lt;!&ndash; More details about what a user can do with this object will be OK &ndash;&gt;-->
+              <!--</p>-->
+            <!--</field>-->
+        </record>
+        <menuitem id="commands_panel_categ" name="Model Script" parent="base.menu_administration" sequence="2"/>
+        <menuitem id="dvit_commands_panel_action_menu" parent="commands_panel_categ" name="Commands Panel" sequence="10" action="model_script_action"/>
+    </data>
+</openerp>
