@@ -13,7 +13,6 @@
     'depends': ['project_category',
                 'wh_contract',
                 'project_stage_closed',
-                'project_task_materials_stock',
                     ],
     'data': [
         'templates.xml',

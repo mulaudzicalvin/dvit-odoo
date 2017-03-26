@@ -39,11 +39,11 @@
         <field name="model">project.task</field>
         <field name="inherit_id" ref="project.view_task_form2"/>
         <field name="arch" type="xml">
-
             <xpath expr="//group" position="replace">
                 <group>
                     <group>
                     <field name="billable"/>
+                    <field name="licensable"/>
                     <field name="project_id" required="True"
                         domain="[('state','not in', ('close', 'cancelled'))]"
                         on_change="onchange_project(project_id)"
@@ -56,9 +56,9 @@
                         'project.group_project_user']}"/>
 
                     <field name="date_start"
-                            attrs="{'invisible':[('billable','=',False)], 'required':[('billable','=',True)]}"/>
+                            attrs="{'invisible':[('licensable','=',False)], 'required':[('licensable','=',True)]}"/>
                     <field name="date_end"
-                            attrs="{'invisible':[('billable','=',False)], 'required':[('billable','=',True)]}"/>
+                        attrs="{'invisible':[('licensable','=',False)], 'required':[('licensable','=',True)]}"/>
                     <field name="date_valuated"
                             attrs="{'invisible':[('billable','=',False)], 'required':[('billable','=',True)]}"/>
                     <field name="date_budget_start"
@@ -81,8 +81,6 @@
             </xpath>
         </field>
     </record>
-
-
 
 </data>
 </openerp>
