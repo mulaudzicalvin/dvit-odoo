@@ -1,12 +1,21 @@
 <openerp>
 <data>
     <!-- Inherit Form View to Modify it -->
+
+    <record id="project_ebsar_type" model="ir.ui.view">
+        <field name="name">project_ebsar_type</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project_category.project_form"/>
+        <field name="arch" type="xml">
+            <field name="type_id" position="replace"></field>
+        </field>
+    </record>
+
     <record id="project_ebsar" model="ir.ui.view">
         <field name="name">project_ebsar</field>
         <field name="model">project.project</field>
         <field name="inherit_id" ref="project.edit_project"/>
         <field name="arch" type="xml">
-            <field name="type_id" position="replace"></field>
             <xpath expr="//group" position="replace">
                 <group>
                 <group>
