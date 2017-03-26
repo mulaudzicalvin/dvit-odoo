@@ -74,8 +74,6 @@
                         attrs="{'invisible':[('billable','=',False)], 'required':[('billable','=',True)]}"/>
                     <field name="date_invoiced"
                         attrs="{'invisible':[('billable','=',False)], 'required':[('billable','=',True)]}"/>
-                    <field name="date_deadline"
-                        attrs="{'invisible':[('billable','=',False)], 'required':[('billable','=',True)]}"/>
                     <field name="progress" widget="progressbar" groups="project.group_time_work_estimation_tasks"/>
                 </group>
             </group>
