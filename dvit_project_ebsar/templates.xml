@@ -6,6 +6,7 @@
         <field name="model">project.project</field>
         <field name="inherit_id" ref="project.edit_project"/>
         <field name="arch" type="xml">
+            <xpath expr="//field[@name='type'" position="replace"></xpath>
             <xpath expr="//group" position="replace">
                 <group>
                 <group>
@@ -17,10 +18,10 @@
                         ['base.group_user', 'base.group_partner_manager',
                         'project.group_project_user']}" />
                     <field name="type" required="True"/>
-                    <field name="order_number" required="True"/>
                     <field name="partner_id" on_change="onchange_partner_id(partner_id)" string="Customer"/>
                 </group>
                 <group>
+                    <field name="order_number" required="True"/>
                     <field name="client_name" required="True"/>
                     <field name="client_mobile" required="True"/>
                     <field name="meter_numbers" required="True"/>
