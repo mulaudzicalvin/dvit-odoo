@@ -11,7 +11,7 @@
                 <group>
                     <field name="in_number" required="True"/>
                     <field name="date_assigned" required="True"/>
-                    <field name="user_id" string="Project Manager"
+                    <field name="user_id" string="Project Manager" required="True"
                         attrs="{'readonly':[('state','in',['close', 'cancelled'])]}"
                         context="{'default_groups_ref':
                         ['base.group_user', 'base.group_partner_manager',
