@@ -11,15 +11,14 @@ class pos_order(models.Model):
         created by IngAdhoc to process packs also'''
 
     def create_picking(self):
-        pos_order_obj = self.env['pos.order']
         account_move_obj = self.env['account.move']
         move_line_obj = self.env['account.move.line']
-        company_id = self.company_id.id
         for order in self.browse():
+            company_id = order.company_id.id
             session = order.session_id
-            move_id = pos_order_obj._create_account_move(session.start_at,
-                                                         session.name,
-                                                         session.config_id.journal_id.id,
+            move_id = self._create_account_move(session.start_at,
+                                                         order.name,
+                                                         int(session.config_id.journal_id.id),
                                                          company_id,
                                                          )
 
