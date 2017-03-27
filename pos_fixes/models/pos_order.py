@@ -6,9 +6,7 @@ class pos_order(models.Model):
     _inherit = "pos.order"
 
     '''This code will complete the anglo-saxon STJ entries
-        in COGS / Stock accounts per order, plz
-        keep in mind that this module depends on the product_pack
-        created by IngAdhoc to process packs also'''
+        in COGS / Stock accounts per order'''
 
     def create_picking(self):
         account_move_obj = self.env['account.move']
@@ -26,7 +24,7 @@ class pos_order(models.Model):
 
             amount_total = order.amount_total
 
-            for o_line in order.lines:
+            for o_line in order.liness:
                 amount = 0
 
                 if o_line.product_id.type != 'service' and o_line.product_id.categ_id.property_valuation == 'real_time':
