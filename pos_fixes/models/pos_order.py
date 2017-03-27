@@ -2,37 +2,39 @@ from odoo import models, fields, api
 from odoo.tools.float_utils import float_round as round
 
 
-class pos_order(models.Model):
+class PosOrder(models.Model):
     _inherit = "pos.order"
 
     '''This code will complete the anglo-saxon STJ entries
         in COGS / Stock accounts per order'''
 
     def create_picking(self):
+
         account_move_obj = self.env['account.move']
         move_line_obj = self.env['account.move.line']
-        for order in self.browse():
+        for order in self:
             company_id = order.company_id.id
             session = order.session_id
             move_id = self._create_account_move(session.start_at,
-                                                         order.name,
-                                                         int(session.config_id.journal_id.id),
-                                                         company_id,
-                                                         )
+                                                 order.name,
+                                                 int(session.config_id.journal_id.id),
+                                                 company_id,
+                                                 )
 
             move = account_move_obj.browse(move_id)
 
             amount_total = order.amount_total
 
-            for o_line in order.liness:
+            for o_line in order.lines.filtered(lambda l: l.product_id.type in ['product', 'consu'] and \
+                l.product_id.categ_id.property_valuation == 'real_time'):
                 amount = 0
 
-                if o_line.product_id.type != 'service' and o_line.product_id.categ_id.property_valuation == 'real_time':
-                    stkacc = o_line.product_id.categ_id.property_stock_account_output_categ and \
-                        o_line.product_id.categ_id.property_stock_account_output_categ
+                # if o_line.product_id.categ_id.property_valuation == 'real_time':
+                stkacc = o_line.product_id.categ_id.property_stock_account_output_categ and \
+                    o_line.product_id.categ_id.property_stock_account_output_categ
                     # cost of goods account cogacc
-                    cogacc = o_line.product_id.categ_id.property_account_expense_categ and \
-                        o_line.product_id.categ_id.property_account_expense_categ
+                cogacc = o_line.product_id.categ_id.property_account_expense_categ and \
+                    o_line.product_id.categ_id.property_account_expense_categ
 
                     amount = o_line.qty * o_line.product_id.standard_price
                     line_vals = {
@@ -82,7 +84,7 @@ class pos_order(models.Model):
                         move_line_obj.create( caml)
                         move_line_obj.create( daml)
 
-        super(pos_order, self).create_picking()
+        # super(PosOrder, self).create_picking()
         return True
 
 
