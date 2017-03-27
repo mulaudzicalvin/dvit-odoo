@@ -33,18 +33,12 @@ class pos_order(models.Model):
                 amount = 0
 
                 if o_line.product_id.type != 'service' and \
-                        o_line.product_id.valuation == 'real_time':
-                    stkacc = o_line.product_id.property_stock_account_output and \
-                        o_line.product_id.property_stock_account_output
-                    if not stkacc:
-                        stkacc = o_line.product_id.categ_id.property_stock_account_output_categ and \
+                        o_line.product_id.categ_id.property_valuation == 'real_time':
+                    stkacc = o_line.product_id.categ_id.property_stock_account_output_categ and \
                             o_line.product_id.categ_id.property_stock_account_output_categ
 
                     # cost of goods account cogacc
-                    cogacc = o_line.product_id.property_account_expense and \
-                        o_line.product_id.property_account_expense
-                    if not cogacc:
-                        cogacc = o_line.product_id.categ_id.property_account_expense_categ and \
+                    cogacc = o_line.product_id.categ_id.property_account_expense_categ and \
                             o_line.product_id.categ_id.property_account_expense_categ
                     amount = o_line.qty * o_line.product_id.standard_price
                     line_vals = {
@@ -100,16 +94,10 @@ class pos_order(models.Model):
                     if o_line.product_id.pack:
                         for pack_line in o_line.product_id.pack_line_ids:
                             if pack_line.product_id.type != 'service' and \
-                                    pack_line.product_id.valuation == 'real_time':
-                                stkacc = pack_line.product_id.property_stock_account_output and \
-                                    pack_line.product_id.property_stock_account_output
-                                if not stkacc:
-                                    stkacc = pack_line.product_id.categ_id.property_stock_account_output_categ and \
+                                    pack_line.product_id.categ_id.property_valuation == 'real_time':
+                                stkacc = pack_line.product_id.categ_id.property_stock_account_output_categ and \
                                         pack_line.product_id.categ_id.property_stock_account_output_categ
-                                cogacc = pack_line.product_id.property_account_expense and \
-                                    pack_line.product_id.property_account_expense
-                                if not cogacc:
-                                    cogacc = pack_line.product_id.categ_id.property_account_expense_categ and \
+                                cogacc = pack_line.product_id.categ_id.property_account_expense_categ and \
                                         pack_line.product_id.categ_id.property_account_expense_categ
                                 amount = o_line.qty * pack_line.quantity * \
                                     pack_line.product_id.standard_price
