@@ -13,13 +13,10 @@ class PosOrder(models.Model):
         move_line_obj = self.env['account.move.line']
         for order in self:
 
-            # ao_lines = order.lines.filtered(lambda l: l.product_id.type in ['product', 'consu'])
-            # for ao_line in ao_lines:
-            #     print('------------POSFIX --- ' + str(ao_line.id) + str(ao_line.name) + ' -----------')
-            o_lines = order.lines.filtered(lambda l: l.product_id.categ_id.property_valuation == 'real_time' and \
-            l.product_id.type in ['product', 'consu'])
-            for o_line in o_lines:
-                print('------------POSFIX - o_line --- ' + str(o_line.name) + ' -----------')
+            o_lines = order.lines.filtered(lambda l: \
+                l.product_id.categ_id.property_valuation == 'real_time' and \
+                l.product_id.type in ['product', 'consu'])
+
             if o_lines:
                 company_id = order.company_id.id
                 session = order.session_id
@@ -28,22 +25,21 @@ class PosOrder(models.Model):
                                                      int(session.config_id.journal_id.id),
                                                      company_id,
                                                      )
-                print ('------------ POSFIX --move-name - ' + str(move.name) + ' ------------')
-                print ('------------ POSFIX --move-id - ' + str(move.id) + ' ------------')
+                # print ('------------ POSFIX --move-name - ' + str(move.name) + ' ------------')
+                # print ('------------ POSFIX --move-id - ' + str(move.id) + ' ------------')
                 amount_total = order.amount_total
 
                 for o_line in o_lines :
-                    print ('------------ POSFIX --- ' + str(o_line.name) + ' ------------')
+                    # print ('------------ POSFIX --- ' + str(o_line.name) + ' ------------')
                     amount = 0
-                    # if o_line.product_id.categ_id.property_valuation == 'real_time':
                     stkacc = o_line.product_id.categ_id.property_stock_account_output_categ_id and \
                         o_line.product_id.categ_id.property_stock_account_output_categ_id
-                    print ('------------ POSFIX --- ' + str(stkacc.name) + ' ------------')
+                    # print ('------------ POSFIX --- ' + str(stkacc.name) + ' ------------')
 
-                        # cost of goods account cogacc
+                    # cost of goods account cogacc
                     cogacc = o_line.product_id.property_account_expense_id and \
                         o_line.product_id.property_account_expense_id
-                    print ('------------ POSFIX --- ' + str(cogacc.name) + ' ------------')
+                    # print ('------------ POSFIX --- ' + str(cogacc.name) + ' ------------')
 
                     if not cogacc:
                         cogacc = o_line.product_id.categ_id.property_account_expense_categ_id and \
@@ -60,11 +56,10 @@ class PosOrder(models.Model):
                         'quantity': o_line.qty,
                         'ref': o_line.name
                     }
-                    print ('------------ POSFIX line_vals --- ' + str(line_vals) + ' ------------')
+                    # print ('------------ POSFIX line_vals --- ' + str(line_vals) + ' ------------')
 
                     if amount_total > 0:
-                            # create move.lines to credit stock and
-                            # debit cogs
+                            # create move.lines to credit stock and debit cogs
                         caml = {
                             'account_id': stkacc.id,
                             'credit': amount,
@@ -77,17 +72,16 @@ class PosOrder(models.Model):
                             'debit': amount,
                         }
                         daml.update(line_vals)
-
-                        print ('------------ POSFIX caml --- ' + str(caml) + ' ------------')
-                        print ('------------ POSFIX daml --- ' + str(daml) + ' ------------')
+                        # print ('------------ POSFIX caml --- ' + str(caml) + ' ------------')
+                        # print ('------------ POSFIX daml --- ' + str(daml) + ' ------------')
 
                         move_line_obj.with_context(check_move_validity=False).create( caml)
                         move_line_obj.with_context(check_move_validity=False).create( daml)
                         move.post()
 
                     if amount_total < 0:
-                        # create move.lines to credit cogs and
-                        # debit stock
+                        # create move.lines to credit cogs and debit ?stock?
+                        # ToDo: return goods directly to inv. valuation account instead of GRNI/GSNI acc.
                         caml = {
                             'account_id': cogacc.id,
                             'credit': -amount,
@@ -103,9 +97,6 @@ class PosOrder(models.Model):
                         move_line_obj.with_context(check_move_validity=False).create( caml)
                         move_line_obj.with_context(check_move_validity=False).create( daml)
                         move.sudo().post()
-
-            else:
-                print('---------- NOLINIESPOSFIX ---------')
 
         super(PosOrder, self).create_picking()
         return True
