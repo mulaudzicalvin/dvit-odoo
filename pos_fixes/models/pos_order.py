@@ -42,7 +42,6 @@ class pos_order(models.Model):
                             o_line.product_id.categ_id.property_account_expense_categ
                     amount = o_line.qty * o_line.product_id.standard_price
                     line_vals = {
-                        'period_id': move.period_id.id,
                         'name': o_line.product_id.name,
                         'move_id': move_id,
                         'journal_id': move.journal_id.id,
@@ -104,7 +103,6 @@ class pos_order(models.Model):
                                 # qty +=
                                 if cogacc and stkacc:
                                     line_vals = {
-                                        'period_id': move.period_id.id,
                                         'name': pack_line.product_id.name,
                                         'move_id': move_id,
                                         'journal_id': move.journal_id.id,
