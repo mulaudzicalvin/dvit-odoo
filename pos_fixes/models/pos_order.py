@@ -36,55 +36,55 @@ class PosOrder(models.Model):
                 cogacc = o_line.product_id.categ_id.property_account_expense_categ and \
                     o_line.product_id.categ_id.property_account_expense_categ
 
-                    amount = o_line.qty * o_line.product_id.standard_price
-                    line_vals = {
-                        'name': o_line.product_id.name + 'POSFIX',
-                        'move_id': move_id,
-                        'journal_id': move.journal_id.id,
-                        'date': move.date,
-                        'product_id': o_line.product_id.id,
-                        'partner_id': order.partner_id and order.partner_id.id or False,
-                        'quantity': o_line.qty,
-                        'ref': o_line.name
+                amount = o_line.qty * o_line.product_id.standard_price
+                line_vals = {
+                    'name': o_line.product_id.name + 'POSFIX',
+                    'move_id': move_id,
+                    'journal_id': move.journal_id.id,
+                    'date': move.date,
+                    'product_id': o_line.product_id.id,
+                    'partner_id': order.partner_id and order.partner_id.id or False,
+                    'quantity': o_line.qty,
+                    'ref': o_line.name
+                }
+
+                if amount_total > 0:
+                        # create move.lines to credit stock and
+                        # debit cogs
+                    caml = {
+                        'account_id': stkacc.id,
+                        'credit': amount,
+                        'debit': 0.0,
                     }
+                    caml.update(line_vals)
+                    daml = {
+                        'account_id': cogacc.id,
+                        'credit': 0.0,
+                        'debit': amount,
+                    }
+                    daml.update(line_vals)
+                    move_line_obj.create( caml)
+                    move_line_obj.create( daml)
 
-                    if amount_total > 0:
-                            # create move.lines to credit stock and
-                            # debit cogs
-                        caml = {
-                            'account_id': stkacc.id,
-                            'credit': amount,
-                            'debit': 0.0,
-                        }
-                        caml.update(line_vals)
-                        daml = {
-                            'account_id': cogacc.id,
-                            'credit': 0.0,
-                            'debit': amount,
-                        }
-                        daml.update(line_vals)
-                        move_line_obj.create( caml)
-                        move_line_obj.create( daml)
+                if amount_total < 0:
+                    # create move.lines to credit cogs and
+                    # debit stock
+                    caml = {
+                        'account_id': cogacc.id,
+                        'credit': -amount,
+                        'debit': 0.0,
+                    }
+                    caml.update(line_vals)
+                    daml = {
+                        'account_id': stkacc.id,
+                        'credit': 0.0,
+                        'debit': -amount,
+                    }
+                    daml.update(line_vals)
+                    move_line_obj.create( caml)
+                    move_line_obj.create( daml)
 
-                    if amount_total < 0:
-                        # create move.lines to credit cogs and
-                        # debit stock
-                        caml = {
-                            'account_id': cogacc.id,
-                            'credit': -amount,
-                            'debit': 0.0,
-                        }
-                        caml.update(line_vals)
-                        daml = {
-                            'account_id': stkacc.id,
-                            'credit': 0.0,
-                            'debit': -amount,
-                        }
-                        daml.update(line_vals)
-                        move_line_obj.create( caml)
-                        move_line_obj.create( daml)
-
-        # super(PosOrder, self).create_picking()
+        super(PosOrder, self).create_picking()
         return True
 
 
