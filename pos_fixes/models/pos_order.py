@@ -1,5 +1,5 @@
 from odoo import models, fields, api
-from odoo.tools.float_utils import float_round as round
+# from odoo.tools.float_utils import float_round as round
 
 
 class PosOrder(models.Model):
@@ -8,14 +8,20 @@ class PosOrder(models.Model):
     '''This code will complete the anglo-saxon STJ entries
         in COGS / Stock accounts per order'''
 
-    def create_picking(self):
-        account_move_obj = self.env['account.move']
+    @api.multi
+    def pos_fixes(self, ids):
+        # print ('------------ POSFIX --start---oids - ' + str(ids) + ' ------------')
+
+        # account_move_obj = self.env['account.move']
         move_line_obj = self.env['account.move.line']
-        for order in self:
+        for order in self.browse(ids):
+            # print ('------------ POSFIX --start---order - ' + str(order.name) + ' ------------')
+            if order.state == 'invoiced' or order.invoice_id:
+                continue
 
             o_lines = order.lines.filtered(lambda l: \
                 l.product_id.categ_id.property_valuation == 'real_time' and \
-                l.product_id.type in ['product', 'consu'])
+                l.product_id.type in ['product', 'consu'] )
 
             if o_lines:
                 company_id = order.company_id.id
@@ -98,8 +104,13 @@ class PosOrder(models.Model):
                         move_line_obj.with_context(check_move_validity=False).create( daml)
                         move.sudo().post()
 
-        super(PosOrder, self).create_picking()
+
         return True
 
+    @api.model
+    def create_from_ui(self, orders):
+        o_ids = super(PosOrder, self).create_from_ui(orders)
+        self.pos_fixes(o_ids)
+        return o_ids
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
