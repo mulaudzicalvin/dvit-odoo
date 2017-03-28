@@ -4,7 +4,7 @@
     'description': """
     Fixes included:
     - Fix POS invoices payments by reconciling them automatically on POS session closing to get them paid.
-    - Complete the anglo-saxon journal entries missing in POS.
+    - Complete the Gr/Ir anglo-saxon journal entries missing in POS.
     - prevent barcode on payment screen using js events .
 
     ToDo:
