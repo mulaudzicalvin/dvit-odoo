@@ -1,5 +1,7 @@
 {
     'name': 'POS Fixes',
+    'price': 20.0,
+    'currency': 'EUR',
     'summary': 'Point of Sale Fixes',
     'description': """
     Fixes included:
