@@ -10,9 +10,9 @@
 .openerp button, .openerp .oe_button, .openerp .oe_highlight { padding: 3px 9px;}
 .openerp ul.oe_form_status li > .label, .openerp ul.oe_form_status_clickable li > .label {font-size: 80% !important; padding-left: 16px !important;}
 .openerp .oe_form_sheetbg {padding: 45px 0;}
-.openerp .oe_form header{position: fixed; z-index: 9999; width:90%;}
+.openerp .oe_form header{position: fixed; z-index: 9999; width:900px;}
 .openerp .oe_horizontal_separator {padding-top:10px;}
-.openerp .oe_form > :not(.oe_form_nosheet) header ul:not(.oe_tooltip_technical):not(.oe_dropdown_menu), .openerp .oe_form > .oe_form_nosheet header ul:not(.oe_tooltip_technical):not(.oe_dropdown_menu){float: inherit; padding-left: 6%; padding-right: 6%;}
+/*.openerp .oe_form > :not(.oe_form_nosheet) header ul:not(.oe_tooltip_technical):not(.oe_dropdown_menu), .openerp .oe_form > .oe_form_nosheet header ul:not(.oe_tooltip_technical):not(.oe_dropdown_menu){float: inherit; padding-left: 6%; padding-right: 6%;}*/
 .openerp .oe_form .oe_form_group {margin-top:16px !important;}
 .openerp .oe_leftbar > div a.oe_logo img { max-height: 120px !important;}
 .openerp .oe_view_manager_new .oe_form_nosheet > header {position:relative !important;}
