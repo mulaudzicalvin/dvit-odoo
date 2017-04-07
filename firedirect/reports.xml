@@ -1,0 +1,174 @@
+<openerp>
+<data>
+
+    <report
+        id="report_firedirect_attendance"
+        model="firedirect.attendance"
+        string="Attendance Report"
+        name="firedirect.report_attendance_view"
+        file="firedirect.report_attendance_view"
+        report_type="qweb-html" />
+        
+	<template id="report_attendance_view">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="doc">
+	            <t t-foreach="doc.reservations" t-as="res">
+                <t t-call="report.external_layout">
+                    <div class="page">
+                    	<h2>Attendance Report</h2>
+                        
+                        
+                        
+                        
+                        <table class="table">
+						  <tr>
+						    <td width="150">Course/Seminar/Training Title</td>
+						    <td width="650"><p><span t-field="doc.course_id"/></p></td>
+						  </tr>
+						  <tr>
+						    <td>Date:</td>
+						    <td><span t-field="res.start_date"/> - <span t-field="res.end_date"/></td>
+						  </tr>
+						  <tr>
+						    <td>Time:</td>
+						    <td><span t-field="res.start_time"/> - <span t-field="res.end_time"/></td>
+						  </tr>
+						  <tr>
+						    <td>Location:</td>
+						    <td><span t-field="doc.room_id"/></td>
+						  </tr>
+						  <tr>
+						    <td>Company Name:</td>
+						    <td><span t-field="doc.company_id"/></td>
+						  </tr>
+						  <tr>
+						    <td>Name of Instructor:</td>
+						    <td><span t-field="res.instructor_id"/></td>
+						  </tr>
+						  <tr>
+						  	<td colspan="2">
+						  		<table class="table table-striped table-borderd">
+						  			<tr>
+									    <td colspan="2">CLASS ROOM NUMBER:</td>
+									    <td colspan="2" class="success"><span t-field="res.room_id.number"/></td>
+									    <td colspan="3"></td>
+									    <td t-att-colspan="res.course_id.duration">Signature</td>
+									</tr>
+						   			<tr>
+									   	<th rowspan="2">SR.NO.</th>
+									    <th rowspan="2">EMP.NO.</th>
+									    <th rowspan="2">Names</th>
+									    <th rowspan="2">Position</th>
+									    <th rowspan="2">RIG</th>
+									    <th rowspan="2">ID Numbers</th>
+						    			<th rowspan="2" class="danger">Office Use</th>
+						    			<th  t-att-colspan="res.course_id.duration">FTL</th>
+						    		</tr>
+						    		<tr>
+				                    	<t t-foreach="res.course_id.duration" t-as="i">
+										    <td>Day <t t-esc="i+1"/></td>
+										</t>
+						    		</tr>
+						    		<t t-set="sn" t-value="0"/>
+						            <t t-foreach="res.student_ids" t-as="student">
+					            	<t t-set="sn" t-value="sn + 1"/>
+					            	<tr>
+					            		<td><t t-esc="sn"/></td>
+		                    			<td><span t-field="student.id_no"/></td>
+		                    			<td><span t-field="student.name"/></td>
+		                    			<td><span t-field="student.position"/></td>
+		                    			<td><span t-field="student.rig"/></td>
+		                    			<td><span t-field="student.id_no"/></td>
+		                    			<td></td>
+				                    	<t t-foreach="res.course_id.duration" t-as="i">
+										    <td>
+				    		            		<t t-set="found" t-value="0"/>
+					    		            	<t t-foreach="doc.atts" t-as="att">
+					    		            		<t t-if="att.reservation_id.id==res.id">
+						    		            		<t t-if="att.student_id.id==student.id">
+							    		            		<t t-if="att.day==str(i+1)">
+							    		            			<span t-field="att.status"/>
+																<t t-set="found" t-value="1"/>
+						    		            			</t>
+					    		            			</t>
+				    		            			</t>
+				    		            		</t>
+				    		            		<t t-if="found==0">
+				    		            			Undefined
+			    		            			</t>
+										    </td>
+										</t>
+	                    			</tr>
+	                    			</t>
+
+					    		</table>
+						    </td>
+					    </tr>
+						  
+					</table>
+
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+
+
+
+
+
+                </t>
+
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+
+    <record id="view_firedirect_attendance_report" model="ir.ui.view">
+        <field name="name">firedirect.attendance.report.form</field>
+        <field name="model">firedirect.attendance</field>
+        <field name="arch" type="xml">
+        <form string="Attendance Report">
+            <group>
+                <field name="date"/>
+                <field name="course_id"  options="{'no_create': True}"/>
+                <field name="room_id"  options="{'no_create': True}"/>
+                <field name="company_id"  options="{'no_create': True}"/>
+            </group>
+            <footer>
+                <button name="show_report" string="View Report" type="object" class="oe_highlight"/> or
+                <button name="print_report" string="Print Report" type="object" class="oe_highlight"/> or
+                <button string="Cancel" special="cancel" class="oe_link"/>
+            </footer>
+        </form>
+        </field>
+    </record>
+
+    <record id="action_firedirect_attendance_report" model="ir.actions.act_window">
+        <field name="name">Attendance Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">firedirect.attendance</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    
+        
+
+
+    <menuitem
+        name="Attendance Report"
+        parent="firedirect.courses_att"
+        action="action_firedirect_attendance_report"
+        id="menu_firedirect_att_report"
+        groups="group_course_attendance"
+        icon="STOCK_PRINT"/>
+
+
+</data>
+</openerp>

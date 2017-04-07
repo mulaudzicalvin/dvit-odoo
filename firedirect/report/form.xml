@@ -1,0 +1,212 @@
+<openerp>
+<data>
+	
+    <record id="paperformat_a5" model="report.paperformat">
+        <field name="name">European A5</field>
+        <field name="default" eval="False" />
+        <field name="format">A5</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">40</field>
+        <field name="margin_bottom">23</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">35</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <report
+        id="report_firedirect_form"
+        model="firedirect.form.report"
+        string="Student Report"
+        name="firedirect.report_form_view"
+        file="firedirect.report_form_view"
+        report_type="qweb-pdf" />
+	<record id="report_firedirect_form" model="ir.actions.report.xml">
+	    <field name="paperformat_id" ref="report.paperformat_euro"/>
+	</record>
+    <report
+        id="report_firedirect_forma5"
+        model="firedirect.form.report"
+        string="Student Report"
+        name="firedirect.report_form_viewa5"
+        file="firedirect.report_form_viewa5"
+        report_type="qweb-pdf" />
+		<record id="report_firedirect_forma5" model="ir.actions.report.xml">
+		    <field name="paperformat_id" ref="paperformat_a5"/>
+		</record>
+			    <template id="report_form_view">
+			        <t t-call="report.html_container">
+			            <t t-foreach="docs" t-as="doc">
+			                <t t-call="report.external_layout">
+			                    <div class="page">
+			                    	
+                    	        	<h1 class="text-center">Report</h1>
+			        	<div class="pull-right">
+			        		<strong>Date Of Report: <span t-field="doc.report_date"/></strong>
+			        	</div>
+			        	<div>
+			            <strong>Company:</strong> <span t-field="doc.company"/>
+			            </div>
+			            <div>
+			            <strong>ATT:</strong> <span t-field="doc.att"/>
+			            </div>
+			            <div>
+			            <strong>Subject:</strong> Student Report
+			            </div>
+			            <div>
+			            <strong>Course:</strong> <span t-field="doc.course_id"/>
+			            </div>
+			            <div>
+			            <strong>Couse Date:</strong> <span t-field="doc.start_date"/> to <span t-field="doc.end_date"/>
+			            </div>
+			            <div>
+			            <strong>Dear Sir:</strong>
+			            </div>
+			            <p>
+			            Please be informed that your employee: <span t-field="doc.employee"/> ID #:<span t-field="doc.employee_no"/> was booked for <span t-field="doc.booked_for"/> class <span t-field="doc.start_date"/> to <span t-field="doc.end_date"/>  a course of <span t-field="doc.duration"/> duration. He attended <span t-field="doc.attended" /> and failed, show up for the remaining <span t-field="doc.failed"/> of the course.
+			            </p>
+			            <p>
+						For this reason he is deemed to have failed, Consequently no certificate can be issued.
+						</p>
+						<p></p>
+						Regards,  <br/>
+						Paul.J.Simkin<br/>
+						General Manager <br/>
+						fire DIRECT<br/>
+
+                    	
+                    	
+					</div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+			    <template id="report_form_viewa5">
+			        <t t-call="report.html_container">
+			            <t t-foreach="docs" t-as="doc">
+			                <t t-call="report.external_layout">
+			                    <div class="page">
+			                    	
+                    	        	<h1 class="text-center">Report</h1>
+			        	<div class="pull-right">
+			        		<strong>Date Of Report: <span t-field="doc.report_date"/></strong>
+			        	</div>
+			        	<div>
+			            <strong>Company:</strong> <span t-field="doc.company"/>
+			            </div>
+			            <div>
+			            <strong>ATT:</strong> <span t-field="doc.att"/>
+			            </div>
+			            <div>
+			            <strong>Subject:</strong> Student Report
+			            </div>
+			            <div>
+			            <strong>Course:</strong> <span t-field="doc.course_id"/>
+			            </div>
+			            <div>
+			            <strong>Couse Date:</strong> <span t-field="doc.start_date"/> to <span t-field="doc.end_date"/>
+			            </div>
+			            <div>
+			            <strong>Dear Sir:</strong>
+			            </div>
+			            <p>
+			            Please be informed that your employee: <span t-field="doc.employee"/> ID #:<span t-field="doc.employee_no"/> was booked for <span t-field="doc.booked_for"/> class <span t-field="doc.start_date"/> to <span t-field="doc.end_date"/>  a course of <span t-field="doc.duration"/> duration. He attended <span t-field="doc.attended" /> and failed, show up for the remaining <span t-field="doc.failed"/> of the course.
+			            </p>
+			            <p>
+						For this reason he is deemed to have failed, Consequently no certificate can be issued.
+						</p>
+						<p></p>
+						Regards,  <br/>
+						Paul.J.Simkin<br/>
+						General Manager <br/>
+						fire DIRECT<br/>
+
+                    	
+                    	
+					</div>
+                </t>
+            </t>
+        </t>
+    </template>
+	
+    <record id="view_firedirect_form_report" model="ir.ui.view">
+        <field name="name">firedirect.form.report.form</field>
+        <field name="model">firedirect.form.report</field>
+        <field name="arch" type="xml">
+        <form string="Student Report">
+	    	<style>.oe_header_row{display: none;}</style>
+            <header>
+                <button name="show_report" string="View Report" type="object" class="oe_highlight"/> or
+                <button name="print_report" string="Print Report" type="object" class="oe_highlight"/> or
+                <button name="email_report" string="Email" type="object" class="oe_highlight"/>
+            </header>
+
+        	<group><h1 class="text-center">Report</h1></group>
+        	<group col="3">
+			<group col="1">
+			</group>
+            <group col="1">
+			</group>
+            <group col="2">
+            	<field name="report_date"/>
+        	</group>
+            <group col="2">
+	            <field name="company"/>
+	            <field name="att"/>
+	            <field name="subject"/>
+	            <field name="course_id" options="{'no_create': True}"/>
+            </group>
+            <newline/>
+            <group col="5">
+	            <field name="start_date"/>
+	            to <field name="end_date" class="end-date"/>
+	        </group>
+            </group>
+            <div>
+            <strong>Dear Sir:</strong>
+            </div>
+            <div class="free-text">
+            <p>
+            Please be informed that your employee: <field name="employee" class="oe_inline"/> ID #:<field name="employee_no" class="oe_inline"/> was booked for <field name="booked_for"  class="oe_inline"/> class <field name="book_date" readonly="True" class="oe_inline"/>  a course of <field name="duration"  class="oe_inline"/> duration. He attended <field name="attended"  class="oe_inline"/> and failed, show up for the remaining <field name="failed"  class="oe_inline"/> of the course.
+            </p>
+            <p>
+			For this reason he is deemed to have failed, Consequently no certificate can be issued.
+			</p>
+			</div>
+			<p></p>
+			Regards,  <br/>
+			Paul.J.Simkin<br/>
+			General Manager <br/>
+			Fire Direct<br/>
+			<style>
+				label.end-date{text-align: right;}
+				.free-text p{line-height: 30px;}
+				.free-text p input{line-height: 19px;}
+			</style>
+        </form>
+        </field>
+    </record>
+
+    <record id="action_firedirect_form_report" model="ir.actions.act_window">
+        <field name="name">Student Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">firedirect.form.report</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <menuitem
+        name="Student Report"
+        parent="firedirect.courses_forms"
+        action="action_firedirect_form_report"
+        id="menu_firedirect_form_report"
+        groups="group_course_manager,group_course_forms_report"
+        icon="STOCK_PRINT"/>
+
+
+</data>
+</openerp>

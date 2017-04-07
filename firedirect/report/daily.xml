@@ -1,0 +1,83 @@
+<openerp>
+<data>
+	
+    <report
+        id="report_firedirect_daily"
+        model="firedirect.daily.report"
+        string="Daily Report"
+        name="firedirect.report_dailyview"
+        file="firedirect.report_dailyview"
+        report_type="qweb-html" />
+
+    <template id="report_dailyview">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="report.external_layout">
+                    <div class="page">
+                    	<h2>Daily Report <small>[<span t-field="doc.date"/>]</small></h2>
+                        <table class="table table-striped">
+                        	<thead>
+                        		<tr>
+                        			<th>Course</th>
+                        			<th>Company</th>
+                        			<th>Student Name</th>
+                        			<th>Student Id</th>
+                        		</tr>
+                        	</thead>
+                        	<tbody>
+					            <t t-foreach="doc.reservations" t-as="res">
+						            <t t-foreach="res.student_ids" t-as="student">
+					            	<tr>
+		                    			<td><span t-field="res.course_id"/></td>
+		                    			<td><span t-field="student.company_id"/></td>
+		                    			<td><span t-field="student.name"/></td>
+		                    			<td><span t-field="student.id_no"/></td>
+	                    			</tr>
+	                    			</t>
+			                    </t>
+                    		</tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+	
+    <record id="view_firedirect_daily_report" model="ir.ui.view">
+        <field name="name">firedirect.daily.report.form</field>
+        <field name="model">firedirect.daily.report</field>
+        <field name="arch" type="xml">
+        <form string="Daily Report">
+            <group>
+                <field name="date" />
+            </group>
+            <footer>
+                <button name="show_report" string="View Report" type="object" class="oe_highlight"/> or
+                <button name="print_report" string="Print" type="object" class="oe_highlight"/> or
+                <button string="Cancel" special="cancel" class="oe_link"/>
+            </footer>
+        </form>
+        </field>
+    </record>
+
+    <record id="action_firedirect_daily_report" model="ir.actions.act_window">
+        <field name="name">Daily Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">firedirect.daily.report</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        name="Daily Report"
+        parent="firedirect.courses_att"
+        action="action_firedirect_daily_report"
+        id="menu_firedirect_daily_report"
+        groups="group_course_manager,group_course_attendance"
+        icon="STOCK_PRINT"/>
+
+
+</data>
+</openerp>

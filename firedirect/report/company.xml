@@ -1,0 +1,104 @@
+<openerp>
+<data>
+
+    <report
+        id="report_firedirect_company"
+        model="firedirect.company.report"
+        string="Company Report"
+        name="firedirect.report_company_view"
+        file="firedirect.report_company_view"
+        report_type="qweb-html" />
+
+    <template id="report_company_view">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="report.external_layout">
+                    <div class="page">
+                    	<h2>Company Report <small>
+                    		<t t-if="doc.start_date or doc.end_date">
+                    		[<span t-field="doc.start_date"/> - <span t-field="doc.end_date"/>]
+                    		</t>
+                    		<t t-if="doc.company_id">
+                    		 for company <span t-field="doc.company_id"/>
+                    		</t>
+                    		<t t-if="doc.course_id">
+                    		 for course <span t-field="doc.course_id"/>
+                    		</t>
+                    		</small></h2>
+                        <table class="table table-striped">
+                        	<thead>
+                        		<tr>
+                        			<th>Company</th>
+                        			<th>Date</th>
+                        			<th>Course</th>
+                        			<th>Instructor</th>
+                        			<th>Room</th>
+                        			<th>Student Name</th>
+                        			<th>Student Id</th>
+                        			<th>Attendance</th>
+                        		</tr>
+                        	</thead>
+                        	<tbody>
+					            <t t-foreach="doc.reservations" t-as="res">
+						            <t t-foreach="res.student_ids" t-as="student">
+					            	<tr>
+		                    			<td><span t-field="student.company_id"/></td>
+		                    			<td><span t-field="res.start_date"/> - <span t-field="res.end_date"/></td>
+		                    			<td><span t-field="res.course_id"/></td>
+		                    			<td><span t-field="res.instructor_id"/></td>
+		                    			<td><span t-field="res.room_id"/></td>
+		                    			<td><span t-field="student.name"/></td>
+		                    			<td><span t-field="student.id_no"/></td>
+		                    			<td></td>
+	                    			</tr>
+	                    			</t>
+			                    </t>
+                    		</tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+	
+    <record id="view_firedirect_company_report" model="ir.ui.view">
+        <field name="name">firedirect.company.report.form</field>
+        <field name="model">firedirect.company.report</field>
+        <field name="arch" type="xml">
+        <form string="Company Report">
+            <group>
+                <field name="start_date" />
+                <field name="end_date" />
+                <field name="company_id" options="{'no_create': True}"/>
+                <field name="course_id" options="{'no_create': True}"/>
+            </group>
+            <footer>
+                <button name="show_report" string="View Report" type="object" class="oe_highlight"/> or
+                <button name="print_report" string="Print" type="object" class="oe_highlight"/> or
+                <button string="Cancel" special="cancel" class="oe_link"/>
+            </footer>
+        </form>
+        </field>
+    </record>
+
+    <record id="action_firedirect_company_report" model="ir.actions.act_window">
+        <field name="name">Company Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">firedirect.company.report</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        name="Company Report"
+        parent="firedirect.courses_reports"
+        action="action_firedirect_company_report"
+        id="menu_firedirect_company_report"
+        groups="group_course_manager"
+        icon="STOCK_PRINT"/>
+
+
+</data>
+</openerp>

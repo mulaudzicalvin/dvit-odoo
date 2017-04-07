@@ -1,0 +1,2 @@
+.openerp .oe_leftbar > div .oe_footer, body.oe_single_form .oe_single_form_footer{display: none;}
+.navbar-nav > li > .dropdown-menu li:nth-child(2), .navbar-nav > li > .dropdown-menu li:nth-child(3){display: none;}

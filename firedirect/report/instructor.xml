@@ -1,0 +1,95 @@
+<openerp>
+<data>
+
+    <report
+        id="report_firedirect_instructor"
+        model="firedirect.instructor.report"
+        string="Instructor Report"
+        name="firedirect.report_instructor_view"
+        file="firedirect.report_instructor_view"
+        report_type="qweb-html" />
+
+    <template id="report_instructor_view">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="report.external_layout">
+                    <div class="page">
+                    	<h2>Instructor Report <small>
+                    		<t t-if="doc.start_date or doc.end_date">
+                    		[<span t-field="doc.start_date"/> - <span t-field="doc.end_date"/>]
+                    		</t>
+                    		<t t-if="doc.instructor_id">
+                    		 for instructor <span t-field="doc.instructor_id"/>
+                    		</t>
+                    		</small></h2>
+                        <table class="table table-striped">
+                        	<thead>
+                        		<tr>
+                        			<th>Date</th>
+                        			<th>Instructor Name</th>
+                        			<th># Students</th>
+                        			<th>Visa Status</th>
+                        			<th>Course</th>
+                        		</tr>
+                        	</thead>
+                        	<tbody>
+					            <t t-foreach="doc.reservations" t-as="res">
+					            	<tr>
+		                    			<td><span t-field="res.start_date"/> - <span t-field="res.end_date"/></td>
+		                    			<td><span t-field="res.instructor_id"/></td>
+		                    			<td>
+						            	<span t-esc="len(res.student_ids)"/>
+						            	</td>
+		                    			<td><span t-field="res.instructor_id.visa_expiry"/></td>
+		                    			<td><span t-field="res.course_id"/></td>
+		                    			<td></td>
+	                    			</tr>
+			                    </t>
+                    		</tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+	
+    <record id="view_firedirect_instructor_report" model="ir.ui.view">
+        <field name="name">firedirect.instructor.report.form</field>
+        <field name="model">firedirect.instructor.report</field>
+        <field name="arch" type="xml">
+        <form string="Instructor Report">
+            <group>
+                <field name="start_date" />
+                <field name="end_date" />
+                <field name="instructor_id" options="{'no_create': True}"/>
+            </group>
+            <footer>
+                <button name="show_report" string="View Report" type="object" class="oe_highlight"/> or
+                <button name="print_report" string="Print Report" type="object" class="oe_highlight"/> or
+                <button string="Cancel" special="cancel" class="oe_link"/>
+            </footer>
+        </form>
+        </field>
+    </record>
+
+    <record id="action_firedirect_instructor_report" model="ir.actions.act_window">
+        <field name="name">Instructor Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">firedirect.instructor.report</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        name="Instructor Report"
+        parent="firedirect.courses_reports"
+        action="action_firedirect_instructor_report"
+        id="menu_firedirect_instructor_report"
+        groups="group_course_manager"
+        icon="STOCK_PRINT"/>
+
+
+</data>
+</openerp>
