@@ -35,4 +35,5 @@ This module will be very useful for those who are still using v7/v8 because of t
     ],
     'demo': [
     ],
+'installable': True,
 }
