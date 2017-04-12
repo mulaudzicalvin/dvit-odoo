@@ -18,4 +18,6 @@
         'data/chart_template_data.yml',
     ],
     'post_init_hook': 'load_translations',
+'installable': True,
+
 }
