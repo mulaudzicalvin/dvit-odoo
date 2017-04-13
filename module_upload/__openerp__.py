@@ -13,18 +13,11 @@
 	'depends': [],
 	'conflicts': [],
 	'data': [
-<<<<<<< HEAD
 		'security/ir.model.access.csv',
-=======
->>>>>>> 917ed4a34a551218c5355df32cedbdcf8c1cc5f6
 		'templates.xml',
 	],
 	'qweb': ['qweb.xml'],
 	'installable': True,
 	'auto_install': False,
 	'application': False,
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 917ed4a34a551218c5355df32cedbdcf8c1cc5f6
