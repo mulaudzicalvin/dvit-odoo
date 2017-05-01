@@ -3,18 +3,22 @@
     'name': "Product cost from BoM auto",
 
     'summary': """
-        Auto set product cost from  BoM 
+        Auto set product cost from BoM on update.
         """,
 
     'description': """
-        Auto set product cost from BoM on update.
+1- Auto update BoM cost from its components on write
+
+2- Auto update BoM's Product cost price from the BoM cost on write
+
+3- Auto update cost of all BoMs that include a product on updating that product's cost 
     """,
 
     'author': "DVIT.ME",
     'website': "http://www.dvit.me",
 
     'category': 'Uncategorized',
-    'version': '8.0.0.1',
+    'version': '8.0.0.3',
 
     'depends': ['mrp'],
 

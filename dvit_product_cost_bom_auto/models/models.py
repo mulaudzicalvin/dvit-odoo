@@ -18,3 +18,19 @@ class MrpBom(models.Model):
 
         return res
 
+
+class ProdTempl(models.Model):
+    _inherit = "product.template"
+    @api.multi
+    def write(self,vals):
+        res = super(ProdTempl,self).write(vals)
+        for prod in self:
+            # get all bom lines contain this prod
+            bom_line_ids = self.env['mrp.bom.line'].search([('product_id.product_tmpl_id','=',prod.id)])
+
+            for bom_line_id in bom_line_ids:
+                #trigger write on bom to update the cost.
+                bom_line = self.env['mrp.bom.line'].browse(bom_line_id.id)
+                bom = bom_line.bom_id
+                bom.write({'position':bom_line.bom_id.position})
+        return res
