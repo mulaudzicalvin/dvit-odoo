@@ -25,10 +25,10 @@ openerp.pos_fixes = function(instance, local) {
 						}
 					});
 
-					self2.$('.payment-due-total').html(self.format_currency(dueTotal));
-					self2.$('.payment-paid-total').html(self.format_currency(paidTotal));
-					self2.$('.payment-remaining').html(self.format_currency(remaining));
-					self2.$('.payment-change').html(self.format_currency(change));
+					self2.$('.payment-due-total').html(self2.format_currency(dueTotal));
+					self2.$('.payment-paid-total').html(self2.format_currency(paidTotal));
+					self2.$('.payment-remaining').html(self2.format_currency(remaining));
+					self2.$('.payment-change').html(self2.format_currency(change));
 					if(currentOrder.selected_orderline === undefined){ remaining = 1;  }
 					$("li.button:nth-child(2)").on("click",function(){
 						clearInterval(thisInterval);

@@ -1,0 +1,19 @@
+<openerp>
+    <data>
+        <record id="sale_shipping_cost" model="ir.ui.view">
+            <field name="name">sale.view_order_form_so_tax</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+               <field name='date_order' position="before">
+                    <group style="width: 27em;" class="oe_left">
+                        <field name='shipping_company'
+                            domain="[('shipping_company','=',1)]"/>
+                        <field name='shipping_service'
+                            domain="[('shipping_service','=',1)]"/>
+                    </group>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
