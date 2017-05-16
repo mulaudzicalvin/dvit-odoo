@@ -1,0 +1,47 @@
+<openerp>
+    <data>
+        <record id="sale_shipping_cost" model="ir.ui.view">
+            <field name="name">shipping_cost</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+               <field name='order_line' position="before">
+                   <group>
+                        <group >
+                        <field name='shipping_company'
+                            domain="[('shipping_company','=',1)]"
+                            attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name='shipping_service'
+                            domain="[('shipping_service','=',1)]"
+                            attrs="{'readonly':[('state','!=','draft')]}"/>
+                     </group>
+                     <group >
+                         <field name='shipping_qty' attrs="{'readonly':[('state','!=','draft')]}"/>
+                         <field name='shipping_entry' attrs="{'readonly':1}"/>
+                     </group>
+                   </group>
+                </field>
+            </field>
+        </record>
+         <record id="shipping_service" model="ir.ui.view">
+            <field name="name">shipping_service</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+               <field name='type' position="before">
+                        <field name='shipping_service'/>
+                </field>
+            </field>
+        </record>
+         <record id="shipping_company" model="ir.ui.view">
+            <field name="name">shipping_company</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+               <field name='function' position="before">
+                        <field name='shipping_company'/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
