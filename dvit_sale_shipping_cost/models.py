@@ -5,6 +5,7 @@ from openerp import models, fields, api
 class ResPartner(models.Model):
     _inherit = 'res.partner'
     shipping_company = fields.Boolean(string="Shipping Company?")
+    is_driver = fields.Boolean('Driver')
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
@@ -16,6 +17,8 @@ class SaleOrder(models.Model):
     shipping_service = fields.Many2one('product.template', 'Shipping Service')
     shipping_qty = fields.Integer('Shipped Qty')
     shipping_entry = fields.Many2one('account.move','Shipping Journal Entry')
+    shipping_driver = fields.Many2one('res.partner', 'Shipping Driver')
+    truck_no = fields.Char('Truck Number')
 
     @api.multi
     def action_cancel(self, context=None):

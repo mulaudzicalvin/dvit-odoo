@@ -14,9 +14,13 @@
                         <field name='shipping_service'
                             domain="[('shipping_service','=',1)]"
                             attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name='shipping_driver'
+                            domain="[('is_driver','=',1)]"
+                            attrs="{'readonly':[('state','!=','draft')]}"/>
                      </group>
                      <group >
                          <field name='shipping_qty' attrs="{'readonly':[('state','!=','draft')]}"/>
+                         <field name='truck_no' attrs="{'readonly':[('state','!=','draft')]}"/>
                          <field name='shipping_entry' attrs="{'readonly':1}"/>
                      </group>
                    </group>
@@ -40,6 +44,7 @@
             <field name="arch" type="xml">
                <field name='function' position="before">
                         <field name='shipping_company'/>
+                        <field name='is_driver'/>
                 </field>
             </field>
         </record>
