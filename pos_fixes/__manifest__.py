@@ -6,6 +6,7 @@
     - Fix POS invoices payments by reconciling them automatically on POS session closing to get them paid.
     - Complete the Gr/Ir anglo-saxon journal entries missing in POS.
     - prevent barcode on payment screen using js events .
+    - Now supports IngAdhoc's Product packs 1- create anglo-saxon for packs.
 
     ToDo:
     - Reimplement Support & Process sales of product packs by IngAdhoc's product_pack.
@@ -20,6 +21,7 @@
         'account',
         'account_voucher',
         'point_of_sale',
+        'purchase',
         ],
     'data': ['views.xml'],
     'installable': True,
