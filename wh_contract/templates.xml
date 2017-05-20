@@ -1,6 +1,5 @@
 <openerp>
     <data>
-        <!-- Inherit Form View to Modify it -->
         <record id="view_account_analytic_account_form_201703040221" model="ir.ui.view">
             <field name="name">view_account_analytic_account_form_20170304022</field>
             <field name="model">account.analytic.account</field>
@@ -17,16 +16,14 @@
 
             </field>
         </record>
-
-        <!-- Inherit Form View to Modify it -->
-        <record id="stock.view_picking_form_201703040226" model="ir.ui.view">
+        <record id="view_picking_form_201703040226" model="ir.ui.view">
             <field name="name">view_picking_form_20170304022</field>
             <field name="model">stock.picking</field>
             <field name="inherit_id" ref="stock.view_picking_form"/>
             <field name="arch" type="xml">
 
                 <xpath expr="//field[@name='partner_id']" position="after">
-                    <field name="contract" />
+                    <field name="contract_id" />
                 </xpath>
 
             </field>
