@@ -37,6 +37,7 @@ Withilist:
     ],
     'depends': [
         'sale',
+        'purchase',
     ],
     'data': [
         'security/ir.model.access.csv',
