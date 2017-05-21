@@ -200,12 +200,8 @@ class product_template(models.Model):
 
     @api.model
     def create(self,vals):
-        print vals
-        # if 'pack' in vals and vals['pack'] == True:
-        #     vals['type'] = 'service'
         if vals['pack'] == True:
             vals['type'] = 'service'
-
         return super(product_template, self).create(vals)
 
     @api.model
