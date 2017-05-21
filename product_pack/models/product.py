@@ -191,7 +191,22 @@ class product_template(models.Model):
         if vals.get('pack_line_ids', False):
             self.product_variant_ids.write(
                 {'pack_line_ids': vals.pop('pack_line_ids')})
+        # set type to service if it's a pack
+        # vals['pack'] = self.pack
+        # print vals
+        if 'pack' in vals and vals['pack'] == True:
+            vals['type'] = 'service'
         return super(product_template, self).write(vals)
+
+    @api.model
+    def create(self,vals):
+        print vals
+        # if 'pack' in vals and vals['pack'] == True:
+        #     vals['type'] = 'service'
+        if vals['pack'] == True:
+            vals['type'] = 'service'
+
+        return super(product_template, self).create(vals)
 
     @api.model
     def _price_get(self, products, ptype='list_price'):

@@ -1,7 +1,6 @@
 from odoo import models, fields, api
 # from odoo.tools.float_utils import float_round as round
 
-
 class PosOrder(models.Model):
     _inherit = "pos.order"
 
@@ -27,8 +26,8 @@ class PosOrder(models.Model):
             for line in order.lines:
                 # Process normal products
                 if line.product_id.type != 'service' and \
-                line.product_id.categ_id.property_valuation == 'real_time' and \
-                line.product_id.pack == False: #Do not process packs here
+                    line.product_id.categ_id.property_valuation == 'real_time':
+
                     amount = 0
                     stkacc = line.product_id.categ_id.property_stock_account_output_categ_id and \
                         line.product_id.categ_id.property_stock_account_output_categ_id
@@ -111,44 +110,43 @@ class PosOrder(models.Model):
                             }
                             daml.update(line_vals)
 
-                            #TODO if the pack itself is a service POS will not
-                            # create stock entries at all for its components so we
-                            # need to process it
-                            valacc = pack_line.product_id.categ_id.property_stock_valuation_account_id
-                            val_journal = self.env['account.journal'].search([('type','=','misc')])
-
-                            valuation_lines={
-                            'name': name,
-                            'move_id': move.id,
-                            'journal_id': move.journal_id.id,
-                            'date': move.date,
-                            'product_id': pack_line.product_id.id,
-                            'partner_id': order.partner_id and order.partner_id.id or False,
-                            'quantity': pack_line.quantity * line.qty,
-                            'ref': line.name,
-                            }
-
-                            # create stock valuation entries cr. inventory dr. goods shipped not invoiced
-                            vcaml = {
-                                'account_id': valacc.id,
-                                'credit': amount_total > 0 and amount or 0.0,
-                                'debit': amount_total < 0 and -amount or 0.0,
-                            }
-                            vcaml.update(line_vals)
-
-                            vdaml = {
-                                'account_id': stkacc.id,
-                                'debit': amount_total > 0 and amount or 0.0,
-                                'credit': amount_total < 0 and -amount or 0.0,
-                            }
-                            vdaml.update(line_vals)
-                            # FIXME: Below should go in the stock journal
-                            move_line_obj.with_context(check_move_validity=False).create(vcaml)
-                            move_line_obj.with_context(check_move_validity=False).create(vdaml)
+                            # #TODO if the pack itself is a service POS will not
+                            # # create stock entries at all for its components so we
+                            # # need to process it
+                            # valacc = pack_line.product_id.categ_id.property_stock_valuation_account_id
+                            # val_journal = self.env['account.journal'].search([('type','=','misc')])
+                            #
+                            # valuation_lines={
+                            # 'name': name,
+                            # 'move_id': move.id,
+                            # 'journal_id': move.journal_id.id,
+                            # 'date': move.date,
+                            # 'product_id': pack_line.product_id.id,
+                            # 'partner_id': order.partner_id and order.partner_id.id or False,
+                            # 'quantity': pack_line.quantity * line.qty,
+                            # 'ref': line.name,
+                            # }
+                            #
+                            # # create stock valuation entries cr. inventory dr. goods shipped not invoiced
+                            # vcaml = {
+                            #     'account_id': valacc.id,
+                            #     'credit': amount_total > 0 and amount or 0.0,
+                            #     'debit': amount_total < 0 and -amount or 0.0,
+                            # }
+                            # vcaml.update(line_vals)
+                            #
+                            # vdaml = {
+                            #     'account_id': stkacc.id,
+                            #     'debit': amount_total > 0 and amount or 0.0,
+                            #     'credit': amount_total < 0 and -amount or 0.0,
+                            # }
+                            # vdaml.update(line_vals)
+                            # # FIXME: Below should go in the stock journal
+                            # move_line_obj.with_context(check_move_validity=False).create(vcaml)
+                            # move_line_obj.with_context(check_move_validity=False).create(vdaml)
 
                         move_line_obj.with_context(check_move_validity=False).create(caml)
                         move_line_obj.with_context(check_move_validity=False).create(daml)
-
 
                 move.sudo().post()
 
