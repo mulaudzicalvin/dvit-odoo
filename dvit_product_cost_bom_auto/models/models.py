@@ -18,7 +18,13 @@ class MrpBom(models.Model):
         for bom in self:
             bom_cost = 0.0
             for line in bom.bom_line_ids:
-                bom_cost += (line.product_id.standard_price * line.product_qty) / bom.product_qty
+                if line.product_uom_id == line.product_id.uom_id:
+                    bom_cost += (line.product_id.standard_price * line.product_qty) / bom.product_qty
+                else:
+                    price = line.product_id.standard_price
+                    uom = line.product_id.uom_id
+                    unit_price = (uom._compute_price(price, line.product_uom_id))
+                    bom_cost += (unit_price * line.product_qty) / bom.product_qty
             bom.product_tmpl_id.standard_price = bom_cost
         return res
 
