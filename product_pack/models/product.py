@@ -192,7 +192,7 @@ class product_template(models.Model):
             self.product_variant_ids.write(
                 {'pack_line_ids': vals.pop('pack_line_ids')})
         # set type to service if it's a pack
-        if not vals['pack']:
+        if not 'pack' in vals:
             vals['pack'] = self.pack
         # print vals
         if 'pack' in vals and vals['pack'] == True:
