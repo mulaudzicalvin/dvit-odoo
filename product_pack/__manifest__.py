@@ -44,9 +44,6 @@ Withilist:
         'views/pack_view.xml',
         'views/sale_view.xml',
     ],
-    'demo': [
-        'demo/demo_data.xml',
-    ],
     'test': [
     ],
     'installable': True,
