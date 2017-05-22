@@ -120,9 +120,7 @@ class pos_order(models.Model):
                                 if not cogacc:
                                     cogacc = pack_line.product_id.categ_id.property_account_expense_categ and \
                                         pack_line.product_id.categ_id.property_account_expense_categ
-                                amount = o_line.qty * pack_line.quantity * \
-                                    pack_line.product_id.standard_price
-                                # qty +=
+                                amount = o_line.qty * pack_line.quantity * pack_line.product_id.standard_price #TODO covert UoS/UoM
                                 if cogacc and stkacc:
                                     line_vals = {
                                         'period_id': move.period_id.id,

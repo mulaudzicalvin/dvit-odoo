@@ -6,6 +6,12 @@ from openerp import models, fields, api
 class MrpBom(models.Model):
     _inherit = "mrp.bom"
 
+    @api.model
+    def create(self, vals):
+        res = super(MrpBom, self).create(vals)
+        res.write({'code':res.code})
+        return res
+
     @api.multi
     def write(self, vals):
         res = super(MrpBom, self).write(vals)
