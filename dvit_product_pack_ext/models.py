@@ -10,10 +10,10 @@ class ProdTempl(models.Model):
         # print vals
         if 'pack' in vals and vals['pack'] == True:
             vals['type'] = 'service'
-        return super(product_template, self).write(vals)
+        return super(ProdTempl, self).write(vals)
 
     @api.model
     def create(self,vals):
         if vals['pack'] == True:
             vals['type'] = 'service'
-        return super(product_template, self).create(vals)
+        return super(ProdTempl, self).create(vals)
