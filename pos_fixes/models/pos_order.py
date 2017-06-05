@@ -145,8 +145,8 @@ class PosOrder(models.Model):
                             # move_line_obj.with_context(check_move_validity=False).create(vcaml)
                             # move_line_obj.with_context(check_move_validity=False).create(vdaml)
 
-                        move_line_obj.with_context(check_move_validity=False).create(caml)
-                        move_line_obj.with_context(check_move_validity=False).create(daml)
+                            move_line_obj.with_context(check_move_validity=False).create(caml)
+                            move_line_obj.with_context(check_move_validity=False).create(daml)
 
                 move.sudo().post()
 
