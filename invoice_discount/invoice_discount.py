@@ -2,19 +2,6 @@ from openerp.osv import osv, orm, fields
 import openerp.addons.decimal_precision as dp
 from openerp import api, models
 
-class my_model_init(osv.osv_memory):
-
-    _name = "my.model.init"
-    _columns = {}
-    _defaults = {}
-
-    def _init_settings(self, cr, uid, ids=None, context=None):
-        sale_settings_pool = self.pool.get('sale.config.settings')
-        sale_settings_id = sale_settings_pool.create(cr, uid, {'group_discount_per_so_line':True}, context=context)
-        sale_settings_obj = sale_settings_pool.browse(cr, uid, sale_settings_id, context=context)
-        sale_settings_obj.execute()  # this call is actually changes the setting, you're missing this step @Yenthe ...
-        return True
-
 class account_invoice(osv.osv):
 
     _inherit = "account.invoice"
