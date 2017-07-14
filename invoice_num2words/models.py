@@ -11,9 +11,10 @@ class AccountInvoice(models.Model):
     @api.depends('invoice_line_ids.price_subtotal', 'tax_line_ids.amount', 'currency_id', 'company_id', 'date_invoice', 'type')
     def _compute_amount(self):
         res = super(AccountInvoice,self)._compute_amount()
-        supported_langs = ['ar','en','fr','de','dk','ru','he','id','lt','lv','no','pl']
         lang = self.partner_id and self.partner_id.lang[:2]
-        if not lang in supported_langs:
+        try:
+            test = num2words(42, lang=lang)
+        except NotImplementedError:
             lang = 'en'
         self.total_amount_in_words = num2words(self.amount_total,lang=lang)
         # print "-------------------------------"
