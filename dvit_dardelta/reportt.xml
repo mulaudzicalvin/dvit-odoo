@@ -3,9 +3,9 @@
     <report
         id="report_sessionn"
         model="sale.order"
-        string="Delta Report"
-        name="mothida.report_session_vieww"
-        file="mothida.report_sessionn"
+        string="Dar Delta Report"
+        name="dvit_dardelta.report_session_vieww"
+        file="dvit_dardelta.report_sessionn"
         report_type="qweb-pdf" />
 
 <template id="report_session_vieww">
@@ -55,7 +55,7 @@
                              <h3 style="text-align: center;">probosal # :<span t-field="o.name" /></h3>
                              <h3 style="text-align: center;">Date :<span t-field="o.date_order" t-field-options='{"format": "dd/MM/yyyy"}'/> </h3>
 
-                              <img src='/mothida/static/src/img/magdy.jpg' style="width:100%;"/>
+                              <img src='/dvit_dardelta/static/src/img/magdy.jpg' style="width:100%;"/>
 
                              <!--<h1 style="text-align: center;  color: #FFFFFF;">.</h1>-->
                              <!--<h1 style="text-align: center;  color: #FFFFFF;">.</h1>-->
@@ -77,7 +77,7 @@
                      <table>
                          <tbody>
                              <td>
-                                <img src='/mothida/static/src/img/55.jpg'/>
+                                <img src='/dvit_dardelta/static/src/img/55.jpg'/>
                              </td>
                          </tbody>
                     </table>
@@ -85,7 +85,7 @@
                     <table>
                          <tbody>
                              <td>
-                                <img src='/mothida/static/src/img/77.jpg'/>
+                                <img src='/dvit_dardelta/static/src/img/77.jpg'/>
                              </td>
                          </tbody>
                     </table>
@@ -160,11 +160,13 @@
                     <div dir="ltr">
                          <h3>Note </h3>
                          <h3><span t-field="o.note"/> </h3>
-
-                        <h3 style="text-align: center;">signature </h3>
-                         <h3 style="text-align: center;"><span t-field="o.create_uid"/> </h3>
                      </div>
-
+                     <table>
+                            <tbody>
+                               <h3 style="text-align: center;">pre sale : <span t-field="o.presale"/></h3>
+                               <h3 style="text-align: center;">aproved by :  <span t-field="o.approved_by"/> </h3>
+                            </tbody>
+                     </table>
 
                 </div>
          </t>

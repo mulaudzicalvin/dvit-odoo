@@ -23,12 +23,8 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
         'reportt.xml',
-        'invoice_report.xml',
-        # 'page.xml',
-    ],
-    # only loaded in demonstration mode
-    'demo': [
+        'page.xml',
+
     ],
 }
