@@ -125,8 +125,8 @@ text-align:center;
 </tr>
 </t>
 <tr><b>
-	<td>Total</td>
-	<td><span t-field="o.amount_total"/></td>
+	<td class="td-y" style="border-color:#555;text-align:center;">Total</td>
+	<td class="td-y" style="border-color:#555;text-align:center;"><span t-field="o.amount_total"/></td>
 </b></tr>
 </tbody>
 </table>
