@@ -107,10 +107,10 @@ text-align:center;
 
 </tr>
 </t>
-<tr><b>
-	<td >Total</td><td/><td/><td/><td/><td/>
-	<td ><span t-field="o.amount_total"/></td>
-</b></tr>
+<tr>
+	<td ><b>Total</b></td><td/><td/><td/><td/><td/>
+	<td ><b><span t-field="o.amount_total"/></td></b>
+</tr>
 </tbody>
 </table>
 
