@@ -68,7 +68,7 @@ text-align: center;
 </tbody>
 </table>
 
-<div class="page"><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></div>
+<div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></div>
 <table class='table table-bordered ' style="border-color:#32CD32 " width="100%">
 <thead style="border-color:#32CD32">
 <th style="border-color:#32CD32;text-align: center;font-size:18px;" class="th-x">No</th>
