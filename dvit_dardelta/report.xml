@@ -121,8 +121,8 @@ t-field-options='{"format":"dd/MM/yyyy"}'/> </h1>
 </div>
 
 <p style="text-align:center;">
-Pre-sales:<span t-field="o.presale"/> .............. 
-Aproved by:<span t-field="o.approved_by"/> </p>
+<b>Pre-sales: </b><span t-field="o.presale"/> .................................. 
+<b>Aproved by: </b><span t-field="o.approved_by"/> </p>
 <p style="text-align:center;"> <img src='/dvit_dardelta/static/src/img/stamp.png'/> </p>
 
 </div>
