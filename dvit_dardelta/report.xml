@@ -38,11 +38,12 @@ text-align:center;
 </style>
 
 
-<h1 style="text-align:center;">Proposal for<br/><span t-field="o.client_order_ref" /> 
-<b><p style="text-align:center;">submitted to<br/><span t-field="o.partner_id" /> </p>
-<p style="text-align:center;">Proposal # <span t-field="o.name" /></p>
-<p style="text-align:center;">Date: <span t-field="o.date_order" 
-	t-field-options='{"format":"dd/MM/yyyy"}'/> </p></b></h1>
+<h1 style="text-align:center;">Proposal for<br/>
+<span t-field="o.client_order_ref" /> 
+Submitted to <br/><span t-field="o.partner_id"/>
+Proposal # <span t-field="o.name"/>
+Date: <span t-field="o.date_order" 
+t-field-options='{"format":"dd/MM/yyyy"}'/> </h1>
 
 <img src='/dvit_dardelta/static/src/img/cover.jpg' style="width:100%;"/>
 
