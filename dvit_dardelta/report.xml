@@ -109,7 +109,7 @@ text-align:center;
 </t>
 <tr>
 	<td ><b>Total</b></td><td/><td/><td/><td/><td/>
-	<td ><b><span t-field="o.amount_total"/></td></b>
+	<td ><b><span t-field="o.amount_total"/></b></td>
 </tr>
 </tbody>
 </table>
