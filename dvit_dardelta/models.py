@@ -1,6 +1,6 @@
 from openerp import models, fields, api
 
-class mothida(models.Model):
+class SaleOrder(models.Model):
       _inherit="sale.order"
-      presale = fields.Many2one(comodel_name="res.users", string="Pre sale",)
+      presale = fields.Many2one(comodel_name="res.users", string="Pre-sale",)
       approved_by = fields.Many2one(comodel_name="res.users", string="Approved by",)

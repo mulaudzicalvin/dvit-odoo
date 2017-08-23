@@ -1,186 +1,157 @@
 <openerp>
 <data>
-    <report
-        id="report_sessionn"
-        model="sale.order"
-        string="Dar Delta Report"
-        name="dvit_dardelta.report_session_vieww"
-        file="dvit_dardelta.report_sessionn"
-        report_type="qweb-pdf" />
+<report
+id="report_sessionn"
+model="sale.order"
+string="Dar Delta Report"
+name="dvit_dardelta.report_session_vieww"
+file="dvit_dardelta.report_sessionn"
+report_type="qweb-pdf" />
 
 <template id="report_session_vieww">
-    <p style="page-break-after:always">
-     <t t-call="report.html_container">
+<p style="page-break-after:always">
+<t t-call="report.html_container">
 
-          <t t-set="x" t-value="0" />
-          <t t-foreach="docs" t-as="o">
-                <t t-set="emp_count" t-value="0"/>
-                 <div class="page" dir="ltr">
+<t t-set="x" t-value="0" />
+<t t-foreach="docs" t-as="o">
+<t t-set="emp_count" t-value="0"/>
+<div class="page" dir="ltr">
 
+<style type="text/css">
+.td-y {
+border: 1px solid #32CD32;
+text-align: center;
+font-family:Droid Arabic Naskh,serif;
+font-size:20px;
+}
+.th-x{
+font-family:Droid Arabic Naskh,serif;
+<!--background-color: #32CD32 !important;-->
+border: 1px solid #32CD32;
+text-align: center;
+}
+.strong-x{
+border:none;
+text-align: center;
+}
 
+</style>
 
-                    <style type="text/css">
-                        .td-y {
-                        border: 1px solid #32CD32;
-                        text-align: center;
-                        font-family:Droid Arabic Naskh,serif;
-                        font-size:20px;
-                        }
-                        .th-x{
-                        font-family:Droid Arabic Naskh,serif;
-                        <!--background-color: #32CD32 !important;-->
-                        border: 1px solid #32CD32;
-                        text-align: center;
-                        }
-                        .strong-x{
-                        border:none;
-                        text-align: center;
-                        }
+<table>
+<tbody>
+<p style="text-align: center;">probosal for</p>
+<p style="text-align: center;"><span t-field="o.client_order_ref" /></p>
+<p style="text-align: center;">submitted to </p>
+<p style="text-align: center;"><span t-field="o.partner_id" /></p>
 
+<p style="text-align: center;">probosal # :<span t-field="o.name" /></p>
+<p style="text-align: center;">Date:<span t-field="o.date_order" t-field-options='{"format": "dd/MM/yyyy"}'/> </p>
 
-                    </style>
-                     <!--<div class="backgroundimage" style="position:absolute;width:100%;height:100%;">-->
-                        <!--<img src='/mothida/static/src/img/dd.jpg'/>-->
-                         <!--</div>-->
+<img src='/dvit_dardelta/static/src/img/magdy.jpg' style="width:100%;"/>
 
+</tbody>
+</table>
 
-                     <table>
-                         <tbody>
-                             <h3 style="text-align: center;">probosal for</h3>
-                             <!--<h3 style="text-align: center;">for</h3>-->
-                             <h3 style="text-align: center;"><span t-field="o.client_order_ref" /></h3>
-                             <h3 style="text-align: center;">submitted to </h3>
-                             <h3 style="text-align: center;"><span t-field="o.partner_id" /></h3>
+<p style="text-align: center;  color: #FFFFFF;">.</p>
 
-                             <h3 style="text-align: center;">probosal # :<span t-field="o.name" /></h3>
-                             <h3 style="text-align: center;">Date :<span t-field="o.date_order" t-field-options='{"format": "dd/MM/yyyy"}'/> </h3>
+<table>
+<tbody>
+<td>
+<img src='/dvit_dardelta/static/src/img/55.jpg'/>
+</td>
+</tbody>
+</table>
 
-                              <img src='/dvit_dardelta/static/src/img/magdy.jpg' style="width:100%;"/>
+<table>
+<tbody>
+<td>
+<img src='/dvit_dardelta/static/src/img/77.jpg'/>
+</td>
+</tbody>
+</table>
 
-                             <!--<h1 style="text-align: center;  color: #FFFFFF;">.</h1>-->
-                             <!--<h1 style="text-align: center;  color: #FFFFFF;">.</h1>-->
-                             <!--<h1 style="text-align: center;  color: #FFFFFF;">.</h1>-->
-                             <!--<h1 style="text-align: center;  color: #FFFFFF;">.</h1>-->
-                             <!--<p style="text-align: center;  color: #FFFFFF;">.</p>-->
-                             <!--<p style="text-align: center;  color: #FFFFFF;">.</p>-->
+<table class='table table-bordered ' style="border-color:#32CD32 " width="100%">
+<thead style="border-color:#32CD32">
+<th style="border-color:#32CD32;text-align: center;font-size:18px;" class="th-x">No</th>
+<th style="border-color:#32CD32;text-align: center;font-size:18px;" class="th-x">Code</th>
+<th style="border-color:#32CD32 ;text-align: center;font-size:18px;" class="th-x" width="300" >Describtion</th>
+<th style="border-color:#32CD32;text-align: center;font-size:18px;" class="th-x">Qty </th>
+<th style="border-color:#32CD32;text-align: center;font-size:18px;" class="th-x"> Unit price</th>
+<th style="border-color:#32CD32;text-align: center;font-size:18px;" class="th-x"> Disc%</th>
+<th style="border-color:#32CD32;text-align: center;font-size:18px;" class="th-x">Price</th>
+</thead>
+<thead style="border-color:#32CD32">
+<th style="border-color:#32CD32;text-align: center;" class="th-x"> </th>
+<th style="border-color:#32CD32;text-align: center;" class="th-x"> </th>
+<th style="border-color:#32CD32 ;text-align: center;font-size:18px;" class="th-x" width="300" >professional service</th>
+<th style="border-color:#32CD32;text-align: center;" class="th-x"> </th>
+<th style="border-color:#32CD32;text-align: center;" class="th-x"> </th>
+<th style="border-color:#32CD32;text-align: center;" class="th-x"> </th>
+<th style="border-color:#32CD32;text-align: center;" class="th-x"> </th>
+</thead>
 
+<tbody>
 
+<t t-foreach="o.order_line" t-as="employee_data">
+<tr>
+<t t-set="emp_count" t-value="emp_count+1"/>
+<td class="td-y" style="border-color:#32CD32;text-align: center;">
+<span t-esc="emp_count"/>
+</td>
+<td class="td-y" style="border-color:#32CD32;text-align: center;">
+<span t-field="employee_data.product_id.default_code"/>
+</td>
+<td class="td-y" style="border-color:#32CD32;text-align: center;">
+<span t-field="employee_data.name"/>
+</td>
+<td class="td-y" style="border-color:#32CD32;text-align: center;">
+<span t-field="employee_data.product_uom_qty"/>
+</td>
+<td class="td-y" style="border-color:#32CD32;text-align: center;">
+<span t-field="employee_data.price_unit"/>
+</td>
 
+<td class="td-y" style="border-color:#32CD32;text-align: center;">
+<t t-foreach="employee_data.tax_id" t-as="t">
+<span t-field="t.name"/>
+</t>
+</td>
 
-
-
-                        </tbody>
-                    </table>
-
-                             <p style="text-align: center;  color: #FFFFFF;">.</p>
-
-                     <table>
-                         <tbody>
-                             <td>
-                                <img src='/dvit_dardelta/static/src/img/55.jpg'/>
-                             </td>
-                         </tbody>
-                    </table>
-
-                    <table>
-                         <tbody>
-                             <td>
-                                <img src='/dvit_dardelta/static/src/img/77.jpg'/>
-                             </td>
-                         </tbody>
-                    </table>
-
-                     <h1 style="text-align: center;  color: #FFFFFF;">.</h1>
-                     <p style="text-align: center;  color: #FFFFFF;">.</p>
-                     <p style="text-align: center;  color: #FFFFFF;">.</p>
-                     <h1 style="text-align: center;  color: #FFFFFF;">.</h1>
-                     <h1 style="text-align: center;  color: #FFFFFF;">.</h1>
-                     <h1 style="text-align: center;  color: #FFFFFF;">.</h1>
-                     <h1 style="text-align: center;  color: #FFFFFF;">.</h1>
-                    <!--<h3 style="text-align:center;">بيانات العمال</h3>-->
-                    <table class='table table-bordered ' style="border-color:#32CD32 " width="100%">
-                        <thead style="border-color:#32CD32">
-                            <th style="border-color:#32CD32;text-align: center;font-size:18px;" class="th-x">No</th>
-                            <th style="border-color:#32CD32;text-align: center;font-size:18px;" class="th-x">Code</th>
-                            <th style="border-color:#32CD32 ;text-align: center;font-size:18px;" class="th-x" width="300" >Describtion</th>
-                            <th style="border-color:#32CD32;text-align: center;font-size:18px;" class="th-x">Qty </th>
-                            <th style="border-color:#32CD32;text-align: center;font-size:18px;" class="th-x"> Unit price</th>
-                            <th style="border-color:#32CD32;text-align: center;font-size:18px;" class="th-x"> Disc%</th>
-                            <th style="border-color:#32CD32;text-align: center;font-size:18px;" class="th-x">Price</th>
-                        </thead>
-                        <thead style="border-color:#32CD32">
-                            <th style="border-color:#32CD32;text-align: center;" class="th-x"> </th>
-                            <th style="border-color:#32CD32;text-align: center;" class="th-x"> </th>
-                            <th style="border-color:#32CD32 ;text-align: center;font-size:18px;" class="th-x" width="300" >professional service</th>
-                            <th style="border-color:#32CD32;text-align: center;" class="th-x"> </th>
-                            <th style="border-color:#32CD32;text-align: center;" class="th-x"> </th>
-                            <th style="border-color:#32CD32;text-align: center;" class="th-x"> </th>
-                            <th style="border-color:#32CD32;text-align: center;" class="th-x"> </th>
-                        </thead>
-
-                        <tbody>
-
-                            <t t-foreach="o.order_line" t-as="employee_data">
-                                <tr>
-                                    <t t-set="emp_count" t-value="emp_count+1"/>
-                                    <td class="td-y" style="border-color:#32CD32;text-align: center;">
-                                        <span t-esc="emp_count"/>
-                                    </td>
-                                    <td class="td-y" style="border-color:#32CD32;text-align: center;">
-                                        <span t-field="employee_data.product_id.default_code"/>
-                                    </td>
-                                    <td class="td-y" style="border-color:#32CD32;text-align: center;">
-                                        <span t-field="employee_data.name"/>
-                                    </td>
-                                    <td class="td-y" style="border-color:#32CD32;text-align: center;">
-                                        <span t-field="employee_data.product_uom_qty"/>
-                                        <!--<span t-field="employee_data.product_uom"/>-->
-                                    </td>
-                                    <td class="td-y" style="border-color:#32CD32;text-align: center;">
-                                        <span t-field="employee_data.price_unit"/>
-                                    </td>
-
-                                        <td class="td-y" style="border-color:#32CD32;text-align: center;">
-                                            <t t-foreach="employee_data.tax_id" t-as="t">
-                                               <span t-field="t.name"/>
-                                            </t>
-                                        </td>
-
-                                    <td class="td-y" style="border-color:#32CD32;text-align: center;">
-                                        <span t-field="employee_data.price_subtotal"/>
-                                    </td>
+<td class="td-y" style="border-color:#32CD32;text-align: center;">
+<span t-field="employee_data.price_subtotal"/>
+</td>
 
 
 
-                                </tr>
-                            </t>
+</tr>
+</t>
 
-                        </tbody>
-                    </table>
-                    <div dir="ltr">
-                         <h3>Note </h3>
-                         <h3><span t-field="o.note"/> </h3>
-                     </div>
-                     <table>
-                            <tbody>
-                               <h3 style="text-align: center;">pre sale : <span t-field="o.presale"/></h3>
-                               <h3 style="text-align: center;">aproved by :  <span t-field="o.approved_by"/> </h3>
-                            </tbody>
-                     </table>
+</tbody>
+</table>
+<div dir="ltr">
+<p>Note </p>
+<p><span t-field="o.note"/> </p>
+</div>
+<table>
+<tbody>
+<p style="text-align: center;">pre sale : <span t-field="o.presale"/></p>
+<p style="text-align: center;">aproved by :  <span t-field="o.approved_by"/> </p>
+</tbody>
+</table>
 
-                </div>
-         </t>
+</div>
+</t>
 </t>
 
 </p>
 </template>
 
 <template id="report_saleorder">
-    <t t-call="report.html_container">
-        <t t-foreach="doc_ids" t-as="doc_id">
-            <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'sale.report_saleorder_document')"/>
-        </t>
-    </t>
+<t t-call="report.html_container">
+<t t-foreach="doc_ids" t-as="doc_id">
+<t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'sale.report_saleorder_document')"/>
+</t>
+</t>
 </template>
 </data>
 </openerp>
