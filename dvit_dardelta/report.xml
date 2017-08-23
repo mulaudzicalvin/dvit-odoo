@@ -72,23 +72,23 @@ text-align:center;
 </h2>
 <div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></div>
 <table class='table table-bordered ' style="border-color:#555 " width="100%">
-<thead style="border-color:#555">
-<th style="border-color:#555;text-align:center;font-size:18px;" class="th-x">No</th>
-<th style="border-color:#555;text-align:center;font-size:18px;" class="th-x">Code</th>
-<th style="border-color:#555;text-align:center;font-size:18px;" class="th-x" width="300" >Describtion</th>
-<th style="border-color:#555;text-align:center;font-size:18px;" class="th-x">Qty </th>
-<th style="border-color:#555;text-align:center;font-size:18px;" class="th-x"> Unit price</th>
-<th style="border-color:#555;text-align:center;font-size:18px;" class="th-x"> Disc%</th>
-<th style="border-color:#555;text-align:center;font-size:18px;" class="th-x">Price</th>
+<thead>
+<th  class="th-x">No</th>
+<th  class="th-x">Code</th>
+<th  class="th-x" width="300" >Describtion</th>
+<th  class="th-x">Qty </th>
+<th  class="th-x"> Unit price</th>
+<th  class="th-x"> Disc%</th>
+<th  class="th-x">Price</th>
 </thead>
-<thead style="border-color:#555">
-<th style="border-color:#555;text-align:center;" class="th-x"> </th>
-<th style="border-color:#555;text-align:center;" class="th-x"> </th>
-<th style="border-color:#555 ;text-align:center;font-size:18px;" width="300" >Professional Services</th>
-<th style="border-color:#555;text-align:center;" class="th-x"> </th>
-<th style="border-color:#555;text-align:center;" class="th-x"> </th>
-<th style="border-color:#555;text-align:center;" class="th-x"> </th>
-<th style="border-color:#555;text-align:center;" class="th-x"> </th>
+<thead>
+<th class="th-x"> </th>
+<th class="th-x"> </th>
+<th width="300" >Professional Services</th>
+<th class="th-x"> </th>
+<th class="th-x"> </th>
+<th class="th-x"> </th>
+<th class="th-x"> </th>
 </thead>
 
 <tbody>
@@ -96,42 +96,37 @@ text-align:center;
 <t t-foreach="o.order_line" t-as="oline">
 <tr>
 <t t-set="lcount" t-value="lcount+1"/>
-<td class="td-y" style="border-color:#555;text-align:center;">
+<td class="td-y" >
 <span t-esc="lcount"/>
 </td>
-<td class="td-y" style="border-color:#555;text-align:center;">
+<td class="td-y" >
 <span t-field="oline.product_id.default_code"/>
 </td>
-<td class="td-y" style="border-color:#555;text-align:center;">
+<td class="td-y" >
 <span t-field="oline.name"/>
 </td>
-<td class="td-y" style="border-color:#555;text-align:center;">
+<td class="td-y" >
 <span t-field="oline.product_uom_qty"/>
 </td>
-<td class="td-y" style="border-color:#555;text-align:center;">
+<td class="td-y" >
 <span t-field="oline.price_unit"/>
 </td>
 
-<td class="td-y" style="border-color:#555;text-align:center;">
+<td class="td-y" >
 <t t-foreach="oline.tax_id" t-as="t">
 <span t-field="t.name"/>
 </t>
 </td>
 
-<td class="td-y" style="border-color:#555;text-align:center;">
+<td class="td-y" >
 <span t-field="oline.price_subtotal"/>
 </td>
 
 </tr>
 </t>
-</tbody>
-</table>
-
-<table>
-	<tbody>
 <tr><b>
-	<td class="td-y" style="border-color:#555;text-align:center;">Total</td>
-	<td class="td-y" style="border-color:#555;text-align:center;"><span t-field="o.amount_total"/></td>
+	<td class="td-y">Total</td><td/><td/><td/><td/>
+	<td class="td-y"><span t-field="o.amount_total"/></td>
 </b></tr>
 </tbody>
 </table>
