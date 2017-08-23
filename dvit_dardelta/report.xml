@@ -39,11 +39,11 @@ text-align:center;
 
 <table>
 <tbody>
-<h1 style="text-align:center;">Proposal for:<span t-field="o.client_order_ref" /> </h1>
-<p style="text-align:center;">submitted to:<span t-field="o.partner_id" /> </p>
-<p style="text-align:center;">probosal # :<span t-field="o.name" /></p>
-<p style="text-align:center;">Date:<span t-field="o.date_order" 
-	t-field-options='{"format":"dd/MM/yyyy"}'/> </p>
+<h1 style="text-align:center;">Proposal for<br/><span t-field="o.client_order_ref" /> </h1>
+<b><p style="text-align:center;">submitted to<br/><span t-field="o.partner_id" /> </p>
+<p style="text-align:center;">Proposal # <span t-field="o.name" /></p>
+<p style="text-align:center;">Date: <span t-field="o.date_order" 
+	t-field-options='{"format":"dd/MM/yyyy"}'/> </p></b>
 
 <img src='/dvit_dardelta/static/src/img/cover.jpg' style="width:100%;"/>
 
@@ -67,7 +67,9 @@ text-align:center;
 </td>
 </tbody>
 </table>
-
+<h2>
+	<p>Professional Services Prices</p>
+</h2>
 <div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></div>
 <table class='table table-bordered ' style="border-color:#555 " width="100%">
 <thead style="border-color:#555">
@@ -122,9 +124,13 @@ text-align:center;
 
 </tr>
 </t>
-
+<tr><b>
+	<td>Total</td>
+	<td><span t-field="o.amount_total"/></td>
+</b></tr>
 </tbody>
 </table>
+
 <div dir="ltr">
 <p>Note </p>
 <p><span t-field="o.note"/> </p>
