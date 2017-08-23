@@ -39,9 +39,10 @@ text-align:center;
 
 
 <h1 style="text-align:center;">Proposal for<br/>
-<span t-field="o.client_order_ref" /> 
-Submitted to <br/><span t-field="o.partner_id"/>
-Proposal # <span t-field="o.name"/>
+<span t-field="o.client_order_ref" /> <br/>
+Submitted to <br/>
+<span t-field="o.partner_id"/><br/>
+Proposal # <span t-field="o.name"/><br/>
 Date: <span t-field="o.date_order" 
 t-field-options='{"format":"dd/MM/yyyy"}'/> </h1>
 
