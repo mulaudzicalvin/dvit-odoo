@@ -14,7 +14,7 @@ report_type="qweb-pdf" />
 
 <t t-set="x" t-value="0" />
 <t t-foreach="docs" t-as="o">
-<t t-set="emp_count" t-value="0"/>
+<t t-set="lcount" t-value="0"/>
 <div class="page" dir="ltr">
 
 <style type="text/css">
@@ -39,15 +39,13 @@ text-align: center;
 
 <table>
 <tbody>
-<p style="text-align: center;">probosal for</p>
-<p style="text-align: center;"><span t-field="o.client_order_ref" /></p>
-<p style="text-align: center;">submitted to </p>
-<p style="text-align: center;"><span t-field="o.partner_id" /></p>
-
+<h1 style="text-align: center;">Proposal for: <span t-field="o.client_order_ref" /> </h1>
+<p style="text-align: center;">submitted to: <span t-field="o.partner_id" /> </p>
 <p style="text-align: center;">probosal # :<span t-field="o.name" /></p>
-<p style="text-align: center;">Date:<span t-field="o.date_order" t-field-options='{"format": "dd/MM/yyyy"}'/> </p>
+<p style="text-align: center;">Date:<span t-field="o.date_order" 
+	t-field-options='{"format": "dd/MM/yyyy"}'/> </p>
 
-<img src='/dvit_dardelta/static/src/img/magdy.jpg' style="width:100%;"/>
+<img src='/dvit_dardelta/static/src/img/cover.jpg' style="width:100%;"/>
 
 </tbody>
 </table>
@@ -70,6 +68,7 @@ text-align: center;
 </tbody>
 </table>
 
+<div class="page"><br/><br/><br/><br/><br/><br/>
 <table class='table table-bordered ' style="border-color:#32CD32 " width="100%">
 <thead style="border-color:#32CD32">
 <th style="border-color:#32CD32;text-align: center;font-size:18px;" class="th-x">No</th>
@@ -83,7 +82,7 @@ text-align: center;
 <thead style="border-color:#32CD32">
 <th style="border-color:#32CD32;text-align: center;" class="th-x"> </th>
 <th style="border-color:#32CD32;text-align: center;" class="th-x"> </th>
-<th style="border-color:#32CD32 ;text-align: center;font-size:18px;" class="th-x" width="300" >professional service</th>
+<th style="border-color:#32CD32 ;text-align: center;font-size:18px;" width="300" >professional service</th>
 <th style="border-color:#32CD32;text-align: center;" class="th-x"> </th>
 <th style="border-color:#32CD32;text-align: center;" class="th-x"> </th>
 <th style="border-color:#32CD32;text-align: center;" class="th-x"> </th>
@@ -92,33 +91,33 @@ text-align: center;
 
 <tbody>
 
-<t t-foreach="o.order_line" t-as="employee_data">
+<t t-foreach="o.order_line" t-as="oline">
 <tr>
-<t t-set="emp_count" t-value="emp_count+1"/>
+<t t-set="lcount" t-value="lcount+1"/>
 <td class="td-y" style="border-color:#32CD32;text-align: center;">
-<span t-esc="emp_count"/>
+<span t-esc="lcount"/>
 </td>
 <td class="td-y" style="border-color:#32CD32;text-align: center;">
-<span t-field="employee_data.product_id.default_code"/>
+<span t-field="oline.product_id.default_code"/>
 </td>
 <td class="td-y" style="border-color:#32CD32;text-align: center;">
-<span t-field="employee_data.name"/>
+<span t-field="oline.name"/>
 </td>
 <td class="td-y" style="border-color:#32CD32;text-align: center;">
-<span t-field="employee_data.product_uom_qty"/>
+<span t-field="oline.product_uom_qty"/>
 </td>
 <td class="td-y" style="border-color:#32CD32;text-align: center;">
-<span t-field="employee_data.price_unit"/>
+<span t-field="oline.price_unit"/>
 </td>
 
 <td class="td-y" style="border-color:#32CD32;text-align: center;">
-<t t-foreach="employee_data.tax_id" t-as="t">
+<t t-foreach="oline.tax_id" t-as="t">
 <span t-field="t.name"/>
 </t>
 </td>
 
 <td class="td-y" style="border-color:#32CD32;text-align: center;">
-<span t-field="employee_data.price_subtotal"/>
+<span t-field="oline.price_subtotal"/>
 </td>
 
 
@@ -134,11 +133,12 @@ text-align: center;
 </div>
 <table>
 <tbody>
-<p style="text-align: center;">pre sale : <span t-field="o.presale"/></p>
-<p style="text-align: center;">aproved by :  <span t-field="o.approved_by"/> </p>
+<p style="text-align: center;">Pre-sales: <span t-field="o.presale"/></p>
+<p style="text-align: center;">Aproved by:  <span t-field="o.approved_by"/> </p>
 </tbody>
 </table>
 
+</div>
 </div>
 </t>
 </t>
@@ -146,12 +146,12 @@ text-align: center;
 </p>
 </template>
 
-<template id="report_saleorder">
+<!-- <template id="report_saleorder">
 <t t-call="report.html_container">
 <t t-foreach="doc_ids" t-as="doc_id">
 <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'sale.report_saleorder_document')"/>
 </t>
 </t>
-</template>
+</template> -->
 </data>
 </openerp>

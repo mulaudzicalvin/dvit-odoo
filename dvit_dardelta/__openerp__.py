@@ -23,8 +23,8 @@
 
     # always loaded
     'data': [
-        'reportt.xml',
-        'page.xml',
+        'report.xml',
+        'template.xml',
 
     ],
 }
