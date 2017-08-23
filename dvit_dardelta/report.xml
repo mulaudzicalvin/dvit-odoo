@@ -71,7 +71,7 @@ text-align:center;
 <h1>
 	<p>Professional Services Prices</p>
 </h1>
-<table style="border-color:#555 " width="100%">
+<table class='table' style="border-color:#555 " width="100%">
 <thead>
 <th>No</th>
 <th>Code</th>
