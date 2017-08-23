@@ -133,7 +133,7 @@ text-align: center;
 <p style="text-align: center;">
 Pre-sales: <span t-field="o.presale"/> .............. 
 Aproved by: <span t-field="o.approved_by"/> </p>
-<p> <img src='/dvit_dardelta/static/src/img/stamp.jpg'/> </p>
+<p> <img src='/dvit_dardelta/static/src/img/stamp.png'/> </p>
 
 </div>
 </t>
