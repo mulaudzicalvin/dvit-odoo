@@ -3,17 +3,17 @@
     'name': "Stock picking invoiced",
 
     'summary': """
-        Stock picking invoiced new""",
+        Stock picking invoice""",
 
     'description': """
-       Stock picking invoiced new
+       Stock picking invoice
     """,
 
     'author': "dvit.me",
     'website': "https://dvit.me",
     'category': 'stock',
     'version': '10.0.0.1',
-    'depends': ['base','stock',],
+    'depends': ['account','stock',],
     'data': [
         'templates.xml',
     ],
