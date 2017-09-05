@@ -47,7 +47,7 @@ class stock_picking_invoiced(models.Model):
                     i_line_id = i_line_obj.create({
                             'invoice_id':inv_id.id,
                             'product_id':i.product_id.id,
-                            'price_unit':i.product_id.lst_price,
+                            'price_unit':i.product_id.standard_price,
                             'name':i.name,
                             'account_id':i.product_id.property_account_expense_id.id,
                             'quantity':quan,
@@ -68,7 +68,7 @@ class stock_picking_invoiced(models.Model):
                          i_line_id = i_line_obj.create({
                                     'invoice_id':inv_id.id,
                                     'product_id':i.product_id.id,
-                                    'price_unit':i.product_id.lst_price,
+                                    'price_unit':i.product_id.standard_price,
                                     'name':i.name,
                                     'account_id':i.product_id.property_account_expense_id.id,
                                     'quantity':i.product_uom_qty,
