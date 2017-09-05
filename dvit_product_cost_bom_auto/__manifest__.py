@@ -7,6 +7,8 @@
         """,
 
     'description': """
+Product cost from BoM auto
+============================
 1- Auto update BoM cost from its components on write
 
 2- Auto update BoM's Product cost price from the BoM cost on write
