@@ -13,7 +13,7 @@
 
                 <xpath expr="//field[@name='origin']" position="after">
                     <field name="invoice_state" attrs="{'readonly': [('state','=','done')]}"/>
-                    <field name="account_invoice_id" />
+                    <field name="invoice_id" />
                 </xpath>
 
                 <!--<xpath expr="//page[1]" position="inside">-->
