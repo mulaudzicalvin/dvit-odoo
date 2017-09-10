@@ -65,7 +65,7 @@ t-field-options='{"format":"dd/MM/yyyy"}'/> </h1>
 <tbody>
 	<tr>
 		<td>
-          Name :<span t-field="o.name1" />
+          Name :<span t-field="o.approve_name" />
 		</td>
 		<td>
           Name :<span t-field="o.presale_name" />
@@ -76,7 +76,7 @@ t-field-options='{"format":"dd/MM/yyyy"}'/> </h1>
 	</tr>
 	<tr>
 		<td>
-          phone :<span t-field="o.phone" />
+          phone :<span t-field="o.approve_phone" />
 		</td>
 		<td>
           phone :<span t-field="o.presale_phone" />
@@ -88,7 +88,7 @@ t-field-options='{"format":"dd/MM/yyyy"}'/> </h1>
 
 	<tr>
 		<td>
-          mobile :<span t-field="o.mobile" />
+          mobile :<span t-field="o.approve_mobile" />
 		</td>
 		<td>
           mobile :<span t-field="o.presale_mobile" />
@@ -99,7 +99,7 @@ t-field-options='{"format":"dd/MM/yyyy"}'/> </h1>
 	</tr>
 	<tr>
 		<td>
-          Fax :<span t-field="o.fax" />
+          Fax :<span t-field="o.approve_fax" />
 		</td>
 		<td>
           Fax :<span t-field="o.presale_fax" />
@@ -110,7 +110,7 @@ t-field-options='{"format":"dd/MM/yyyy"}'/> </h1>
 	</tr>
 	<tr>
 		<td>
-          Email :<span t-field="o.email" />
+          Email :<span t-field="o.approve_email" />
 		</td>
 		<td>
           Email :<span t-field="o.presale_email" />
