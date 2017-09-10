@@ -13,7 +13,7 @@
                 <field name="approve_phone" invisible="1"/>
                 <field name="approve_email" invisible="1"/>
                 <field name="approve_mobile" invisible="1"/>
-                <field name="approve_name1" invisible="1"/>
+                <field name="approve_name" invisible="1"/>
                 <field name="approve_fax" invisible="1"/>
             </xpath>
             <xpath expr="//field[@name='client_order_ref']" position="after">
