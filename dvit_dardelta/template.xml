@@ -10,11 +10,11 @@
 
             <xpath expr="//field[@name='partner_id']" position="after">
                 <field name="approved_by"/>
-                <field name="phone" invisible="1"/>
-                <field name="email" invisible="1"/>
-                <field name="mobile" invisible="1"/>
-                <field name="name1" invisible="1"/>
-                <field name="fax" invisible="1"/>
+                <field name="approve_phone" invisible="1"/>
+                <field name="approve_email" invisible="1"/>
+                <field name="approve_mobile" invisible="1"/>
+                <field name="approve_name1" invisible="1"/>
+                <field name="approve_fax" invisible="1"/>
             </xpath>
             <xpath expr="//field[@name='client_order_ref']" position="after">
                 <field name="presale"/>
