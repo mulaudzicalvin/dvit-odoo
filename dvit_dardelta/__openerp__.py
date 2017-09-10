@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "DarDelta Report",
+    'name': "DarDelta Report new",
 
     'summary': """
         Report modification""",

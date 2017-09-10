@@ -9,8 +9,27 @@
         <field name="arch" type="xml">
 
             <xpath expr="//field[@name='partner_id']" position="after">
-                <field name="presale"/>
                 <field name="approved_by"/>
+                <field name="phone" invisible="1"/>
+                <field name="email" invisible="1"/>
+                <field name="mobile" invisible="1"/>
+                <field name="name1" invisible="1"/>
+                <field name="fax" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='client_order_ref']" position="after">
+                <field name="presale"/>
+                <field name="presale_phone" invisible="1"/>
+                <field name="presale_mobile" invisible="1"/>
+                <field name="presale_fax" invisible="1"/>
+                <field name="presale_name" invisible="1"/>
+                <field name="presale_email" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="sale_name" invisible="1"/>
+                <field name="sale_phone" invisible="1"/>
+                <field name="sale_mobile" invisible="1"/>
+                <field name="sale_fax" invisible="1"/>
+                <field name="sale_email" invisible="1"/>
             </xpath>
 
         </field>

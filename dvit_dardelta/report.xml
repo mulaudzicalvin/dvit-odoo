@@ -45,16 +45,86 @@ Submitted to <br/>
 Proposal # <span t-field="o.name"/><br/>
 Date: <span t-field="o.date_order" 
 t-field-options='{"format":"dd/MM/yyyy"}'/> </h1>
+<div><br/><br/><br/><br/><br/></div>
 
-<img src='/dvit_dardelta/static/src/img/cover.jpg' style="width:100%;"/>
+
+<img src='/dvit_dardelta/static/src/img/cover1.jpg' style="width:100%;"/>
 
 <p style="text-align:center;color:#FFFFFF;">.</p>
 
-<img src='/dvit_dardelta/static/src/img/55.jpg'/>
-<img src='/dvit_dardelta/static/src/img/77.jpg'/>
+<img src='/dvit_dardelta/static/src/img/555.jpg'/>
+<img src='/dvit_dardelta/static/src/img/777.jpg'/>
+<div><br/><br/><br/></div>
+<table class='table' style="border-color:#555 " width="100%">
+<thead>
+<th>Approved By</th>
+<th>Pre-Sale</th>
+<th>Salesperson</th>
+</thead>
 
-<div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></div>
-<h1>Professional Services Prices</h1>
+<tbody>
+	<tr>
+		<td>
+          Name :<span t-field="o.name1" />
+		</td>
+		<td>
+          Name :<span t-field="o.presale_name" />
+		</td>
+		<td>
+          Name :<span t-field="o.sale_name" />
+		</td>
+	</tr>
+	<tr>
+		<td>
+          phone :<span t-field="o.phone" />
+		</td>
+		<td>
+          phone :<span t-field="o.presale_phone" />
+		</td>
+		<td>
+          phone :<span t-field="o.sale_phone" />
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+          mobile :<span t-field="o.mobile" />
+		</td>
+		<td>
+          mobile :<span t-field="o.presale_mobile" />
+		</td>
+		<td>
+          mobile :<span t-field="o.sale_mobile" />
+		</td>
+	</tr>
+	<tr>
+		<td>
+          Fax :<span t-field="o.fax" />
+		</td>
+		<td>
+          Fax :<span t-field="o.presale_fax" />
+		</td>
+		<td>
+          Fax :<span t-field="o.sale_fax" />
+		</td>
+	</tr>
+	<tr>
+		<td>
+          Email :<span t-field="o.email" />
+		</td>
+		<td>
+          Email :<span t-field="o.presale_email" />
+		</td>
+		<td>
+          Email :<span t-field="o.sale_email" />
+		</td>
+	</tr>
+
+</tbody>
+</table>
+
+
+<div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></div>
 <table class='table' style="border-color:#555 " width="100%">
 <thead>
 <th>No</th>
@@ -64,16 +134,6 @@ t-field-options='{"format":"dd/MM/yyyy"}'/> </h1>
 <th>Unit price</th>
 <th>Disc%</th>
 <th>Price</th>
-</thead>
-
-<thead>
-<th/> 
-<th/>
-<th width="300" >Professional Services</th>
-<th/> 
-<th/>
-<th/> 
-<th/> 
 </thead>
 
 <tbody>
@@ -120,10 +180,10 @@ t-field-options='{"format":"dd/MM/yyyy"}'/> </h1>
 <p><span t-field="o.note"/> </p>
 </div>
 
-<p style="text-align:center;">
+<!-- <p style="text-align:center;">
 <b>Pre-sales: </b><span t-field="o.presale"/> .................................. 
-<b>Aproved by: </b><span t-field="o.approved_by"/> </p>
-<p style="text-align:center;"> <img src='/dvit_dardelta/static/src/img/stamp.png'/> </p>
+<b>Aproved by: </b><span t-field="o.approved_by"/> </p> -->
+<p style="text-align:center;"> <img src='/dvit_dardelta/static/src/img/stamp1.png'/> </p>
 
 </div>
 </t>
