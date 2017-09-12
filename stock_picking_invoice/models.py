@@ -43,8 +43,8 @@ class stock_picking_invoiced(models.Model):
                     'name':i.name,
                     'account_id': accounts.get('stock_input') and accounts['stock_input'].id or \
                                   accounts['expense'].id,
-                    'quantity':i.product_uom_qty.id,
-                    'uom_id':i.product_uom,
+                    'quantity':i.product_uom_qty,
+                    'uom_id':i.product_uom.id,
                     })
             # Vendor Invoice
             elif obj.location_id.usage == 'supplier':
