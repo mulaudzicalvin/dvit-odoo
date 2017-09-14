@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+      <record model="ir.ui.view" id="sale_margin_ext_sale_order">
+          <field name="name">margin_ext.view.form</field>
+          <field name="model">sale.order</field>
+          <field name="inherit_id" ref="sale_margin.sale_margin_sale_order"/>
+          <field name="arch" type="xml">
+              <xpath expr="//group[@name='sale_margin_grp']" position="before">
+                <group name="sale_margin_ext_grp">
+                    <field name="total_cost" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                </group>
+              </xpath>
+          </field>
+      </record>
+    </data>
+</openerp>
