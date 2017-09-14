@@ -6,7 +6,10 @@ model="sale.order"
 string="Dar Delta Report"
 name="dvit_dardelta.report_session_vieww"
 file="dvit_dardelta.report_sessionn"
-report_type="qweb-pdf" />
+report_type="qweb-pdf" 
+groups="base.group_sale_manager"
+/>
+
 
 <template id="report_session_vieww">
 	<p style="page-break-after:always">
