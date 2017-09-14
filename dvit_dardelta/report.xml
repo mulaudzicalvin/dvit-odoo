@@ -6,194 +6,196 @@ model="sale.order"
 string="Dar Delta Report"
 name="dvit_dardelta.report_session_vieww"
 file="dvit_dardelta.report_sessionn"
-report_type="qweb-pdf" 
+report_type="qweb-pdf"
 groups="base.group_sale_manager"
 />
 
 
 <template id="report_session_vieww">
+	<t t-name="dvit_dardelta.report_session_vieww">
 	<p style="page-break-after:always">
-		<t t-call="report.html_container">
+	<t t-call="report.html_container">
 
-			<t t-set="x" t-value="0"/>
-			<t t-foreach="docs" t-as="o">
-				<t t-set="lcount" t-value="0"/>
-				<div class="page" dir="ltr">
+	<t t-set="x" t-value="0"/>
+	<t t-foreach="docs" t-as="o">
+	<t t-set="lcount" t-value="0"/>
+	<div class="page" dir="ltr">
 
-					<style type="text/css">
-						.td-y {
-						border:1px solid #555;
-						text-align:center;
-						font-family:Droid Arabic Naskh,serif;
-						font-size:20px;
-						}
-						.th-x{
-						font-family:Droid Arabic Naskh,serif;
-						<!--background-color:#555 !important;-->
-						border:1px solid #555;
-						text-align:center;
-						}
-						.strong-x{
-						border:none;
-						text-align:center;
-						}
+	<style type="text/css">
+	.td-y {
+	border:1px solid #555;
+	text-align:center;
+	font-family:Droid Arabic Naskh,serif;
+	font-size:20px;
+	}
+	.th-x{
+	font-family:Droid Arabic Naskh,serif;
+	<!--background-color:#555 !important;-->
+	border:1px solid #555;
+	text-align:center;
+	}
+	.strong-x{
+	border:none;
+	text-align:center;
+	}
 
-					</style>
-
-
-					<h1 style="text-align:center;">Proposal for<br/>
-						<span t-field="o.client_order_ref"/> <br/>
-						Submitted to <br/>
-						<span t-field="o.partner_id"/><br/>
-						Proposal # <span t-field="o.name"/><br/>
-						Date: <span t-field="o.date_order" t-field-options="{&quot;format&quot;:&quot;dd/MM/yyyy&quot;}"/> </h1>
-					<div><br/><br/><br/><br/><br/></div>
+	</style>
 
 
-					<img src="/dvit_dardelta/static/src/img/cover1.jpg" style="width:100%;"/>
-
-					<p style="text-align:center;color:#FFFFFF;">.</p>
-
-					<img src="/dvit_dardelta/static/src/img/555.jpg"/>
-					<img src="/dvit_dardelta/static/src/img/777.jpg"/>
-					<div><br/><br/><br/></div>
-					<table class="table" style="border-color:#555 " width="100%">
-						<thead>
-							<th>Approved By</th>
-							<th>Pre-Sale</th>
-							<th>Salesperson</th>
-						</thead>
-
-						<tbody>
-								<tr>
-											<td>
-												          Name :<span t-field="o.approve_name"/>
-													  		</td>
-																	<td>
-																		          Name :<span t-field="o.presale_name"/>
-																			  		</td>
-																							<td>
-																								          Name :<span t-field="o.sale_name"/>
-																									  		</td>
-																												</tr>
-																													<tr>
-																																<td>
-																																	          phone :<span t-field="o.approve_phone"/>
-																																		  		</td>
-																																						<td>
-																																							          phone :<span t-field="o.presale_phone"/>
-																																								  		</td>
-																																												<td>
-																																													          phone :<span t-field="o.sale_phone"/>
-																																														  		</td>
-																																																	</tr>
-
-																																																		<tr>
-																																																					<td>
-																																																						          mobile :<span t-field="o.approve_mobile"/>
-																																																							  		</td>
-																																																											<td>
-																																																												          mobile :<span t-field="o.presale_mobile"/>
-																																																													  		</td>
-																																																																	<td>
-																																																																		          mobile :<span t-field="o.sale_mobile"/>
-																																																																			  		</td>
-																																																																						</tr>
-																																																																							<tr>
-																																																																										<td>
-																																																																											          Fax :<span t-field="o.approve_fax"/>
-																																																																												  		</td>
-																																																																																<td>
-																																																																																	          Fax :<span t-field="o.presale_fax"/>
-																																																																																		  		</td>
-																																																																																						<td>
-																																																																																							          Fax :<span t-field="o.sale_fax"/>
-																																																																																								  		</td>
-																																																																																											</tr>
-																																																																																												<tr>
-																																																																																															<td>
-																																																																																																          Email :<span t-field="o.approve_email"/>
-																																																																																																	  		</td>
-																																																																																																					<td>
-																																																																																																						          Email :<span t-field="o.presale_email"/>
-																																																																																																							  		</td>
-																																																																																																											<td>
-																																																																																																												          Email :<span t-field="o.sale_email"/>
-																																																																																																													  		</td>
-																																																																																																																</tr>
-
-																																																																																																															</tbody>
-																																																																																																														</table>
+	<h1 style="text-align:center;">Proposal for<br/>
+	<span t-field="o.client_order_ref"/> <br/>
+	Submitted to <br/>
+	<span t-field="o.partner_id"/><br/>
+	Proposal # <span t-field="o.name"/><br/>
+	Date: <span t-field="o.date_order" t-field-options="{&quot;format&quot;:&quot;dd/MM/yyyy&quot;}"/> </h1>
+	<div><br/><br/><br/><br/><br/></div>
 
 
-																																																																																																														<div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></div>
-																																																																																																														<h2> Price List</h2>
-																																																																																																														<table class="table" style="border-color:#555 " width="100%">
-																																																																																																															<thead>
-																																																																																																																<th>No</th>
-																																																																																																																<th>Code</th>
-																																																																																																																<th width="300">Describtion</th>
-																																																																																																																<th>Qty</th>
-																																																																																																																<th width="100">Unit price</th>
-																																																																																																																<th>Disc%</th>
-																																																																																																																<th>Price</th>
-																																																																																																															</thead>
+	<img src="/dvit_dardelta/static/src/img/cover1.jpg" style="width:100%;"/>
 
-																																																																																																															<tbody>
-																																																																																																																<t t-foreach="o.order_line" t-as="oline">
-																																																																																																																	<tr>
-																																																																																																																		<t t-set="lcount" t-value="lcount+1"/>
-																																																																																																																		<td>
-																																																																																																																			<span t-esc="lcount"/>
-																																																																																																																		</td>
-																																																																																																																		<td>
-																																																																																																																			<span t-field="oline.product_id.default_code"/>
-																																																																																																																		</td>
-																																																																																																																		<td>
-																																																																																																																			<span t-field="oline.name"/>
-																																																																																																																		</td>
-																																																																																																																		<td>
-																																																																																																																			<span t-field="oline.product_uom_qty"/>
-																																																																																																																		</td>
-																																																																																																																		<td width="100">
-																																																																																																																			<span t-field="oline.price_unit"/>
-																																																																																																																		</td>
+	<p style="text-align:center;color:#FFFFFF;">.</p>
 
-																																																																																																																		<td>
-																																																																																																																			<t t-foreach="oline.tax_id" t-as="t">
-																																																																																																																				<span t-field="t.name"/>
-																																																																																																																			</t>
-																																																																																																																		</td>
+	<img src="/dvit_dardelta/static/src/img/555.jpg"/>
+	<img src="/dvit_dardelta/static/src/img/777.jpg"/>
+	<div><br/><br/><br/></div>
+	<table class="table" style="border-color:#555 " width="100%">
+	<thead>
+	<th>Approved By</th>
+	<th>Pre-Sale</th>
+	<th>Salesperson</th>
+	</thead>
 
-																																																																																																																		<td>
-																																																																																																																			<span t-field="oline.price_subtotal"/>
-																																																																																																																		</td>
+	<tbody>
+		<tr>
+			<td>
+	          Name :<span t-field="o.approve_name"/>
+			</td>
+			<td>
+	          Name :<span t-field="o.presale_name"/>
+			</td>
+			<td>
+	          Name :<span t-field="o.sale_name"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+	          phone :<span t-field="o.approve_phone"/>
+			</td>
+			<td>
+	          phone :<span t-field="o.presale_phone"/>
+			</td>
+			<td>
+	          phone :<span t-field="o.sale_phone"/>
+			</td>
+		</tr>
 
-																																																																																																																	</tr>
-																																																																																																																</t>
-																																																																																																																<tr>
-																																																																																																																		<td><b>Total</b></td><td/><td/><td/><td/><td/>
-																																																																																																																			<td><b><span t-field="o.amount_total"/></b></td>
-																																																																																																																		</tr>
-																																																																																																																	</tbody>
-																																																																																																																</table>
+		<tr>
+			<td>
+	          mobile :<span t-field="o.approve_mobile"/>
+			</td>
+			<td>
+	          mobile :<span t-field="o.presale_mobile"/>
+			</td>
+			<td>
+	          mobile :<span t-field="o.sale_mobile"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+	          Fax :<span t-field="o.approve_fax"/>
+			</td>
+			<td>
+	          Fax :<span t-field="o.presale_fax"/>
+			</td>
+			<td>
+	          Fax :<span t-field="o.sale_fax"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+	          Email :<span t-field="o.approve_email"/>
+			</td>
+			<td>
+	          Email :<span t-field="o.presale_email"/>
+			</td>
+			<td>
+	          Email :<span t-field="o.sale_email"/>
+			</td>
+		</tr>
 
-																																																																																																																<div dir="ltr">
-																																																																																																																	<p>Note </p>
-																																																																																																																	<p><span t-field="o.note"/> </p>
-																																																																																																																</div>
+	</tbody>
+	</table>
 
-																																																																																																																<!-- <p style="text-align:center;">
-																																																																																																																     <b>Pre-sales: </b><span t-field="o.presale"/> .................................. 
-<b>Aproved by: </b><span t-field="o.approved_by"/> </p> -->
-<p style="text-align:center;"> <img src="/dvit_dardelta/static/src/img/stamp1.png"/> </p>
 
-</div>
-</t>
-</t>
+	<div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></div>
+	<h2> Price List</h2>
+	<table class="table" style="border-color:#555 " width="100%">
+	<thead>
+	<th>No</th>
+	<th>Code</th>
+	<th width="300">Describtion</th>
+	<th>Qty</th>
+	<th width="100">Unit price</th>
+	<th>Disc%</th>
+	<th>Price</th>
+	</thead>
 
-</p>
-</t>
+	<tbody>
+	<t t-foreach="o.order_line" t-as="oline">
+	<tr>
+	<t t-set="lcount" t-value="lcount+1"/>
+	<td>
+	<span t-esc="lcount"/>
+	</td>
+	<td>
+	<span t-field="oline.product_id.default_code"/>
+	</td>
+	<td>
+	<span t-field="oline.name"/>
+	</td>
+	<td>
+	<span t-field="oline.product_uom_qty"/>
+	</td>
+	<td width="100">
+	<span t-field="oline.price_unit"/>
+	</td>
+
+	<td>
+	<t t-foreach="oline.tax_id" t-as="t">
+	<span t-field="t.name"/>
+	</t>
+	</td>
+
+	<td>
+	<span t-field="oline.price_subtotal"/>
+	</td>
+
+	</tr>
+	</t>
+	<tr>
+		<td><b>Total</b></td><td/><td/><td/><td/><td/>
+		<td><b><span t-field="o.amount_total"/></b></td>
+	</tr>
+	</tbody>
+	</table>
+
+	<div dir="ltr">
+	<p>Note </p>
+	<p><span t-field="o.note"/> </p>
+	</div>
+
+	<!-- <p style="text-align:center;">
+	<b>Pre-sales: </b><span t-field="o.presale"/> ..................................
+	<b>Aproved by: </b><span t-field="o.approved_by"/> </p> -->
+	<p style="text-align:center;"> <img src="/dvit_dardelta/static/src/img/stamp1.png"/> </p>
+
+	</div>
+	</t>
+	</t>
+
+	</p>
+	</t>
+
 
 </template>
 </data>
