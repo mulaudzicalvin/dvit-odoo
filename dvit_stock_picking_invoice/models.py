@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError, RedirectWarning, ValidationError
+
 
 class Picking(models.Model):
     _inherit='stock.picking'
@@ -135,3 +137,15 @@ class Picking(models.Model):
 class AccountInvoice(models.Model):
     _inherit='account.invoice'
     picking_id = fields.Many2one('stock.picking','Picking invoice',readonly=True)
+
+    #ToDo: When deleting set the picking's invoice_id to null and invoice_state to 2binvoiced
+    @api.multi
+    def unlink(self):
+        # res = super(AccountInvoice, self).unlink()
+        for invoice in self:
+            if invoice.state not in ('draft', 'cancel'):
+                raise UserError(_('You cannot delete an invoice which is not draft or cancelled. You should refund it instead.'))
+            elif invoice.move_name:
+                raise UserError(_('You cannot delete an invoice after it has been validated (and received a number). You can set it back to "Draft" state and modify its content, then re-confirm it.'))
+            invoice.picking_id.write({'invoice_state':'2binvoiced'})
+        return super(AccountInvoice, self).unlink()
