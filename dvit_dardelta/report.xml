@@ -128,7 +128,7 @@ groups="base.group_sale_manager"
 
 
 	<div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></div>
-	<h2> Price List</h2>
+	<h2> Price Details</h2>
 	<table class="table" style="border-color:#555 " width="100%">
 	<thead>
 	<th>No</th>
