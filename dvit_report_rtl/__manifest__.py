@@ -28,7 +28,7 @@
     'description':
         """
 Report printing in RTL direction
-========================
+==================================
 **Note: if you have website installed install Report RTL website**
         """,
     'depends': ['report'],

@@ -50,13 +50,12 @@ class Report(models.Model):
              lang = context.get('lang')
 
         lang_obj = self.env['res.lang'].search([('code', '=', lang),('active','=',True)])
-        # lang_obj = self.env['res.lang'].browse( lang_id)
         lang_dir = str(lang_obj.direction)
-        print '-------------------------'
-        print lang_dir
-        print '-------------------------'
-
-        values['lang_dir'] = lang_dir
+        values['lang_dir'] = str(lang_dir)
+        print "-------- doc_partner= "+str(doc.partner_id)+" ---------------"
+        print "-------- lang= "+str(lang)+" ---------------"
+        print "-------- lang_dir= "+str(lang_dir)+" ---------------"
+        print "-------- values_lang_dir= "+str(values['lang_dir'])+" ---------------"
 
         user = self.env['res.users'].browse(self.env.uid)
         website = None
