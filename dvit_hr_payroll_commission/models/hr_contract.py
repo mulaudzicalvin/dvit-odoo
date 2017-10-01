@@ -41,7 +41,7 @@ class HrContract(models.Model):
                         uids = []
                         for payment in inv.payment_ids:
                             for aml in payment.move_line_ids:
-                                uids.append([s.user_id.id for s in aml.slip_ids])
+                                uids.append([s.employee_id.user_id.id for s in aml.slip_ids])
                         if contract.employee_id.user_id.id not in uids:
                             invoice_ids.append(inv)
 
@@ -66,7 +66,7 @@ class HrContract(models.Model):
                         uids = []
                         for payment in inv.payment_ids:
                             for aml in payment.move_line_ids:
-                                uids.append([s.user_id.id for s in aml.slip_ids])
+                                uids.append([s.employee_id.user_id.id for s in aml.slip_ids])
                         if contract.employee_id.user_id.id not in uids:
                             invoice_ids.append(inv)
 
@@ -83,7 +83,7 @@ class HrContract(models.Model):
                         uids = []
                         for payment in inv.payment_ids:
                             for aml in payment.move_line_ids:
-                                uids.append([s.user_id.id for s in aml.slip_ids])
+                                uids.append([s.employee_id.user_id.id for s in aml.slip_ids])
                         if contract.employee_id.user_id.id not in uids:
                             invoice_ids.append(inv)
 
