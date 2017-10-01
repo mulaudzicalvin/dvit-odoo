@@ -1,2 +1,2 @@
 # dvit-odoo
-Odoo8 modules
+Odoo modules
