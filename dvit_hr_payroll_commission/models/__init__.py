@@ -5,4 +5,4 @@
 from . import hr_contract
 from . import hr_payslip
 from . import account_invoice
-from . import account_payment
+from . import account_move_line

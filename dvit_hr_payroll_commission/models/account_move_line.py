@@ -5,8 +5,8 @@
 from odoo import models, fields, api
 
 
-class AccountPayment(models.Model):
-    _inherit = 'account.payment'
+class AccountMoveLine(models.Model):
+    _inherit = 'account.move.line'
 
     slip_ids = fields.Many2many('hr.payslip', string='Commission Payslips')
 

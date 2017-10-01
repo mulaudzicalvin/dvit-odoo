@@ -40,8 +40,8 @@ class HrContract(models.Model):
                     else:
                         uids = []
                         for payment in inv.payment_ids:
-                            for pslip in payment.slip_ids:
-                                uids.append(pslip.employee_id.user_id.id)
+                            for aml in payment.move_line_ids:
+                                uids.append([s.user_id.id for s in aml.slip_ids])
                         if contract.employee_id.user_id.id not in uids:
                             invoice_ids.append(inv)
 
@@ -65,11 +65,9 @@ class HrContract(models.Model):
                     else:
                         uids = []
                         for payment in inv.payment_ids:
-                            for pslip in payment.slip_ids:
-                                uids.append(pslip.employee_id.user_id.id)
-                        if contract.employee_id.user_id.id in uids:
-                            continue
-                        else:
+                            for aml in payment.move_line_ids:
+                                uids.append([s.user_id.id for s in aml.slip_ids])
+                        if contract.employee_id.user_id.id not in uids:
                             invoice_ids.append(inv)
 
             else: #comm_type = all
@@ -84,26 +82,24 @@ class HrContract(models.Model):
                     else:
                         uids = []
                         for payment in inv.payment_ids:
-                            for pslip in payment.slip_ids:
-                                uids.append(pslip.employee_id.user_id.id)
-                        if contract.employee_id.user_id.id in uids:
-                            continue
-                        else:
+                            for aml in payment.move_line_ids:
+                                uids.append([s.user_id.id for s in aml.slip_ids])
+                        if contract.employee_id.user_id.id not in uids:
                             invoice_ids.append(inv)
 
             commission = 0
             for inv in invoice_ids:
                 for payment in inv.payment_ids:
-                    if not payment.slip_ids:
-                        commission += payment.amount
-                    else:
-                        uids = []
-                        for pslip in payment.slip_ids:
-                            uids.append(pslip.employee_id.user_id.id)
-                        if contract.employee_id.user_id.id in uids:
-                            continue
+                    for aml in payment.move_line_ids:
+                        if not aml.slip_ids:
+                            # commission += payment.amount
+                            commission += aml.credit
                         else:
-                            commission += payment.amount
+                            uids = []
+                            for pslip in aml.slip_ids:
+                                uids.append(pslip.employee_id.user_id.id)
+                            if contract.employee_id.user_id.id not in uids:
+                                commission += aml.credit
 
             contract.commission = commission
             return invoice_ids
