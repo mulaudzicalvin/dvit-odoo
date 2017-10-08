@@ -3,7 +3,6 @@ from odoo import models, fields, api
 from odoo.tools.translate import _
 from logging import getLogger
 
-
 _logger = getLogger(__name__)
 
 
@@ -24,11 +23,6 @@ class pos_session(models.Model):
             ('invoice_id', '!=', False),
         ])
         for po in po_ids:
-            # We're searching only account Invoices that has been payed
-            # In Point Of Sale
-            #if not po.invoice_id.forbid_payment:
-            #    continue
-
             # Search all move Line to reconcile in Sale Journal
             aml_sale_ids = []
             aml_sale_total = 0
@@ -46,7 +40,6 @@ class pos_session(models.Model):
             aml_ids = aml_obj.search([
                 ('statement_id', 'in', abs_ids),
                 ('partner_id', '=', po.partner_id.commercial_partner_id.id),
-                # did't find reconcile_id and replaced it with full_reconcile_id
                 ('full_reconcile_id', '=', False)])
             for aml in aml_obj.browse(
                     aml_ids._ids):
@@ -63,7 +56,6 @@ class pos_session(models.Model):
                     "(partner : %s)" % (
                         po.name, po.id, po.partner_id.name))
             else:
-                # TypeError: reconcile() takes at most 3 arguments (6 given) [FIXED]
                 aml_all_ids = aml_payment_ids + aml_sale_ids
                 aml_obj.browse(aml_all_ids).reconcile()
         return res

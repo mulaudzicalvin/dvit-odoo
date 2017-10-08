@@ -3,16 +3,26 @@
     'summary': 'Point of Sale Fixes',
     'description': """
     Fixes included:
+
     - Fix POS invoices payments by reconciling them automatically on POS session closing to get them paid.
+
     - Complete the Gr/Ir anglo-saxon journal entries missing in POS.
+
     - prevent barcode on payment screen using js events .
+
     - Now supports IngAdhoc's Product packs 1- create anglo-saxon for packs.
 
     ToDo:
+
     - Reimplement Support & Process sales of product packs by IngAdhoc's product_pack.
+
     - Improve performance by reconciling invoices per order close not in session close .
+
      """,
-    'version': '10.0.1.5',
+     "license": "AGPL-3",
+     "price": 25.0,
+     "currency": 'EUR',
+    'version': '10.0.2.0',
     'category': 'Point of Sale',
     'author': 'DVIT.me',
     'website': 'http://dvit.me',

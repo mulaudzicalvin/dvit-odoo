@@ -1,5 +1,5 @@
 from odoo import models, fields, api
-# from odoo.tools.float_utils import float_round as round
+
 
 class PosOrder(models.Model):
     _inherit = "pos.order"
@@ -26,12 +26,11 @@ class PosOrder(models.Model):
             for line in order.lines:
                 # Process normal products
                 if line.product_id.type != 'service' and \
-                    line.product_id.categ_id.property_valuation == 'real_time':
+                        line.product_id.categ_id.property_valuation == 'real_time':
 
                     amount = 0
                     stkacc = line.product_id.categ_id.property_stock_account_output_categ_id and \
                         line.product_id.categ_id.property_stock_account_output_categ_id
-                    #TODO get inventory account for direct returns
                     cogacc = line.product_id.property_account_expense_id and \
                         line.product_id.property_account_expense_id
                     if not cogacc:
@@ -62,7 +61,6 @@ class PosOrder(models.Model):
                         'credit': amount_total < 0 and -amount or 0.0,
                     }
                     daml.update(line_vals)
-                    # TODO: return goods directly to inventory valuation account instead of GRNI/GSNI acc.
 
                     move_line_obj.with_context(check_move_validity=False).create(caml)
                     move_line_obj.with_context(check_move_validity=False).create(daml)
@@ -71,7 +69,7 @@ class PosOrder(models.Model):
                 if hasattr(line.product_id, 'pack') and line.product_id.pack:
                     for pack_line in line.product_id.pack_line_ids.filtered(lambda l: \
                         l.product_id.categ_id.property_valuation == 'real_time' and \
-                        l.product_id.type != 'service'):
+                            l.product_id.type != 'service'):
                         amount = 0
                         stkacc = pack_line.product_id.categ_id.property_stock_account_output_categ_id and \
                             pack_line.product_id.categ_id.property_stock_account_output_categ_id
@@ -81,10 +79,9 @@ class PosOrder(models.Model):
                             pack_line.product_id.categ_id.property_account_expense_categ_id
 
                         if cogacc and stkacc:
-                            #TODO Check and convert UoM/UoS
                             amount = line.qty * pack_line.quantity * pack_line.product_id.standard_price
                             name = str(line.qty) + 'x' + line.product_id.name + ' > ' + \
-                            str(pack_line.quantity * line.qty) + 'x' + pack_line.product_id.name
+                                str(pack_line.quantity * line.qty) + 'x' + pack_line.product_id.name
                             line_vals = {
                                 'name': name,
                                 'move_id': move.id,
