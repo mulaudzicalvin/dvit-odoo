@@ -20,11 +20,13 @@
     "version": "10.0.1.0.0",
     "category": "Manufacturing",
     "license": "AGPL-3",
-    "price": 15.0,
+    "price": 20.0,
     "currency": 'EUR',
-    'description': """ 
-    Allow editing of MRP Orders created from empty BoM, 
+    'description': """
+    Allow editing of MRP Orders created from empty BoM,
+
     To use this module you must define empty BoM for products that
+
     you want to edit its generated MO.
     """,
     "author": "DVIT.ME",

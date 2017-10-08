@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # © 2016 Coninckx David (Open Net Sarl)
+# © 2017 Mohamed M. Hagag (DVIT.ME) <mohamedhagag1981@gmail.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-
 
 from odoo import models, fields, api
 
@@ -39,7 +39,7 @@ class HrPayslip(models.Model):
 
     @api.multi
     def _attach_AMLs(self, invoices):
-        # for each payment that dont have slip id of current employee; 
+        # for each payment that dont have slip id of current employee;
         # add self.id to payment.slip_ids
         for slip in self:
             for inv in invoices:

@@ -15,6 +15,10 @@
 3- Auto update cost of all BoMs that include a product on updating that product's cost manually or through purchase orders in case of avg price.
     """,
 
+    "license": "AGPL-3",
+    "price": 35.0,
+    "currency": 'EUR',
+
     'author': "DVIT.ME",
     'website': "http://www.dvit.me",
 

@@ -9,14 +9,9 @@ Payroll Commissions On Invoiced sales
 This module computes commissions on invoiced sales and allows you to add it to payslip
 
 **Features list :**
-    * Add commision rate, commission to contract.
+    * Add commission rate, commission to contract.
+    * Select commission type [ own Commisions, team leader Commisions, sales manager Commisions]
     * Link commission to Payslip.
-
-**For further information:**
-    * Commissions management: http://open-net.ch/blog/la-comptabilite-salariale-suisse-avec-odoo-1/post/salaires-avec-odoo-commissions-et-notes-de-frais-78
-
-**Remarks:**
-    * As this module proposes its own report (same as the original, but with its own footer), don't forget to make it non-updatable.
 
 Installation
 ============
@@ -26,12 +21,15 @@ Nothing special to install this module
 Configuration
 =============
 
-Nothing special to configure this module
+* You must complete the Employee information and contract information.
+* Also we must link a user on the employee.
+* We must set sales person and team on the sale orders.
+* we must set sale team manager or memeber for team leaders Commisions.
 
 Usage
 =====
 
-    * To add commission to the payslip, you need to set commission type and a rate into the employee's contract. 
+    * To add commission to the payslip, you need to set commission type and a rate into the employee's contract.
 
     * You also need to add a the rule PAYCOMM to the contract's salary structure.
 
@@ -79,4 +77,3 @@ Maintainer
 ----------
 
 This module version is currently maintained by DVIT.ME - http://dvit.me .
-

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # © 2016 Coninckx David (Open Net Sarl)
+# © 2017 Mohamed M. Hagag (DVIT.ME) <mohamedhagag1981@gmail.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 
 
 from odoo import models, fields, api
@@ -13,7 +15,7 @@ class HrContract(models.Model):
                               compute='_comp_commission', store=True)
     comm_rate = fields.Float(string='Commissions Rate',
                              digits=dp.get_precision('Payroll Rate'), store=True)
-    comm_type = fields.Selection(string='Commission Type', 
+    comm_type = fields.Selection(string='Commission Type',
         selection=[('all','All Sales'),('team','Team Sales'),('own','Own sales')],
         default='own',
         help='Sales = His sales only; Team = His team sales only; All = On all sales')
@@ -103,4 +105,3 @@ class HrContract(models.Model):
 
             contract.commission = commission
             return invoice_ids
-
