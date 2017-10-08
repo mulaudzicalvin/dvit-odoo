@@ -12,7 +12,7 @@
     'author': "dvit.me",
     'website': "https://dvit.me",
     'category': 'Stock',
-    'version': '10.0.0.3',
+    'version': '10.0.0.4',
     'depends': ['account','stock',],
     'data': ['templates.xml',],
 }
