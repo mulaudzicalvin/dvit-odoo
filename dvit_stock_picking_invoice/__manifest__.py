@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Stock picking invoice",
+    'summary': 'Invoice stock pickings as it was in v.8.',
     'description': """
         Allow starting Purchase, Sales and refunds from the warehouse,
         And creating invoices on Warehouse pickings,

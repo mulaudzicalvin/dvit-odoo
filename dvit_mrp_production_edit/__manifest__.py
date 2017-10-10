@@ -22,6 +22,7 @@
     "license": "AGPL-3",
     "price": 20.0,
     "currency": 'EUR',
+    'summary': 'Allow editing of generated Manufacturing Orders.',
     'description': """
     Allow editing of MRP Orders created from empty BoM,
 

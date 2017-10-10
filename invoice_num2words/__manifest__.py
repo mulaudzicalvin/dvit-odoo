@@ -5,7 +5,8 @@
     "price": 5.0,
     "currency": 'EUR',
     'category': 'Accounting',
-    'sequence': 1,
+    'summary': """
+    Show invoice Total in words. """,
     'description': """
     Show invoice Total in words. """,
     'author': 'DVIT',

@@ -3,7 +3,7 @@
     'name': "Product cost from BoM auto",
 
     'summary': """
-        Auto set product cost from BoM on update.
+        Auto set final product cost from BoM on update, and from raw material purchase price.
         """,
 
     'description': """
