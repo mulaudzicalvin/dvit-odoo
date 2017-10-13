@@ -15,6 +15,8 @@ groups="base.group_sale_manager"
 	<t t-name="dvit_dardelta.report_session_vieww">
 	<p style="page-break-after:always">
 	<t t-call="report.html_container">
+			<t t-call="report.external_layout">
+
 
 	<t t-set="x" t-value="0"/>
 	<t t-foreach="docs" t-as="o">
@@ -42,12 +44,17 @@ groups="base.group_sale_manager"
 	</style>
 
 
-	<h1 style="text-align:center;">Proposal for<br/>
-	<span t-field="o.client_order_ref"/> <br/>
-	Submitted to <br/>
-	<span t-field="o.partner_id"/><br/>
-	Proposal # <span t-field="o.name"/><br/>
-	Date: <span t-field="o.date_order" t-field-options="{&quot;format&quot;:&quot;dd/MM/yyyy&quot;}"/> </h1>
+	<h1 style="text-align:center;">Proposal for</h1>
+	<div style="text-align:center; font-size:24px;">
+		<span t-field="o.client_order_ref"/> <br/>
+		Submitted to <br/>
+		<span t-field="o.partner_id"/><br/>
+		Proposal # <span t-field="o.name"/><br/>
+		Date: <span t-field="o.date_order" 
+		t-field-options="{&quot;format&quot;:&quot;dd/MM/yyyy&quot;}"/> 
+	</div>
+
+
 	<div><br/><br/><br/><br/><br/></div>
 
 
@@ -58,8 +65,8 @@ groups="base.group_sale_manager"
 	<img src="/dvit_dardelta/static/src/img/555.jpg"/>
 	<img src="/dvit_dardelta/static/src/img/777.jpg"/>
 	<div><br/><br/><br/></div>
-	<table class="table" style="border-color:#555 " width="100%">
-	<thead>
+	<table class="table" style="border-color:#999 " width="100%">
+	<thead style="background-color: #eee;">
 	<th>Approved By</th>
 	<th>Pre-Sale</th>
 	<th>Salesperson</th>
@@ -129,7 +136,7 @@ groups="base.group_sale_manager"
 
 	<div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></div>
 <h2> Price Details</h2>
-<table class="table" style="border-color:#555 " width="100%">
+<table class="table" style="border-color:#999 " width="100%">
 <thead style="background-color: #eee;">
 <th>No</th>
 <th>Code</th>
@@ -248,9 +255,10 @@ groups="base.group_sale_manager"
 </div>
 </t>
 </t>
-
-</p>
 </t>
+</p>
 </t>
 
 </template>
+</data>
+</openerp>
