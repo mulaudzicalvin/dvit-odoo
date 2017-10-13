@@ -128,75 +128,128 @@ groups="base.group_sale_manager"
 
 
 	<div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></div>
-	<h2> Price Details</h2>
-	<table class="table" style="border-color:#555 " width="100%">
-	<thead>
-	<th>No</th>
-	<th>Code</th>
-	<th width="300">Describtion</th>
-	<th>Qty</th>
-	<th width="100">Unit price</th>
-	<th>Disc%</th>
-	<th>Price</th>
-	</thead>
+<h2> Price Details</h2>
+<table class="table" style="border-color:#555 " width="100%">
+<thead style="background-color: #eee;">
+<th>No</th>
+<th>Code</th>
+<th width="300">Describtion</th>
+<th>Qty</th>
+<th width="100">Unit price</th>
+<th t-if="o.disc_total != 0.0" groups="sale.group_discount_per_so_line">Total</th>
+<th t-if="o.disc_total != 0.0" class="text-right" groups="sale.group_discount_per_so_line">Disc%</th>
+<th t-if="o.disc_total != 0.0" class="text-right" groups="sale.group_discount_per_so_line">Disc.</th>
+<th>Price</th>
+</thead>
 
-	<tbody>
-	<t t-foreach="o.order_line" t-as="oline">
-	<tr>
-	<t t-set="lcount" t-value="lcount+1"/>
-	<td>
-	<span t-esc="lcount"/>
-	</td>
-	<td>
-	<span t-field="oline.product_id.default_code"/>
-	</td>
-	<td>
-	<span t-field="oline.name"/>
-	</td>
-	<td>
-	<span t-field="oline.product_uom_qty"/>
-	</td>
-	<td width="100">
-	<span t-field="oline.price_unit"/>
-	</td>
+<tbody>
+<t t-foreach="o.order_line" t-as="oline">
+<tr>
+<t t-set="lcount" t-value="lcount+1"/>
+<td>
+<span t-esc="lcount"/>
+</td>
+<td>
+<span t-field="oline.product_id.default_code"/>
+</td>
+<td>
+<span t-field="oline.name"/>
+</td>
+<td>
+<span t-field="oline.product_uom_qty"/>
+</td>
+<td width="100">
+<span t-field="oline.price_unit"/>
+</td>
 
-	<td>
-	<t t-foreach="oline.tax_id" t-as="t">
-	<span t-field="t.name"/>
-	</t>
-	</td>
+<td t-if="o.disc_total != 0.0" groups="sale.group_discount_per_so_line"> <span t-field="oline.total_line"/></td>
+<td t-if="o.disc_total != 0.0" class="text-right" groups="sale.group_discount_per_so_line"><span t-field="oline.discount"/></td>
+<td t-if="o.disc_total != 0.0" class="text-right" groups="sale.group_discount_per_so_line"><span t-field="oline.disc_line"/></td>
 
-	<td>
-	<span t-field="oline.price_subtotal"/>
-	</td>
+<td>
+<span t-field="oline.price_subtotal"/>
+</td>
 
-	</tr>
-	</t>
-	<tr>
-		<td><b>Total</b></td><td/><td/><td/><td/><td/>
-		<td><b><span t-field="o.amount_total"/></b></td>
-	</tr>
-	</tbody>
-	</table>
+</tr>
+</t>
 
-	<div dir="ltr">
-	<p>Note </p>
-	<p><span t-field="o.note"/> </p>
-	</div>
-
-	<!-- <p style="text-align:center;">
-	<b>Pre-sales: </b><span t-field="o.presale"/> ..................................
-	<b>Aproved by: </b><span t-field="o.approved_by"/> </p> -->
-	<p style="text-align:center;"> <img src="/dvit_dardelta/static/src/img/stamp1.png"/> </p>
-
-	</div>
-	</t>
-	</t>
-
-	</p>
-	</t>
+</tbody>
+</table>
 
 
-</template>
-</data>
-</openerp>
+<div class="row">
+    <div class="col-xs-4 pull-right">
+        <table class="table table-condensed"
+        	style="border-top:1px #000;">
+            <!-- <tr class="border-black">
+                <td><strong>Total Without Taxes</strong></td>
+                <td class="text-right">
+                    <span t-field="o.amount_untaxed" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
+                </td>
+            </tr> -->
+           <!--  <tr>
+                <td>Taxes</td>
+                <td class="text-right">
+                    <span t-field="o.amount_tax" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
+                </td>
+            </tr> -->
+            <tr t-if="o.disc_total != 0.0" class="border-black" 
+            	groups="sale.group_discount_per_so_line">
+                  <td> Total Before Discount </td>
+                  <td class="text-right"><span t-field="o.total_b4_disc"/> </td>
+             </tr>
+            <tr t-if="o.disc_total != 0.0" groups="sale.group_discount_per_so_line">
+                  <td> Total Discount</td>
+                  <td class="text-right"><span t-field="o.disc_total"/> </td>
+            </tr>
+            <tr class="border-black">
+                <td><strong>Total</strong></td>
+                <td class="text-right">
+                	<strong>
+                	<span t-field="o.amount_total" 
+                		t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
+                	</strong>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+
+
+<!-- <table style="width:auto;" class="table">
+<thead style="background-color: #eee;">
+<strong>
+<th t-if="o.disc_total != 0.0" groups="sale.group_discount_per_so_line" class="text-right">Total</th> 
+<th t-if="o.disc_total != 0.0" groups="sale.group_discount_per_so_line" class="text-right">Discount</th> 
+<th style="width: 30%" t-if="o.disc_total != 0.0" groups="sale.group_discount_per_so_line" class="text-right">Total after Discount</th>
+<th style="width: 30%" t-if="o.disc_total == 0.0" class="text-right">Total</th></strong>
+</thead>
+<tbody>
+<tr class="border-black"> 
+<td t-if="o.disc_total != 0.0" groups="sale.group_discount_per_so_line" class="text-right"><strong><span t-field="o.total_b4_disc"/></strong></td> 
+<td t-if="o.disc_total != 0.0" groups="sale.group_discount_per_so_line" class="text-right"><strong><span t-field="o.disc_total"/></strong></td>  
+<td style="width: 30%" class="text-right"><strong><span t-field="o.amount_total"/></strong></td>
+</tr>
+</tbody>
+</table> -->
+
+<div dir="ltr">
+<p>Note </p>
+<p><span t-field="o.note"/> </p>
+</div>
+
+<!-- <p style="text-align:center;">
+<b>Pre-sales: </b><span t-field="o.presale"/> .................................. 
+<b>Aproved by: </b><span t-field="o.approved_by"/> </p> -->
+<p style="text-align:center;"> <img src="/dvit_dardelta/static/src/img/stamp1.png"/> </p>
+
+</div>
+</t>
+</t>
+
+</p>
+</t>
+</t>
+
