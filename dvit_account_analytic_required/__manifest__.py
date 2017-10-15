@@ -3,7 +3,7 @@
 # © 2016 Camptocamp SA
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl)
 {
-    'name': 'DVIT Account Analytic Required',
+    'name': 'Account Analytic Required',
     'summary': 'Allow setting analytic policy on account instead of account type.',
     'version': '10.0.1.0',
     'category': 'Analytic Accounting',

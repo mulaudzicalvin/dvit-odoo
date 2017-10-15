@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'DVIT Journal Item partner Required',
+    'name': 'Journal Item partner Required',
     'summary': 'Force partner on payable, receivable transactions and all accounts with reconcile enabled to prevent user error.',
     'version': '10.0.1.0',
     'category': 'Accounting',
