@@ -23,7 +23,7 @@ class MrpProduction(models.Model):
             bom = self.env['mrp.bom']
             bom_line = self.env['mrp.bom.line']
             bom_id = bom.create({
-                'active': False, #this is 
+                'active': False, #this is
                 'product_tmpl_id': production.product_tmpl_id.id,
                 'product_qty': production.product_qty,
                 'product_uom_id': production.product_uom_id.id,
@@ -58,11 +58,4 @@ class MrpProduction(models.Model):
 
             # then recreate the moves again
             production._generate_moves()
-            production.tgl_modify = not self.tgl_modify
-
-    # def button_mark_done(self):
-    #     for production in self:
-    #         res = super(MrpProduction, self).button_mark_done() 
-    #         production.bom_id.unlink()
-    #     return res
-    
+            production.tgl_modify = False
