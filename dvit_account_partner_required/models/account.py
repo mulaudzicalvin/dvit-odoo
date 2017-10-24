@@ -22,7 +22,7 @@ class AccountMoveLine(models.Model):
                               move_line.name)
 
     @api.constrains('partner_id', 'account_id')
-    def _check_analytic_required(self):
+    def _check_partner_required(self):
         for rec in self:
             message = rec._get_reconcile_msg()
             if message:
