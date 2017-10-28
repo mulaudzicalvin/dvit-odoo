@@ -203,7 +203,7 @@
     </field>
   </record>
 
-<!-- Reconcile wiz ToDo --
+<!-- Reconcile wiz ToDo -
   <record id="view_cheque_reconcile_full" model="ir.ui.view">
     <field name="name">cheque.full.form</field>
     <field name="model">account.move.line.reconcile</field>
