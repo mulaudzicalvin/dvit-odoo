@@ -14,7 +14,7 @@ class MrpProduction(models.Model):
     partner_id = fields.Many2one(related='sale_id.partner_id',
                                  string='Customer', store=True)
 
-    @api.depends('move_raw_ids','move_finished_ids','availability','procurement_ids')
+    @api.depends('move_raw_ids','move_finished_ids')
     def get_sale_info(self):
         for prod in self:
             if not prod.move_finished_ids:
