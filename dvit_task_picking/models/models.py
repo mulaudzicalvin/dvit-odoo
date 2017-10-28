@@ -20,10 +20,3 @@ class ProjectTask(models.Model):
     is_closed = fields.Boolean(string="Closed", related="stage_id.closed",
         help="Based on stage closed status, \
         to reopen move the task to an open stage." )
-    # stage_closed = fields.Boolean(string="Closed stage",)
-    #         # compute="_get_stage_closed",
-    #         # store=True)
-
-    # @api.onchange('stage_id')
-    # def _get_closed(self):
-    #     self.is_closed = self.stage_id.closed
