@@ -13,13 +13,13 @@ class MrpProduction(models.Model):
         compute='get_sale_info')
     partner_id = fields.Many2one(related='sale_id.partner_id',
                                  string='Customer', store=True)
-    # commitment_date = fields.Datetime(related='sale_id.commitment_date',
-    #                                   string='Commitment Date', store=True)
 
-    @api.depends('move_finished_ids','move_finished_ids','state')
-    @api.onchange('move_finished_ids','move_finished_ids','state')
+    @api.depends('move_raw_ids','move_finished_ids','availability','procurement_ids')
     def get_sale_info(self):
         for prod in self:
             if not prod.move_finished_ids:
                 continue
-            prod.sale_id = prod.move_finished_ids[0].move_dest_id.picking_id.sale_id
+            prod.update({
+            'sale_id': prod.move_finished_ids[0].move_dest_id.picking_id.sale_id,
+            })
+            prod.action_assign()
