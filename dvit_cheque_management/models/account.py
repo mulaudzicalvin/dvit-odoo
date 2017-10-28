@@ -1,0 +1,51 @@
+# -*- coding: utf-8 -*-
+
+from odoo import _, api, exceptions, fields, models
+
+class AccountJournal(models.Model):
+    _inherit = "account.journal"
+
+    jrnl_is_cheque = fields.Boolean(string="Cheques?",
+    help="On Cash/Misc journals this will be a Cheques wallet. \n\
+    On Bank accounts, this will mean that you have Chequebook from this bank.    " )
+
+
+class AccountMoveLine(models.Model):
+    _inherit = "account.move.line"
+
+    aml_is_cheque = fields.Boolean(string="Is Cheque", store=True, compute="_is_cheque")
+
+    @api.depends('payment_id')
+    def _is_cheque(self):
+        for aml in self:
+            aml.aml_is_cheque = aml.journal_id.jrnl_is_cheque or aml.payment_id.is_cheque
+
+    @api.model
+    def create(self, vals):
+        res = super(AccountMoveLine, self).create(vals)
+        for aml in res:
+            if not aml.aml_is_cheque:
+                aml.aml_is_cheque = aml.journal_id.jrnl_is_cheque
+        return res
+
+class AccountPayment(models.Model):
+    _inherit = "account.payment"
+    communication = fields.Char(string="Payment Reference", )
+
+    cheque_journal_id = fields.Many2one(
+        string="Journal",
+        comodel_name="account.journal",
+    )
+    is_cheque = fields.Boolean(string="Is Cheque", )
+
+    _sql_constraints = [
+        ('communication_uniq', 'unique (communication)', 'The cheque number must be unique.!'),
+    ]
+
+    @api.depends('cheque_journal_id')
+    @api.onchange('cheque_journal_id','currency_id')
+    def _change_journal(self):
+        for pay in self:
+            if pay.cheque_journal_id:
+                pay.journal_id = pay.cheque_journal_id
+            pay.currency_id = pay.journal_id.currency_id or pay.company_id.currency_id
