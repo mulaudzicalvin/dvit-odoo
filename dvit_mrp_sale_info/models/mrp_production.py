@@ -1,0 +1,25 @@
+# -*- coding: utf-8 -*-
+# © 2016 Antiun Ingenieria S.L. - Javier Iniesta
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+
+from odoo import models, fields, api
+
+
+class MrpProduction(models.Model):
+    _inherit = "mrp.production"
+
+    sale_id = fields.Many2one(
+        'sale.order', string='Sale order', readonly=True, store=True,
+        compute='get_sale_info')
+    partner_id = fields.Many2one(related='sale_id.partner_id',
+                                 string='Customer', store=True)
+    # commitment_date = fields.Datetime(related='sale_id.commitment_date',
+    #                                   string='Commitment Date', store=True)
+
+    @api.depends('move_finished_ids','move_finished_ids','state')
+    @api.onchange('move_finished_ids','move_finished_ids','state')
+    def get_sale_info(self):
+        for prod in self:
+            if not prod.move_finished_ids:
+                continue
+            prod.sale_id = prod.move_finished_ids[0].move_dest_id.picking_id.sale_id
