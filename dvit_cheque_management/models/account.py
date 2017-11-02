@@ -7,7 +7,7 @@ class AccountJournal(models.Model):
 
     jrnl_is_cheque = fields.Boolean(string="Cheques?",
     help="On Cash/Misc journals this will be a Cheques wallet. \n\
-    On Bank accounts, this will mean that you have Chequebook from this bank.    " )
+    On Bank accounts, this will mean that you have Chequebook from this bank." )
 
 
 class AccountMoveLine(models.Model):
