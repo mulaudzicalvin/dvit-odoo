@@ -5,7 +5,7 @@
     'version': '10.0.1.0',
     'category': 'Stock',
     'license': 'AGPL-3',
-    'price': 75.0,
+    'price': 5.0,
     'currency': 'EUR',
     'author': "DVIT.ME",
     'website': 'http://dvit.me/',
