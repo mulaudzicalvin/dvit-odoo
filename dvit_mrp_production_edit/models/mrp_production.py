@@ -6,10 +6,10 @@ from odoo.exceptions import UserError
 
 class MrpProduction(models.Model):
     _inherit = 'mrp.production'
+    #TODO: reimpliment using a wizard
 
     tgl_modify = fields.Boolean('Modified', default=False)
 
-    # @api.model
     def f_tgl_modify(self):
         for production in self:
             production.tgl_modify = not self.tgl_modify
@@ -28,6 +28,7 @@ class MrpProduction(models.Model):
                 'product_qty': production.product_qty,
                 'product_uom_id': production.product_uom_id.id,
                 'routing_id': production.routing_id.id,
+                'code': production.bom_id.code,
                 })
             for line in production.move_raw_ids:
                 bom_line.create({
@@ -37,7 +38,7 @@ class MrpProduction(models.Model):
                     'bom_id': bom_id.id,
                     })
             # trigger write on BoM to update product cost if dvit_product_cost_bom_auto is installed
-            bom_id.code = 'Auto generated for ' + str(production.name) +' '+ str(fields.Datetime.now())
+            bom_id.code = ' Auto generated for ' + str(production.name) +' '+ str(fields.Datetime.now())
             #########
             # delete current moves - this is not working if we have some confirmed moves
             for move in production.move_raw_ids:
@@ -58,4 +59,5 @@ class MrpProduction(models.Model):
 
             # then recreate the moves again
             production._generate_moves()
+            # TODO: Auto assign MO to Product Manager - maybe in new module
             production.tgl_modify = False
