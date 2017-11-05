@@ -10,6 +10,7 @@ class MRPWorkOrder(models.Model):
 
     sale_id = fields.Many2one(related='production_id.sale_id',
                               string='Sale order', readonly=True, store=True)
+    sale_line_id = fields.Many2one(related='production_id.sale_line_id',
+                              string='Sale order Line', readonly=True, store=True)
     partner_id = fields.Many2one(related='sale_id.partner_id', readonly=True,
                                  string='Customer', store=True)
-    
