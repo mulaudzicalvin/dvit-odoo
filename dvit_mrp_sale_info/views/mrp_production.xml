@@ -7,9 +7,10 @@
         <field name="model">mrp.production</field>
         <field name="inherit_id" ref="mrp.mrp_production_form_view" />
         <field name="arch" type="xml">
-            <field name="origin" position="after">
+            <field name="bom_id" position="after">
                 <field name="sale_id"/>
                 <field name="partner_id"/>
+                <field name="sale_line_id"/>
             </field>
         </field>
     </record>

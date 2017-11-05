@@ -4,15 +4,15 @@
 {
     "name": "MRP Sale Info",
     "summary": "Adds sale information to Manufacturing models",
-    "version": "10.0.1.0",
+    "version": "10.0.1.2",
     "category": "Manufacturing",
     "website": "http://www.dvit.me",
-    "author": "Antiun Ingeniería S.L., "
-              "OdooMRP team, "
-              "AvanzOSC, "
-              "Serv. Tecnol. Avanzados - Pedro M. Baeza, "
-              "Odoo Community Association (OCA), "
-              "DVIT.ME",
+    "author": ["DVIT.ME",
+                "Antiun Ingenieria S.L.",
+              "OdooMRP team",
+              "AvanzOSC",
+              "Serv. Tecnol. Avanzados - Pedro M. Baeza",
+              "Odoo Community Association (OCA), ",],
     "license": "AGPL-3",
     "application": False,
     'installable': True,

@@ -10,7 +10,7 @@ This module extends the functionality of sale_mrp and adds related fields to Man
 
     * Sale order
     * Customer
-    * Commitment Date
+    * Sale order line
 
 Usage
 =====
