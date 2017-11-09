@@ -43,7 +43,7 @@ class MrpProduction(models.Model):
             # ('product_id','=',prd.move_finished_ids[0].product_id.id),
             # ('name','=',prd.move_finished_ids[0].move_dest_id.name)
             # ])
-            print '--------- tgt_procs= '+str(tgt_procs)+' ----------'
+            # print '--------- tgt_procs= '+str(tgt_procs)+' ----------'
             if tgt_procs and len(tgt_procs) > 1:
                 tgt_proc = tgt_procs[-1] #use the last procurement - normally older were canceled
             else:
