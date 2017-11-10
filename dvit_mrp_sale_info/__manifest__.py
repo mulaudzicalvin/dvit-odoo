@@ -6,8 +6,6 @@
     "summary": "Adds sale information to Manufacturing models",
     "version": "10.0.1.2",
     "category": "Manufacturing",
-    "price": 50.0,
-    "currency": 'EUR',
     "website": "http://www.dvit.me",
     "author": ["DVIT.ME",
                 "Antiun Ingenieria S.L.",
