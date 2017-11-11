@@ -7,7 +7,7 @@
     "author": 'DVIT.ME',
     'category': 'Warehouse',
     'license': 'AGPL-3',
-    "price": 199.0,
+    "price": 50.0,
     "currency": 'EUR',
     'website': "http://www.dvit.me",
     'depends': ['sale_stock',
