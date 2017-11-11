@@ -3,11 +3,6 @@
 from odoo import models, fields, api, _
 
 
-class ProductTemplate(models.Model):
-    _inherit = 'product.template'
-    product_manager = fields.Many2one('res.users', string='Product Manager')
-
-
 class ProjectTask(models.Model):
     _inherit = 'project.task'
     reviewer_id = fields.Many2one('res.users', string='Reviewer')
