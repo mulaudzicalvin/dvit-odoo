@@ -17,9 +17,11 @@ class SaleOrder(models.Model):
         for order in self:
             if order.project_project_id:
                 for line in order.order_line:
-                    if line.product_id.product_tmpl_id.product_manager:
+                    prod_man = line.product_id.product_manager and \
+                    line.product_id.product_manager or line.product_id.categ_id.product_manager
+                    if prod_man:
                         line_tasks = self.env['project.task'].search([('sale_line_id','=',line.id)])
                         for task in line_tasks:
-                            task.reviewer_id = line.product_id.product_tmpl_id.product_manager
-                            task.user_id = line.product_id.product_tmpl_id.product_manager
+                            task.reviewer_id = prod_man
+                            task.user_id = prod_man
         return res
