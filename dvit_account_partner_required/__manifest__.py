@@ -9,6 +9,6 @@
     'currency': 'EUR',
     'author': "DVIT.ME",
     'website': 'http://dvit.me/',
-    'depends': ['account'],
+    'depends': ['account', 'stock_account'],
     'installable': True,
 }
