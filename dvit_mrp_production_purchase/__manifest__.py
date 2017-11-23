@@ -13,7 +13,7 @@
     """,
     "author": "DVIT.ME",
     "website": "http://dvit.me",
-    "depends": ['purchase','sale_stock','dvit_product_cost_bom_auto'],
+    "depends": ['purchase_requisition','sale_stock','mrp','dvit_product_cost_bom_auto'],
     "data": [
              "wizard/wizard.xml",
              "views/templates.xml",

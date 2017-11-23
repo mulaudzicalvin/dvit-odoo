@@ -6,29 +6,29 @@
             <field name="model">wiz.mrp.purchase</field>
             <field name="arch" type="xml">
                 <form>
-                  <group>
-                        <field name="request_all"/>
-                        <field name="vendor_id" required="1"/>
-                        <button string="Load materials" type="object"
-                          name="create_line_ids" class="oe_highlight"/>
-                        <field name="wiz_po_line_ids" required="1">
-                          <tree string="Materials" editable="bottom">
+                    <group>
+                        <group>
+                            <field name="request_all"/>
+                            <field name="is_tender"/>
+                            <field name="vendor_id" required="1"/>
+                        </group>
+                    </group>
+                    <field name="wiz_po_line_ids" required="1">
+                        <tree string="Materials" editable="bottom">
                             <field name="m_product"/>
                             <field name="m_desc"/>
-                          </tree>
-                        </field>
-                        <field name="notes"
-                          help="Notes for purchase manager on requested materials"/>
-                      </group>
+                        </tree>
+                    </field>
+                    <field name="notes" help="Notes for purchase manager on requested materials"/>
                     <footer>
                         <button class="oe_highlight"
                                 name="add_po"
                                 string="Add"
-                                type="object" />
+                                type="object"/>
                         or
                         <button class="oe_link"
                                 special="cancel"
-                                string="Cancel" />
+                                string="Cancel"/>
                     </footer>
                 </form>
             </field>
@@ -39,7 +39,7 @@
             <field name="res_model">wiz.mrp.purchase</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
-            <field name="view_id" ref="view_wiz_mrp_purchase" />
+            <field name="view_id" ref="view_wiz_mrp_purchase"/>
             <field name="target">new</field>
         </record>
     </data>
