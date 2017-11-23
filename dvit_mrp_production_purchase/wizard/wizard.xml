@@ -9,6 +9,16 @@
                   <group>
                         <field name="request_all"/>
                         <field name="vendor_id" required="1"/>
+                        <button string="Load materials" type="object"
+                          name="create_line_ids" class="oe_highlight"/>
+                        <field name="wiz_po_line_ids" required="1">
+                          <tree string="Materials" editable="bottom">
+                            <field name="m_product"/>
+                            <field name="m_desc"/>
+                          </tree>
+                        </field>
+                        <field name="notes"
+                          help="Notes for purchase manager on requested materials"/>
                       </group>
                     <footer>
                         <button class="oe_highlight"
