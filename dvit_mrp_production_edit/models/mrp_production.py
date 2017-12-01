@@ -6,13 +6,20 @@ from odoo.exceptions import UserError
 
 class MrpProduction(models.Model):
     _inherit = 'mrp.production'
-    #TODO: reimpliment using a wizard
+    move_raw_ids = fields.One2many(
+        'stock.move', 'raw_material_production_id', 'Raw Materials', oldname='move_lines',
+        copy=False, domain=[('scrapped', '=', False)])
 
-    tgl_modify = fields.Boolean('Modified', default=False)
-
-    def f_tgl_modify(self):
+    def clean_moves(self):
         for production in self:
-            production.tgl_modify = not self.tgl_modify
+            for move in production.move_raw_ids:
+                move.sudo().do_unreserve()
+                move.sudo().write({'state':'draft'})
+                move.sudo().action_cancel()
+                move.sudo().unlink()
+            for move in production.move_finished_ids:
+                move.sudo().action_cancel()
+                move.sudo().unlink()
 
     def f_update_order(self):
         for production in self:
@@ -22,7 +29,7 @@ class MrpProduction(models.Model):
             # we need to create a temp bom from current config and process it, then delete it
             bom = self.env['mrp.bom']
             bom_line = self.env['mrp.bom.line']
-            bom_id = bom.create({
+            bom_id = bom.sudo().create({
                 'active': False, #this is
                 'product_tmpl_id': production.product_tmpl_id.id,
                 'product_qty': production.product_qty,
@@ -31,7 +38,7 @@ class MrpProduction(models.Model):
                 'code': production.bom_id.code,
                 })
             for line in production.move_raw_ids:
-                bom_line.create({
+                bom_line.sudo().create({
                     'product_id': line.product_id.id,
                     'product_qty': line.product_uom_qty,
                     'product_uom_id': line.product_uom.id,
@@ -40,24 +47,20 @@ class MrpProduction(models.Model):
             # trigger write on BoM to update product cost if dvit_product_cost_bom_auto is installed
             bom_id.code = ' Auto generated for ' + str(production.name) +' '+ str(fields.Datetime.now())
             #########
-            # delete current moves - this is not working if we have some confirmed moves
             for move in production.move_raw_ids:
-                move.do_unreserve()
-                move.write({'state':'draft'})
-                move.action_cancel()
-                move.unlink()
+                move.sudo().do_unreserve()
+                move.sudo().write({'state':'draft'})
+                move.sudo().action_cancel()
+                move.sudo().unlink()
             for move in production.move_finished_ids:
-                move.action_cancel()
-                move.unlink()
-
+                move.sudo().action_cancel()
+                move.sudo().unlink()
             old_bom = production.bom_id
             production.bom_id = bom_id
 
             # delete old bom_id if auto generated
             if old_bom.code and 'Auto generated' in old_bom.code and str(production.name) in old_bom.code and not old_bom.active:
-                old_bom.unlink()
+                old_bom.sudo().unlink()
 
             # then recreate the moves again
-            production._generate_moves()
-            # TODO: Auto assign MO to Product Manager - maybe in new module
-            production.tgl_modify = False
+            production.sudo()._generate_moves()

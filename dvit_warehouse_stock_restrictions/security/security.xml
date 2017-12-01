@@ -18,14 +18,26 @@
             <field name="name">Filter Stock Picking Allowed</field>
             <field name="model_id" search="[('model','=','stock.picking')]" model="ir.model"/>
             <field name="groups" eval="[(4, ref('dvit_warehouse_stock_restrictions.stock_restrictions_group'))]"/>
-            <field name="domain_force">[('picking_type_id','in', [ p.id for p in user.default_picking_type_ids ]),'|',('location_id','in',[l.id for l in user.stock_location_ids]),('location_dest_id','in',[l.id for l in user.stock_location_ids]),]</field>
+            <field name="domain_force">
+              [('picking_type_id','in', [ p.id for p in user.default_picking_type_ids ]),
+              '|','|','|',
+              ('location_id','in',[l.id for l in user.stock_location_ids]),
+              ('location_dest_id','in',[l.id for l in user.stock_location_ids]),
+              ('location_id.location_id','in',[l.id for l in user.stock_location_ids]),
+              ('location_dest_id.location_id','in',[l.id for l in user.stock_location_ids])]
+            </field>
         </record>
 
         <record id="filter_user_stock_location_allowed" model="ir.rule">
             <field name="name">Filter Stock location Allowed</field>
             <field name="model_id" search="[('model','=','stock.location')]" model="ir.model"/>
             <field name="groups" eval="[(4, ref('dvit_warehouse_stock_restrictions.stock_restrictions_group'))]"/>
-            <field name="domain_force">[('id','in', [ p.id for p in user.stock_location_ids ])]</field>
+            <field name="domain_force">
+              ['|','|',
+              ('id','in', [ p.id for p in user.stock_location_ids ]),
+              ('location_id','in', [ l.id for l in user.stock_location_ids ]),
+              ('usage','not in',['internal','transit'])]
+            </field>
         </record>
 
     </data>
