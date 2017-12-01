@@ -28,7 +28,7 @@ class MrpProduction(models.Model):
         for prd in self:
             if not prd.move_finished_ids:
                 continue
-            if not prd.move_finished_ids.move_dest_id:
+            if not any(m.move_dest_id for m in prd.move_finished_ids):
                 continue
             tgt_procs = prd.procurement_ids[0].group_id.procurement_ids.filtered(\
                 lambda p: p.location_id.usage == 'customer' and \
@@ -36,14 +36,7 @@ class MrpProduction(models.Model):
                 p.product_id == prd.product_id and \
                 p.name == prd.move_finished_ids[0].move_dest_id.name
                 )
-            # disabled in favor of lambda function which maybe better in performance
-            # tgt_procs = prd.procurement_ids[0].group_id.procurement_ids.search([
-            # ('location_id.usage','=','customer'),
-            # ('state','!=','cancel'),
-            # ('product_id','=',prd.move_finished_ids[0].product_id.id),
-            # ('name','=',prd.move_finished_ids[0].move_dest_id.name)
-            # ])
-            # print '--------- tgt_procs= '+str(tgt_procs)+' ----------'
+            
             if tgt_procs and len(tgt_procs) > 1:
                 tgt_proc = tgt_procs[-1] #use the last procurement - normally older were canceled
             else:
