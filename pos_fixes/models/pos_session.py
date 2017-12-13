@@ -15,7 +15,7 @@ class pos_session(models.Model):
         aml_obj = self.env['account.move.line']
 
         # Call regular function
-        res = super(pos_session, self).action_pos_session_close()
+        res = super(pos_session, self).action_pos_session_closing_control()
 
         # Get All Pos Order invoiced during the current Sessions
         po_ids = po_obj.search([
