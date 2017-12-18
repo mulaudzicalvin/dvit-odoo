@@ -2,10 +2,10 @@
 {
     'name': 'Cheque Management',
     'summary': 'Full cheque life cycle Management.',
-    'version': '10.0.1.0',
+    'version': '10.0.1.4',
     'category': 'Accounting',
     'license': 'AGPL-3',
-    'price': 75.0,
+    'price': 175.0,
     'currency': 'EUR',
     'author': "DVIT.ME",
     'website': 'http://dvit.me/',
