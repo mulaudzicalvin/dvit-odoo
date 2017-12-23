@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+
+        <record id="sales_report_product_image.view_order_image_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.sale.image</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="print_image"/>
+                    <field name="image_sizes"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>
