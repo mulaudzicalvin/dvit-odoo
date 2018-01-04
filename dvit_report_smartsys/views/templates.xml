@@ -191,5 +191,33 @@
 
         </template>
 
+        <report
+                id="report_sale_catalog"
+                string="Catalogue / Proposal"
+                model="sale.order"
+                report_type="qweb-pdf"
+                file="dvit_report_smartsys.report_saleorder_catalog"
+                name="dvit_report_smartsys.report_saleorder_catalog"
+        />
+
+        <template id="report_sale_catalog_document" primary="True"
+          inherit_id="report_saleorder_smartsys">
+          <xpath expr=".//span[@t-field='l.name']/.." position="replace">
+                <td t-att-style="style">
+                    <span t-if="doc.print_type == 'catalogue' and l.product_id.product_tmpl_id.desc_catalog" t-field="l.product_id.product_tmpl_id.desc_catalog"/>
+                    <span t-if="doc.print_type == 'proposal' and l.product_id.product_tmpl_id.desc_proposal" t-field="l.product_id.product_tmpl_id.desc_proposal"/>
+                    <span t-if="not l.product_id.product_tmpl_id.desc_catalog and not l.product_id.product_tmpl_id.desc_proposal" t-field="l.name"/>
+                </td>
+          </xpath>
+        </template>
+
+
+        <template id="report_saleorder_catalog">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="dvit_report_smartsys.report_sale_catalog_document" t-lang="doc.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
     </data>
 </odoo>

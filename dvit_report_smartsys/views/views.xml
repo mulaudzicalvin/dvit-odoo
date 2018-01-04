@@ -13,5 +13,51 @@
             </field>
         </record>
 
+        <record id="sale_catalog" model="ir.ui.view">
+            <field name="name">sale_catalog</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+              <xpath expr="//form//field[@name='partner_id']/.." posiiton="inside">
+                  <field name="print_type"/>
+              </xpath>
+            </field>
+        </record>
+
+        <record id="product_catalog" model="ir.ui.view">
+            <field name="name">sproduct_catalog</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+              <xpath expr="//group[@name='description']" position="after">
+                <group name="catalogue">
+                    <separator string="Description for Catalogue" colspan="4"/>
+                    <field name="desc_catalog" colspan="4" nolabel="1"/>
+                </group>
+                <group name="proposal">
+                    <separator string="Description for Proposal" colspan="4"/>
+                    <field name="desc_proposal" colspan="4" nolabel="1"/>
+                </group>
+              </xpath>
+            </field>
+        </record>
+        
+        <record id="product_prod_catalog" model="ir.ui.view">
+            <field name="name">sproduct_prod_catalog</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+              <xpath expr="//group[@name='description']" position="after">
+                <group name="catalogue">
+                    <separator string="Description for Catalogue" colspan="4"/>
+                    <field name="desc_catalog" colspan="4" nolabel="1"/>
+                </group>
+                <group name="proposal">
+                    <separator string="Description for Proposal" colspan="4"/>
+                    <field name="desc_proposal" colspan="4" nolabel="1"/>
+                </group>
+              </xpath>
+            </field>
+        </record>
     </data>
 </odoo>
