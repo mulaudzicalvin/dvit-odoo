@@ -27,15 +27,7 @@
                 <t t-set="lcount" t-value="lcount+1"/>
             </xpath>
 
-            <xpath expr=".//th[.='Description']" position="before">
-                <th>No</th>
-            </xpath>
-
-            <xpath expr=".//th[.='Description']" position="after">
-                <th>Order No</th>
-            </xpath>
-
-            <xpath expr=".//th[.='Description']" position="attributes">
+             <xpath expr=".//th[.='Description']" position="attributes">
                 <attribute name="style">min-width:100px !important;</attribute>
             </xpath>
 
@@ -63,13 +55,19 @@
                  <attribute name="style">max-width:100px !important;</attribute>
             </xpath>
 
+            <xpath expr=".//th[.='Description']" position="before">
+                <th>No</th>
+            </xpath>
             <xpath expr=".//span[@t-field='l.name']/.." position="before">
                 <td t-att-style="style">
                     <span t-esc="lcount"/>
                 </td>
             </xpath>
 
-            <xpath expr=".//span[@t-field='l.name']/.." position="after">
+            <xpath expr=".//th[.='Quantity']" position="before">
+                <th>Order No</th>
+            </xpath>
+            <xpath expr=".//span[@t-field='l.product_uom_qty']/.." position="before">
                 <td t-att-style="style">
                     <span t-field="l.product_id.default_code"/>
                 </td>
@@ -190,7 +188,7 @@
 
         </template>
 
-        <template id="sales_report_product_image.report_saleorder_document_inherit" priority="999"
+        <template id="sales_report_product_image.report_saleorder_document_inherit" priority="99"
           inherit_id="sale.report_saleorder_document">
           <xpath expr=".//th[.='Description']" position="after">
             <t t-if="doc.print_image and doc.image_sizes in ('image', 'image_medium', 'image_small') ">
