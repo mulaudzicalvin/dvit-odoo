@@ -1,7 +1,7 @@
 <odoo>
     <data>
         <template id="report_saleorder_smartsys"
-          inherit_id="sale.report_saleorder_document">
+          inherit_id="sale.report_saleorder_document" priority="1111">
 
             <xpath expr="//div[@class='page']" position="attributes">
                 <attribute name="style">font-size: 11px !important;</attribute>
@@ -14,7 +14,7 @@
             </xpath>
 
             <xpath expr="//t[@t-as='l']/tr" position="before">
-                <t t-set="style" t-value="'font-size: 11px !important;'"/>
+                <t t-set="style" t-value="'font-size: 10px !important;'"/>
                 <t t-if="l.pack_parent_line_id and not l.product_id.pack">
                     <t t-set="style" t-value="'font-size: 11px;border: 0px;'"/>
                 </t>
@@ -33,6 +33,34 @@
 
             <xpath expr=".//th[.='Description']" position="after">
                 <th>Order No</th>
+            </xpath>
+
+            <xpath expr=".//th[.='Description']" position="attributes">
+                <attribute name="style">min-width:100px !important;</attribute>
+            </xpath>
+
+            <xpath expr=".//th[.='Quantity']" position="attributes">
+                <attribute name="class"></attribute>
+                <attribute name="style">max-width:100px !important;</attribute>
+            </xpath>
+            <xpath expr=".//th[.='Unit Price']" position="attributes">
+                <attribute name="class"></attribute>
+                 <attribute name="style">max-width:100px !important;</attribute>
+            </xpath>
+            <xpath expr=".//th[.='Total']" position="attributes">
+                <attribute name="class"></attribute>
+                 <attribute name="style">max-width:100px !important;</attribute>
+            </xpath>
+            <xpath expr=".//th[.='Taxes']" position="attributes">
+                 <attribute name="style">max-width:100px !important;</attribute>
+            </xpath>
+            <xpath expr=".//th[.='Disc.(%)']" position="attributes">
+                <attribute name="class"></attribute>
+                 <attribute name="style">max-width:100px !important;</attribute>
+            </xpath>
+            <xpath expr=".//th[.='Discount']" position="attributes">
+                <attribute name="class"></attribute>
+                 <attribute name="style">max-width:100px !important;</attribute>
             </xpath>
 
             <xpath expr=".//span[@t-field='l.name']/.." position="before">
@@ -125,7 +153,7 @@
 
         </template>
 
-      <!--   <template id="dvit_sale_discount.report_saleorder_discount" priority="999"
+        <template id="dvit_sale_discount.report_saleorder_discount" priority="999"
           inherit_id="sale.report_saleorder_document">
           <xpath expr="//th[.='Unit Price']" position="after">
                 <th t-att-style="style" t-if="display_discount and doc.show_discount and doc.show_price" class="text-right" groups="sale.group_discount_per_so_line">Total</th>
@@ -160,13 +188,13 @@
                 </tr>
             </xpath>
 
-        </template> -->
+        </template>
 
         <template id="sales_report_product_image.report_saleorder_document_inherit" priority="999"
           inherit_id="sale.report_saleorder_document">
           <xpath expr=".//th[.='Description']" position="after">
             <t t-if="doc.print_image and doc.image_sizes in ('image', 'image_medium', 'image_small') ">
-                <th style="min-width: 30%;">
+                <th style="min-width: 9cm;">
                     Product Image
                 </th>
             </t>
@@ -174,18 +202,18 @@
           <xpath expr=".//span[@t-field='l.name']/.." position="after">
               <t t-if="doc.image_sizes == 'image' and doc.print_image ">
                   <td>
-                      <span style="min-width: 30%;" 
+                      <span style="min-width: 9cm;" 
                         t-field="l.product_id.image" t-field-options="{&quot;widget&quot;: &quot;image&quot;,}"/>
                   </td>
               </t>
               <t t-if="doc.image_sizes == 'image_medium' and doc.print_image">
                   <td>
-                      <span style="min-width: 30%;" t-field="l.product_id.image_medium" t-field-options="{&quot;widget&quot;: &quot;image&quot;,}"/>
+                      <span style="min-width: 9cm;" t-field="l.product_id.image_medium" t-field-options="{&quot;widget&quot;: &quot;image&quot;,}"/>
                   </td>
               </t>
               <t t-if="doc.image_sizes == 'image_small' and doc.print_image ">
                   <td>
-                      <span style="min-width: 30%;" t-field="l.product_id.image_small" t-field-options="{&quot;widget&quot;: &quot;image&quot;, }"/>
+                      <span style="min-width: 9cm;" t-field="l.product_id.image_small" t-field-options="{&quot;widget&quot;: &quot;image&quot;, }"/>
                   </td>
               </t>
           </xpath>
