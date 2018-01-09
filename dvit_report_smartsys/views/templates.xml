@@ -166,7 +166,7 @@
           inherit_id="sale.report_saleorder_document">
           <xpath expr=".//th[.='Description']" position="after">
             <t t-if="doc.print_image and doc.image_sizes in ('image', 'image_medium', 'image_small') ">
-                <th style="width:30%;">
+                <th style="min-width: 30%;">
                     Product Image
                 </th>
             </t>
@@ -174,17 +174,18 @@
           <xpath expr=".//span[@t-field='l.name']/.." position="after">
               <t t-if="doc.image_sizes == 'image' and doc.print_image ">
                   <td>
-                      <span style="width: auto; height: auto;" t-field="l.product_id.image" t-field-options="{&quot;widget&quot;: &quot;image&quot;,}"/>
+                      <span style="min-width: 30%;" 
+                        t-field="l.product_id.image" t-field-options="{&quot;widget&quot;: &quot;image&quot;,}"/>
                   </td>
               </t>
               <t t-if="doc.image_sizes == 'image_medium' and doc.print_image">
                   <td>
-                      <span style="width: auto; height: auto;" t-field="l.product_id.image_medium" t-field-options="{&quot;widget&quot;: &quot;image&quot;,}"/>
+                      <span style="min-width: 30%;" t-field="l.product_id.image_medium" t-field-options="{&quot;widget&quot;: &quot;image&quot;,}"/>
                   </td>
               </t>
               <t t-if="doc.image_sizes == 'image_small' and doc.print_image ">
                   <td>
-                      <span style="width: auto; height: auto;" t-field="l.product_id.image_small" t-field-options="{&quot;widget&quot;: &quot;image&quot;, }"/>
+                      <span style="min-width: 30%;" t-field="l.product_id.image_small" t-field-options="{&quot;widget&quot;: &quot;image&quot;, }"/>
                   </td>
               </t>
           </xpath>
