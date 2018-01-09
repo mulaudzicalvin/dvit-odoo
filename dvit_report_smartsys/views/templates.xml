@@ -28,11 +28,11 @@
             </xpath>
 
             <xpath expr=".//th[.='Description']" position="before">
-                <th>#</th>
+                <th>No</th>
             </xpath>
 
             <xpath expr=".//th[.='Description']" position="after">
-                <th>Code</th>
+                <th>Order No</th>
             </xpath>
 
             <xpath expr=".//span[@t-field='l.name']/.." position="before">
@@ -125,7 +125,7 @@
 
         </template>
 
-        <template id="dvit_sale_discount.report_saleorder_discount" priority="999"
+      <!--   <template id="dvit_sale_discount.report_saleorder_discount" priority="999"
           inherit_id="sale.report_saleorder_document">
           <xpath expr="//th[.='Unit Price']" position="after">
                 <th t-att-style="style" t-if="display_discount and doc.show_discount and doc.show_price" class="text-right" groups="sale.group_discount_per_so_line">Total</th>
@@ -160,18 +160,18 @@
                 </tr>
             </xpath>
 
-        </template>
+        </template> -->
 
         <template id="sales_report_product_image.report_saleorder_document_inherit" priority="999"
           inherit_id="sale.report_saleorder_document">
-          <xpath expr=".//th[.='Description']" position="before">
+          <xpath expr=".//th[.='Description']" position="after">
             <t t-if="doc.print_image and doc.image_sizes in ('image', 'image_medium', 'image_small') ">
-                <th>
+                <th style="width:30%;">
                     Product Image
                 </th>
             </t>
           </xpath>
-          <xpath expr=".//span[@t-field='l.name']/.." position="before">
+          <xpath expr=".//span[@t-field='l.name']/.." position="after">
               <t t-if="doc.image_sizes == 'image' and doc.print_image ">
                   <td>
                       <span style="width: auto; height: auto;" t-field="l.product_id.image" t-field-options="{&quot;widget&quot;: &quot;image&quot;,}"/>
