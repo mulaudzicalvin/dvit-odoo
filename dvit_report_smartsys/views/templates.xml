@@ -16,7 +16,7 @@
             <xpath expr="//t[@t-as='l']/tr" position="before">
                 <t t-set="style" t-value="'font-size: 10px !important;'"/>
                 <t t-if="l.pack_parent_line_id and not l.product_id.pack">
-                    <t t-set="style" t-value="'font-size: 11px;border: 0px;'"/>
+                    <t t-set="style" t-value="'font-size: 11px;border: 0px !important;'"/>
                 </t>
                 <t t-if="l.product_id.pack">
                     <t t-set="style" t-value="'font-size: 11px;background-color: #eee; border-top: 1px dotted black;'"/>
@@ -202,18 +202,18 @@
           <xpath expr=".//span[@t-field='l.name']/.." position="after">
               <t t-if="doc.image_sizes == 'image' and doc.print_image ">
                   <td>
-                      <span style="min-width: 9cm;" 
+                      <span style="min-width: 9cm; border: 0px !important;" 
                         t-field="l.product_id.image" t-field-options="{&quot;widget&quot;: &quot;image&quot;,}"/>
                   </td>
               </t>
               <t t-if="doc.image_sizes == 'image_medium' and doc.print_image">
                   <td>
-                      <span style="min-width: 9cm;" t-field="l.product_id.image_medium" t-field-options="{&quot;widget&quot;: &quot;image&quot;,}"/>
+                      <span style="min-width: 9cm; border: 0px !important;" t-field="l.product_id.image_medium" t-field-options="{&quot;widget&quot;: &quot;image&quot;,}"/>
                   </td>
               </t>
               <t t-if="doc.image_sizes == 'image_small' and doc.print_image ">
                   <td>
-                      <span style="min-width: 9cm;" t-field="l.product_id.image_small" t-field-options="{&quot;widget&quot;: &quot;image&quot;, }"/>
+                      <span style="min-width: 9cm; border: 0px !important;" t-field="l.product_id.image_small" t-field-options="{&quot;widget&quot;: &quot;image&quot;, }"/>
                   </td>
               </t>
           </xpath>
