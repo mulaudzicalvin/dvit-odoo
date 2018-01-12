@@ -37,8 +37,8 @@ class AccountMoveLine(models.Model):
         line_values = super(AccountMoveLine, self)._prepare_writeoff_first_line_values(values)
         line_values.update({
         'payment_id': self.payment_id.id,
-        # 'amount_currency': -abs(self.amount_currency) if line_values['credit'] > 0 else abs(self.amount_currency),
-        # 'currency_id': self.currency_id.id and self.currency_id.id,
+        'amount_currency': -abs(self.amount_currency) if line_values['credit'] > 0 else abs(self.amount_currency),
+        'currency_id': self.currency_id.id and self.currency_id.id,
         })
         return line_values
 
@@ -46,8 +46,8 @@ class AccountMoveLine(models.Model):
         line_values = super(AccountMoveLine, self)._prepare_writeoff_second_line_values(values)
         line_values.update({
         'payment_id': self.payment_id.id,
-        # 'amount_currency': -abs(self.amount_currency) if line_values['credit'] > 0 else abs(self.amount_currency),
-        # 'currency_id': self.currency_id.id and self.currency_id.id,
+        'amount_currency': -abs(self.amount_currency) if line_values['credit'] > 0 else abs(self.amount_currency),
+        'currency_id': self.currency_id.id and self.currency_id.id,
         })
         return line_values
 
@@ -66,7 +66,7 @@ class AccountPayment(models.Model):
     is_cheque = fields.Boolean(string="Is Cheque", )
 
     _sql_constraints = [
-        ('communication_uniq', 'unique (communication)', 'The cheque number must be unique.!'),
+        ('chq_no_uniq', 'unique (cheque_no)', 'The cheque number must be unique.!'),
     ]
 
     @api.depends('cheque_journal_id')
