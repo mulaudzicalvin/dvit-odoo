@@ -56,6 +56,7 @@ class WizTaskStock(models.TransientModel):
             'origin': task.name,
             'location_id': pick_type.default_location_src_id.id,
             'location_dest_id': task.partner_id.property_stock_customer.id,
+            'analytic_account_id': task.project_id.analytic_account_id.id,
         }
         pick_id = self.env['stock.picking'].create(pick_vals)
 
