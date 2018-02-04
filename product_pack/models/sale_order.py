@@ -8,7 +8,7 @@ from odoo import models, api
 class sale_order(models.Model):
     _inherit = 'sale.order'
 
-    @api.one
+    # @api.one
     def copy(self, default=None):
         sale_copy = super(sale_order, self).copy(default)
         # we unlink pack lines that should not be copied
