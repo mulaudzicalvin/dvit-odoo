@@ -10,7 +10,7 @@
     'currency': 'EUR',
     'author': "DVIT.ME",
     'website': 'http://dvit.me/',
-    "depends": ['sale'],
+    "depends": ['dvit_sale_report'],
     'data': [
         'views/views.xml',
         'views/report.xml',
