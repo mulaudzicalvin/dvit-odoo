@@ -10,9 +10,13 @@
     "currency": 'EUR',
     'depends': [
         'product_pack',
-        'sales_report_product_image',
-        'sale_report_hide_price',
         'dvit_sale_discount',
+        'sales_report_product_image',
+        'dvit_sale_hide_price',
+        'dvit_sale_duplicate_lines',
+       'dvit_sale_option_lines',
+       'dvit_sale_alt_product',
+       'dvit_sale_line_no',
         ],
     'data': [
         'views/views.xml',

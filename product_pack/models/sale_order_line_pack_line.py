@@ -2,8 +2,8 @@
 ##############################################################################
 # For copyright and license notices, see __openerp__.py file in root directory
 ##############################################################################
-from odoo import fields, models, api
-import odoo.addons.decimal_precision as dp
+from openerp import fields, models, api
+import openerp.addons.decimal_precision as dp
 
 
 class sale_order_line_pack_line(models.Model):

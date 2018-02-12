@@ -2,10 +2,10 @@
 ##############################################################################
 # For copyright and license notices, see __openerp__.py file in root directory
 ##############################################################################
-from odoo import fields, models, api, _
-# from odoo.osv import fields as old_fields
-from odoo.exceptions import Warning
+from openerp import fields, models, api, _
+from openerp.exceptions import Warning
 import math
+
 
 class product_product(models.Model):
     _inherit = 'product.product'
@@ -23,24 +23,25 @@ class product_product(models.Model):
         help='List of packs where product is used.'
         )
 
-    # @api.multi
-    # def _product_available(self, field_names=None, arg=False):
+    # def _product_available(
+    #         self, cr, uid, ids, field_names=None, arg=False, context=None):
     #     """
     #     For product packs we get availability in a different way
     #     """
-    #     ids = self.ids
-    #     pack_product_ids = self.search( [
+    #     pack_product_ids = self.search(cr, uid, [
     #         ('pack', '=', True),
     #         ('id', 'in', ids),
     #     ])
     #     res = super(product_product, self)._product_available(
-    #         field_names, arg)
-    #     for product in self.browse( pack_product_ids):
+    #         cr, uid, list(set(ids) - set(pack_product_ids)),
+    #         field_names, arg, context)
+    #     for product in self.browse(cr, uid, pack_product_ids, context=context):
     #         pack_qty_available = []
     #         pack_virtual_available = []
     #         for subproduct in product.pack_line_ids:
     #             subproduct_stock = self._product_available(
-    #                 field_names, arg)[subproduct.product_id.id]
+    #                 cr, uid, [subproduct.product_id.id], field_names, arg,
+    #                 context)[subproduct.product_id.id]
     #             sub_qty = subproduct.quantity
     #             if sub_qty:
     #                 pack_qty_available.append(math.floor(
@@ -58,35 +59,30 @@ class product_product(models.Model):
     #                 max(min(pack_virtual_available), 0) or False),
     #         }
     #     return res
-
-    # def _search_product_quantity(self, name, domain):
+    #
+    # def _search_product_quantity(self, cr, uid, obj, name, domain, context):
     #     """
     #     We use original search function
     #     """
     #     return super(product_product, self)._search_product_quantity(
-    #          name, domain)
-
+    #         cr, uid, obj, name, domain, context)
+    #
     # # overwrite ot this fields so that we can modify _product_available
     # # function to support packs
-    # # _columns = {
-    # #     'qty_available': old_fields.function(
-    # #         _product_available, multi='qty_available',
-    # #         fnct_search=_search_product_quantity),
-    # #     'virtual_available': old_fields.function(
-    # #         _product_available, multi='qty_available',
-    # #         fnct_search=_search_product_quantity),
-    # #     'incoming_qty': old_fields.function(
-    # #         _product_available, multi='qty_available',
-    # #         fnct_search=_search_product_quantity),
-    # #     'outgoing_qty': old_fields.function(
-    # #         _product_available, multi='qty_available',
-    # #         fnct_search=_search_product_quantity),
-    # # }
-    # #
-    # qty_available = fields.Float(string="qty_available" )
-    # virtual_available = fields.Float(string="virtual_available" )
-    # incoming_qty = fields.Float(string="incoming_qty" )
-    # outgoing_qty = fields.Float(string="outgoing_qty" )
+    # _columns = {
+    #     'qty_available': old_fields.function(
+    #         _product_available, multi='qty_available',
+    #         fnct_search=_search_product_quantity),
+    #     'virtual_available': old_fields.function(
+    #         _product_available, multi='qty_available',
+    #         fnct_search=_search_product_quantity),
+    #     'incoming_qty': old_fields.function(
+    #         _product_available, multi='qty_available',
+    #         fnct_search=_search_product_quantity),
+    #     'outgoing_qty': old_fields.function(
+    #         _product_available, multi='qty_available',
+    #         fnct_search=_search_product_quantity),
+    # }
 
     @api.one
     @api.constrains('pack_line_ids')
@@ -191,20 +187,7 @@ class product_template(models.Model):
         if vals.get('pack_line_ids', False):
             self.product_variant_ids.write(
                 {'pack_line_ids': vals.pop('pack_line_ids')})
-
-        for prod in self:
-            # set type to service if it's a pack
-            if not 'pack' in vals:
-                vals['pack'] = prod.pack
-            if 'pack' in vals and vals['pack'] == True:
-                vals['type'] = 'service'
         return super(product_template, self).write(vals)
-
-    @api.model
-    def create(self,vals):
-        if vals['pack'] == True:
-            vals['type'] = 'service'
-        return super(product_template, self).create(vals)
 
     @api.model
     def _price_get(self, products, ptype='list_price'):

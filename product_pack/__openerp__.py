@@ -20,7 +20,7 @@
 ##############################################################################
 {
     'name': 'Product Pack',
-    'version': '10.0.0.1',
+    'version': '8.0.1.3.3',
     'category': 'Product',
     'sequence': 14,
     'summary': '',
@@ -31,18 +31,20 @@ Withilist:
 ----------
 * TODO calcular correctamente pack virtual available para negativos
     """,
-    'author':  'NaN·tic, ADHOC, DVIT.ME',
+    'author':  'NaN·tic, ADHOC',
     'license': 'AGPL-3',
     'images': [
     ],
     'depends': [
         'sale',
-        'purchase',
     ],
     'data': [
         'security/ir.model.access.csv',
         'views/pack_view.xml',
         'views/sale_view.xml',
+    ],
+    'demo': [
+        'demo/demo_data.xml',
     ],
     'test': [
     ],

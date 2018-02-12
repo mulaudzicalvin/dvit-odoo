@@ -2,7 +2,10 @@
 ##############################################################################
 # For copyright and license notices, see __openerp__.py file in root directory
 ##############################################################################
-from odoo import fields, models, api, _
+from openerp import fields, models, api, _
+from odoo.exceptions import UserError
+from odoo.tools import  float_compare
+
 
 
 class sale_order_line(models.Model):
@@ -12,6 +15,9 @@ class sale_order_line(models.Model):
     pack_total = fields.Float(
         string='Pack total',
         compute='_get_pack_total'
+        )
+    pack_total_price = fields.Float(
+        string='Pack total',
         )
     pack_line_ids = fields.One2many(
         'sale.order.line.pack.line',
@@ -99,6 +105,7 @@ class sale_order_line(models.Model):
     @api.one
     @api.onchange('pack_total')
     def _onchange_pack_line_ids(self):
+
         self.price_unit = self.pack_total
 
     @api.constrains('product_id')
@@ -106,6 +113,7 @@ class sale_order_line(models.Model):
         if self.product_id.pack_price_type == 'none_detailed_assited_price':
             # remove previus existing lines
             self.pack_line_ids.unlink()
+
 
             # create a sale pack line for each product pack line
             for pack_line in self.product_id.pack_line_ids:
@@ -120,3 +128,32 @@ class sale_order_line(models.Model):
                     'price_subtotal': price_unit * quantity,
                     }
                 self.pack_line_ids.create(vals)
+
+    @api.constrains('product_id')
+    def totalice_price(self):
+        if self.product_id.pack_price_type == 'totalice_price':
+            price=0
+            for subline in self.product_id.pack_line_ids:
+                price += subline.get_sale_order_line_price(
+                    self, self.order_id)
+            if  not self.pack_parent_line_id:
+                self.price_unit = price
+            self.pack_total_price = price
+
+    @api.multi
+    def update_total_price(self,line):
+        if line.pack_parent_line_id:
+            self.update_total_price(line.pack_parent_line_id)
+        if line and line.price_unit != 0:
+            line.price_unit -= self.pack_total_price
+            line.pack_total_price -= self.pack_total_price
+        if line and line.price_unit == 0:
+            line.pack_total_price -= self.pack_total_price
+
+    @api.multi
+    def unlink(self):
+        if self.filtered(lambda x: x.state in ('sale', 'done')):
+            raise UserError(_('You can not remove a sale order line.\nDiscard changes and try setting the quantity to 0.'))
+        for l in self:
+            l.update_total_price(l.pack_parent_line_id)
+        return super(sale_order_line, self).unlink()

@@ -2,13 +2,13 @@
 ##############################################################################
 # For copyright and license notices, see __openerp__.py file in root directory
 ##############################################################################
-from odoo import models, api
+from openerp import models, api
 
 
 class sale_order(models.Model):
     _inherit = 'sale.order'
 
-    # @api.one
+
     def copy(self, default=None):
         sale_copy = super(sale_order, self).copy(default)
         # we unlink pack lines that should not be copied

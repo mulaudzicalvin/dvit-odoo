@@ -2,8 +2,8 @@
 ##############################################################################
 # For copyright and license notices, see __openerp__.py file in root directory
 ##############################################################################
-from odoo import fields, models, api
-import odoo.addons.decimal_precision as dp
+from openerp import fields, models, api
+import openerp.addons.decimal_precision as dp
 
 
 class product_pack(models.Model):
@@ -20,7 +20,7 @@ class product_pack(models.Model):
         'Quantity',
         required=True,
         default=1.0,
-        digits=dp.get_precision('Product Uom'),
+        digits=dp.get_precision('Product UoS'),
         )
     product_id = fields.Many2one(
         'product.product',
@@ -51,12 +51,18 @@ class product_pack(models.Model):
             uom_id = False
             uom_qty = quantity
 
+        pack_total_price=0
+
         # if pack is fixed price or totlice price we don want amount on
         # pack lines
-        if line.product_id.pack_price_type in [
-                'fixed_price', 'totalice_price']:
+        if line.product_id.pack_price_type in ['fixed_price']:
             price = 0.0
             discount = 0.0
+        elif line.product_id.pack_price_type in ['totalice_price']:
+            pricelist = order.pricelist_id.id
+            pack_total_price = self.env['product.pricelist'].price_get(subproduct.id, quantity, order.partner_id.id)[pricelist]
+            discount = 0.0
+            price=0
         else:
             pricelist = order.pricelist_id.id
             price = self.env['product.pricelist'].price_get(subproduct.id, quantity,order.partner_id.id)[pricelist]
@@ -71,7 +77,7 @@ class product_pack(models.Model):
         vals = {
             'order_id': order.id,
             'name': '%s%s' % (
-                '> ' * (line.pack_depth + 1), subproduct_name
+                '' * (line.pack_depth + 1), subproduct_name
             ),
             # 'delay': subproduct.sale_delay or 0.0,
             'product_id': subproduct.id,
@@ -79,12 +85,13 @@ class product_pack(models.Model):
             #     [(4, x.id) for x in line.procurement_ids]
             # ),
             'price_unit': price,
+            'pack_total_price': pack_total_price,
             'tax_id': tax_id,
             'address_allotment_id': False,
             'product_uom_qty': quantity,
             'product_uom': subproduct.uom_id.id,
-            'product_uom_qty': uom_qty,
-            'product_uom': uom_id,
+            'product_uos_qty': uom_qty,
+            'product_uos': uom_id,
             'product_packaging': False,
             'discount': discount,
             'number_packages': False,
@@ -94,5 +101,21 @@ class product_pack(models.Model):
             'pack_depth': line.pack_depth + 1,
         }
         return vals
+
+    @api.multi
+    def get_sale_order_line_price(self, line, order):
+        self.ensure_one()
+        price = 0.0
+        subproduct = self.product_id
+        if self.product_id.pack_price_type == 'totalice_price':
+            for subline in self.product_id.pack_line_ids:
+                price += subline.get_sale_order_line_price(line, order)
+
+        else:
+            quantity = self.quantity * line.product_uom_qty
+            pricelist = order.pricelist_id.id
+            price = self.env['product.pricelist'].price_get(subproduct.id, quantity, order.partner_id.id)[pricelist]
+
+        return price
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

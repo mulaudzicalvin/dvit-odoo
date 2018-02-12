@@ -58,6 +58,7 @@
             <!-- button to open line form -->
             <xpath expr="//field[@name='order_line']/tree//field[@name='price_subtotal']" position="after">
                 <field name="pack_type" invisible="1"/>
+                <field name="pack_total_price" />
                 <button name="action_pack_detail" string="Detail" attrs="{'invisible':[('pack_type', '!=', 'none_detailed_assited_price')]}" type="object"/>
             </xpath> 
         </field>
