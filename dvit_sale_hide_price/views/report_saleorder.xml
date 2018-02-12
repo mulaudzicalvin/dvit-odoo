@@ -9,6 +9,10 @@
                 t-value="any([l.discount for l in doc.order_line]) and doc.show_discount and doc.show_price"/>
             </xpath>
 
+            <xpath expr="//th[@xid='description']" position="attributes">
+                <attribute name="style">min-width: 400px !important;</attribute>
+            </xpath>
+
             <xpath expr="//th[@xid='unit_price']" position="attributes">
                 <attribute name="t-if">doc.show_price</attribute>
                 <attribute name="style">min-width: 150px;</attribute>
