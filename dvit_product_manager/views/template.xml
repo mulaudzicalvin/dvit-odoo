@@ -21,15 +21,3 @@
     </field>
   </field>
 </record>
-
-<record id="product_form2" model="ir.ui.view">
-  <field name="name">product_form2</field>
-  <field name="model">product.product</field>
-  <field name="inherit_id" ref="product.product_normal_form_view"/>
-  <field name="arch" type="xml">
-    <field name="categ_id" position="after">
-      <field name="product_manager" />
-    </field>
-  </field>
-</record>
-</odoo>
