@@ -29,7 +29,6 @@
   <field name="arch" type="xml">
     <field name="categ_id" position="after">
       <field name="product_manager" />
-      <field name="product_tmpl_id" />
     </field>
   </field>
 </record>
