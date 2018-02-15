@@ -151,13 +151,17 @@
               </td>
           </xpath>
 
-          <xpath expr="//th[@xid='description']" position="before">
+          <xpath expr="//th[@xid='description']" position="after">
               <th xid='code' style="min-width:100px;">Order No</th>
           </xpath>
-          <xpath expr="//span[@t-field='l.name']/.." position="before">
+          <xpath expr="//span[@t-field='l.name']/.." position="after">
               <td t-att-style="style">
                   <span t-field="l.product_id.default_code"/>
               </td>
+          </xpath>
+
+          <xpath expr="//span[@t-field='l.name']/../.." position="attributes">
+              <attribute name="t-att-style">style</attribute>
           </xpath>
 
           <xpath expr="//span[@t-field='l.name']/.." position="attributes">
@@ -172,6 +176,13 @@
               <attribute name="t-att-style">style</attribute>
           </xpath>
           <xpath expr="//span[@t-field='l.price_unit']" position="attributes">
+              <attribute name="t-if">not l.pack_parent_line_id</attribute>
+          </xpath>
+
+          <xpath expr="//t[contains(@t-esc,'l.price_unit')]/.." position="attributes">
+              <attribute name="t-att-style">style</attribute>
+          </xpath>
+          <xpath expr="//t[contains(@t-esc,'l.price_unit')]" position="attributes">
               <attribute name="t-if">not l.pack_parent_line_id</attribute>
           </xpath>
 

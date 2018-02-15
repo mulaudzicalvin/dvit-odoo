@@ -10,6 +10,7 @@
     "currency": 'EUR',
     'depends': [
         'product_pack',
+        'partner_contact_department',
         'dvit_sale_discount',
         'sales_report_product_image',
         'dvit_sale_hide_price',
