@@ -23,67 +23,6 @@ class product_product(models.Model):
         help='List of packs where product is used.'
         )
 
-    # def _product_available(
-    #         self, cr, uid, ids, field_names=None, arg=False, context=None):
-    #     """
-    #     For product packs we get availability in a different way
-    #     """
-    #     pack_product_ids = self.search(cr, uid, [
-    #         ('pack', '=', True),
-    #         ('id', 'in', ids),
-    #     ])
-    #     res = super(product_product, self)._product_available(
-    #         cr, uid, list(set(ids) - set(pack_product_ids)),
-    #         field_names, arg, context)
-    #     for product in self.browse(cr, uid, pack_product_ids, context=context):
-    #         pack_qty_available = []
-    #         pack_virtual_available = []
-    #         for subproduct in product.pack_line_ids:
-    #             subproduct_stock = self._product_available(
-    #                 cr, uid, [subproduct.product_id.id], field_names, arg,
-    #                 context)[subproduct.product_id.id]
-    #             sub_qty = subproduct.quantity
-    #             if sub_qty:
-    #                 pack_qty_available.append(math.floor(
-    #                     subproduct_stock['qty_available'] / sub_qty))
-    #                 pack_virtual_available.append(math.floor(
-    #                     subproduct_stock['virtual_available'] / sub_qty))
-    #         # TODO calcular correctamente pack virtual available para negativos
-    #         res[product.id] = {
-    #             'qty_available': (
-    #                 pack_qty_available and min(pack_qty_available) or False),
-    #             'incoming_qty': 0,
-    #             'outgoing_qty': 0,
-    #             'virtual_available': (
-    #                 pack_virtual_available and
-    #                 max(min(pack_virtual_available), 0) or False),
-    #         }
-    #     return res
-    #
-    # def _search_product_quantity(self, cr, uid, obj, name, domain, context):
-    #     """
-    #     We use original search function
-    #     """
-    #     return super(product_product, self)._search_product_quantity(
-    #         cr, uid, obj, name, domain, context)
-    #
-    # # overwrite ot this fields so that we can modify _product_available
-    # # function to support packs
-    # _columns = {
-    #     'qty_available': old_fields.function(
-    #         _product_available, multi='qty_available',
-    #         fnct_search=_search_product_quantity),
-    #     'virtual_available': old_fields.function(
-    #         _product_available, multi='qty_available',
-    #         fnct_search=_search_product_quantity),
-    #     'incoming_qty': old_fields.function(
-    #         _product_available, multi='qty_available',
-    #         fnct_search=_search_product_quantity),
-    #     'outgoing_qty': old_fields.function(
-    #         _product_available, multi='qty_available',
-    #         fnct_search=_search_product_quantity),
-    # }
-
     @api.one
     @api.constrains('pack_line_ids')
     def check_recursion(self):
@@ -187,6 +126,7 @@ class product_template(models.Model):
         if vals.get('pack_line_ids', False):
             self.product_variant_ids.write(
                 {'pack_line_ids': vals.pop('pack_line_ids')})
+            self.set_pack_price()
         return super(product_template, self).write(vals)
 
     @api.model
@@ -209,3 +149,12 @@ class product_template(models.Model):
                     pack_price += (product_line_price * pack_line.quantity)
                 res[product.id] = pack_price
         return res
+
+    @api.depends('pack_line_ids')
+    def set_pack_price(self):
+        # This should not work with fixed price packs
+        for prod in self:
+            for pline in prod.pack_line_ids.filtered(lambda l: l.product_id.pack):
+                pline.product_id.product_tmpl_id.set_pack_price()
+            if prod.pack and prod.pack_price_type != 'fixed_price':
+                self.list_price = sum(l.product_id.list_price * l.quantity for l in self.pack_line_ids)
