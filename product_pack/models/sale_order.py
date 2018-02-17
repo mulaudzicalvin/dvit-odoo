@@ -13,6 +13,9 @@ class sale_order(models.Model):
         # we unlink pack lines that should not be copied
         pack_copied_lines = sale_copy.order_line.filtered(
                 lambda l: l.pack_parent_line_id.order_id == self)
+        for line in pack_copied_lines:
+            line.order_id=sale_copy
+            line.pack_parent_line_id=False
         pack_copied_lines.unlink()
         return sale_copy
 
