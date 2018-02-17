@@ -8,7 +8,6 @@ from openerp import models, api
 class sale_order(models.Model):
     _inherit = 'sale.order'
 
-
     def copy(self, default=None):
         sale_copy = super(sale_order, self).copy(default)
         # we unlink pack lines that should not be copied

@@ -126,7 +126,13 @@ class product_template(models.Model):
         if vals.get('pack_line_ids', False):
             self.product_variant_ids.write(
                 {'pack_line_ids': vals.pop('pack_line_ids')})
-            self.set_pack_price()
+
+        for prod in self:
+        # set type to service if it's a pack
+            if not 'pack' in vals:
+                vals['pack'] = prod.pack
+            if vals['pack'] == True:
+                vals['type'] = 'service'
         return super(product_template, self).write(vals)
 
     @api.model
@@ -150,11 +156,26 @@ class product_template(models.Model):
                 res[product.id] = pack_price
         return res
 
-    @api.depends('pack_line_ids')
+    @api.onchange('pack_line_ids','pack_price_type','type','pack','list_price')
     def set_pack_price(self):
-        # This should not work with fixed price packs
+        # This should work only in case of totalice or assited packs
         for prod in self:
             for pline in prod.pack_line_ids.filtered(lambda l: l.product_id.pack):
                 pline.product_id.product_tmpl_id.set_pack_price()
-            if prod.pack and prod.pack_price_type != 'fixed_price':
-                self.list_price = sum(l.product_id.list_price * l.quantity for l in self.pack_line_ids)
+            if prod.pack and prod.pack_price_type in [
+                'totalice_price',
+                'none_detailed_totaliced_price',
+                'none_detailed_assited_price']:
+                prod.list_price = sum(l.product_id.list_price * l.quantity for l in prod.pack_line_ids)
+
+            if prod.pack and prod.type != 'service':
+                prod.type = 'service'
+
+    @api.constrains('list_price')
+    def set_parent_pack_price(self):
+        for prod in self:
+            if not prod.pack: # if it's a pack > generates recursion
+                for pack in prod.used_pack_line_ids:
+                    pack.parent_product_id.product_tmpl_id.set_pack_price()
+            #TODO: update parent pack product if exist - generates recursion error
+            # working from Sale order line now

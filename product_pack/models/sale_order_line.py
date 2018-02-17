@@ -17,7 +17,7 @@ class sale_order_line(models.Model):
         compute='_get_pack_total'
         )
     pack_total_price = fields.Float(
-        string='Pack total',
+        string='Pack Unit Price',
         )
     pack_line_ids = fields.One2many(
         'sale.order.line.pack.line',
@@ -110,7 +110,10 @@ class sale_order_line(models.Model):
 
     @api.constrains('product_id')
     def expand_none_detailed_pack(self):
-        if self.product_id.pack_price_type == 'none_detailed_assited_price':
+        if self.product_id.pack_price_type in [
+            'totalice_price',
+            'none_detailed_totaliced_price',
+            'none_detailed_assited_price']:
             # remove previus existing lines
             self.pack_line_ids.unlink()
 
@@ -129,31 +132,51 @@ class sale_order_line(models.Model):
                     }
                 self.pack_line_ids.create(vals)
 
+    # @api.multi
+    # def get_sale_order_line_price(self, pack_line):
+    #     self.ensure_one()
+    #     # if self.product_id.pack_price_type == 'totalice_price':
+    #     for subline in pack_line.product_id.pack_line_ids:
+    #         price += self.get_sale_order_line_price(subline)
+    #
+    #     price = 0.0
+    #     subproduct = pack_line.product_id
+    #     order = self.order_id
+    #     qty = pack_line.quantity * self.product_uom_qty
+    #     pricelist = order.pricelist_id.id
+    #     price = self.env['product.pricelist'].price_get(subproduct.id, quantity, order.partner_id.id)[pricelist]
+    #
+    #     return price
+
     @api.constrains('product_id')
     def totalice_price(self):
-        if self.product_id.pack_price_type == 'totalice_price':
-            price=0
-            for subline in self.product_id.pack_line_ids:
-                price += subline.get_sale_order_line_price(
-                    self, self.order_id)
-            if  not self.pack_parent_line_id:
-                self.price_unit = price
-            self.pack_total_price = price
+        if self.product_id.pack_price_type in [
+            'totalice_price',
+            'none_detailed_totaliced_price',
+            'none_detailed_assited_price']:
 
-    @api.multi
-    def update_total_price(self,line):
-        if line.pack_parent_line_id:
-            self.update_total_price(line.pack_parent_line_id)
-        if line and line.price_unit != 0:
-            line.price_unit -= self.pack_total_price
-            line.pack_total_price -= self.pack_total_price
-        if line and line.price_unit == 0:
-            line.pack_total_price -= self.pack_total_price
+            order = self.order_id
+            pricelist = order.pricelist_id.id
+            self.product_id.product_tmpl_id.set_pack_price()
+
+            self.pack_total_price = self.env['product.pricelist'].price_get(
+                self.product_id.id, self.product_uom_qty,
+                self.order_id.partner_id.id)[pricelist]
+
+    def remove_line_price_from_root_pack(self, amount, qty):
+        if self.pack_parent_line_id:
+            self.pack_parent_line_id.remove_line_price_from_root_pack(amount,qty)
+        if not self.pack_parent_line_id and self.product_id.pack_price_type in [
+            'totalice_price',
+            'none_detailed_totaliced_price',
+            'none_detailed_assited_price']:
+            self.price_unit -= (qty * amount) / self.product_uom_qty
+            self.total_line -= qty * amount
+            self.price_subtotal -= qty * amount * ( 1 - (self.discount / 100))
 
     @api.multi
     def unlink(self):
         if self.filtered(lambda x: x.state in ('sale', 'done')):
-            raise UserError(_('You can not remove a sale order line.\nDiscard changes and try setting the quantity to 0.'))
-        for l in self:
-            l.update_total_price(l.pack_parent_line_id)
+            raise UserError(_('You can not remove a sale order line.\n\Discard changes and try setting the quantity to 0.'))
+        self.pack_parent_line_id and self.pack_parent_line_id.remove_line_price_from_root_pack(self.pack_total_price, self.product_uom_qty)
         return super(sale_order_line, self).unlink()

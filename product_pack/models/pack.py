@@ -102,20 +102,4 @@ class product_pack(models.Model):
         }
         return vals
 
-    @api.multi
-    def get_sale_order_line_price(self, line, order):
-        self.ensure_one()
-        price = 0.0
-        subproduct = self.product_id
-        if self.product_id.pack_price_type == 'totalice_price':
-            for subline in self.product_id.pack_line_ids:
-                price += subline.get_sale_order_line_price(line, order)
-
-        else:
-            quantity = self.quantity * line.product_uom_qty
-            pricelist = order.pricelist_id.id
-            price = self.env['product.pricelist'].price_get(subproduct.id, quantity, order.partner_id.id)[pricelist]
-
-        return price
-
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
