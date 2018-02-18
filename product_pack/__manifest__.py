@@ -19,17 +19,32 @@
 #
 ##############################################################################
 {
-    'name': 'Product Pack',
-    'version': '10.0.0.1',
+    'name': 'DVIT Product Pack',
+    'version': '10.0.2.1',
     'category': 'Product',
-    'sequence': 14,
-    'summary': '',
+    'sequence': 1,
+    'summary': 'Product bundles and packages',
     'description': """
 Product Pack
 ============
-Withilist:
-----------
-* TODO calcular correctamente pack virtual available para negativos
+Based on INGADHOC's product_pack, Improved and fixed some features.
+currently this module is doing the following:
+- allow configuring a product as a package or bundle that contains multiple products
+- adding a package to sale order, will add its components to the sale order if it's a detailed package
+- we can select one of four package types for sale orders:
+    - Detailed - component prices: show component prices and the pack price is zero
+    - ... ToDo: complete the description...
+
+DVIT Improvments:
+- The package product is always a service - enforced.
+- Non fixed price packages have their sale price calculated automatically and enforced.
+- Package lines on Pack tab on product form have price & Subtotal price on each line plus package total - lst_price
+- updating a component product sale price will update all packages' sale prices that contain this component
+- On sale order if we remove a line that's part of a package - the package price will be updated
+- On sale order every line have the original product price as reference
+- Package line discounts is useless - so removed
+- Non-detailed packages now creates warehouse moves and pickings for its components
+- Packages are now supported on the Point of Sale using product_pack_pos module
     """,
     'author':  'NaN·tic, ADHOC, DVIT.ME',
     'license': 'AGPL-3',
