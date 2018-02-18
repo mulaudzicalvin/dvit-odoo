@@ -3,10 +3,10 @@
 <data>
 
 	<!-- Product view modification -->
-	<record model="ir.ui.view" id="product_template_only_form_view">
+	<record model="ir.ui.view" id="pack_form_view">
 		<field name="name">product.template.pack.form</field>
 		<field name="model">product.template</field>
-		<field name="inherit_id" ref="product.product_template_only_form_view" />
+		<field name="inherit_id" ref="product.product_template_form_view" />
 		<field name="arch" type="xml">
 			<field name="type" position="after">
 				<field name="pack"/>
@@ -14,23 +14,7 @@
 			</field>
 			<notebook position="inside">
 				<page string="Pack" attrs="{'invisible': ['|', ('product_variant_count', '>', 1), ('pack', '=', False)]}">
-					<field name="pack_line_ids"/>
-				</page>
-			</notebook>
-		</field>
-	</record>
-
-	<record model="ir.ui.view" id="nan_product_pack_form">
-		<field name="name">product.product.pack.form</field>
-		<field name="model">product.product</field>
-		<field name="inherit_id" ref="product.product_normal_form_view" />
-		<field name="arch" type="xml">
-			<field name="type" position="after">
-				<field name="pack"/>
-				<field name="pack_price_type" attrs="{'invisible':[('pack', '=', False)], 'required':[('pack','=',True)]}" context="{'pack_price_type': pack_price_type}"/>
-			</field>
-			<notebook position="inside">
-				<page string="Pack" attrs="{'invisible':[('pack', '=', False)]}">
+					<group><group></group><group><field name="lst_price" readonly="1"/></group></group>
 					<field name="pack_line_ids"/>
 				</page>
 			</notebook>
@@ -47,7 +31,8 @@
 				<group>
 					<field name="product_id"/>
 					<field name="quantity"/>
-					<field name="discount" groups="sale.group_discount_per_so_line" invisible="context.get('pack_price_type') == 'fixed_price'"/>
+					<field name="price_unit"/>
+					<field name='price_subtotal'/>
 				</group>
 			</form>
 		</field>
@@ -61,10 +46,11 @@
 			<tree string="Pack Product Lines" editable="bottom">
 				<field name="product_id"/>
 				<field name="quantity"/>
-				<field name="discount" groups="sale.group_discount_per_so_line" invisible="context.get('pack_price_type') == 'fixed_price'"/>
+				<!-- <field name="discount" groups="sale.group_discount_per_so_line" invisible="context.get('pack_price_type') == 'fixed_price'"/> -->
+				<field name="price_unit"/>
+				<field name='price_subtotal'/>
 			</tree>
 		</field>
 	</record>
 </data>
 </openerp>
-

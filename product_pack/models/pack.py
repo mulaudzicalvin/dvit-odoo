@@ -32,16 +32,33 @@ class product_pack(models.Model):
         'Discount (%)',
         digits=dp.get_precision('Discount'),
         )
+    price_unit = fields.Float(
+        'Unit Price',
+        readonly=True,
+        related='product_id.list_price',
+        digits=dp.get_precision('Product Price'),
+        )
+    price_subtotal = fields.Float(
+        'Subtotal',
+        readonly=True,
+        compute='_get_total_line',
+        digits=dp.get_precision('Product Price'),
+        )
 
-    @api.multi
+    @api.onchange('product_id','quantity')
+    def _get_total_line(self):
+        price_subtotal = 0.0
+        for line in self:
+            line.price_subtotal = line.price_unit * line.quantity
+        # return price_subtotal
+
     def get_sale_order_line_vals(self, line, order):
         self.ensure_one()
         # pack_price = 0.0
         subproduct = self.product_id
         quantity = self.quantity * line.product_uom_qty
 
-        taxes = order.fiscal_position_id.map_tax(
-            subproduct.taxes_id)
+        taxes = order.fiscal_position_id.map_tax(subproduct.taxes_id)
         tax_id = [(6, 0, taxes.ids)]
 
         if subproduct.uom_id:
