@@ -56,6 +56,7 @@ class product_template(models.Model):
         "lines prices on pack (don't show component prices).\n"
         "* Detailed - Fixed Price: Detail lines on sales order and use product"
         " pack price (ignore line prices).\n"
+        "* None Detailed - Totaliced Price: Do not detail lines on sales order.\n"
         "* None Detailed - Assisted Price: Do not detail lines on sales "
         "order. Assist to get pack price using pack lines."
         )

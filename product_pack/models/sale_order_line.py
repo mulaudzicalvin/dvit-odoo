@@ -167,10 +167,7 @@ class sale_order_line(models.Model):
         for line in self:
             if line.pack_parent_line_id:
                 line.pack_parent_line_id.remove_line_price_from_root_pack(amount,qty)
-            if not line.pack_parent_line_id and line.product_id.pack_price_type in [
-                'totalice_price',
-                'none_detailed_totaliced_price',
-                'none_detailed_assited_price']:
+            if not line.pack_parent_line_id and line.product_id.pack_price_type == 'totalice_price':
                 line.price_unit -= (qty * amount) / line.product_uom_qty
                 line.total_line -= qty * amount
                 line.price_subtotal -= qty * amount * ( 1 - (line.discount / 100))
