@@ -71,6 +71,42 @@
           </xpath>
       </template>
 
+      <template id="report_option_smartsys" inherit_id="dvit_sale_option_lines.report_option">
+        <xpath expr="//div[@t-if='doc.option_line_ids']" position="replace"></xpath>
+        <xpath expr="//div[@name='total']" position="before">
+          <div t-if="doc.option_line_ids">
+
+              <b>Optional products:</b>Not included in the offer.
+              <table xid="option_lines" class="table table-condensed">
+                <thead>
+                  <tr>
+                    <th>Description</th>
+                    <th class="text-right">Unit Price</th>
+                  </tr>
+                </thead>
+                <tbody class="sale_tbody">
+                    <!-- Lines associated -->
+                    <t t-foreach="doc.option_line_ids" t-as="l">
+                      <tr>
+                        <td>
+                          <span t-if="l.product_id.default_code">
+                            [<span t-field="l.product_id.default_code"/>]
+                          </span>
+                          <span t-field="l.name"/>
+                        </td>
+                        <td class="text-right">
+                          <span t-field="l.price_unit"/>
+                        </td>
+                      </tr>
+                      </t>
+                </tbody>
+              </table>
+
+          </div>
+        </xpath>
+      </template>
+
+
       <template id="report_saleorder_smartsys"
         inherit_id="sale.report_saleorder_document" priority="1111">
         <xpath expr="//div[@class='row']" position="replace"></xpath>

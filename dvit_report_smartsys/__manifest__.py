@@ -18,6 +18,7 @@
        'dvit_sale_option_lines',
        'dvit_sale_alt_product',
        'dvit_sale_line_no',
+       'sale_comment_template',
         ],
     'data': [
         'views/views.xml',
