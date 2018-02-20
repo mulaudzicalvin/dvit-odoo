@@ -10,7 +10,7 @@ class ProductTemplate(models.Model):
         if not default:
             default = {}
         default['default_code'] = ""
-        return super(ProductProduct, self).copy(default=default)
+        return super(ProductTemplate, self).copy(default=default)
 
     _sql_constraints = [
         ('default_code_unique', 'UNIQUE(default_code)', 'Internal Reference already exists !'),
