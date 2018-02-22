@@ -28,7 +28,6 @@ class sale_order_line(models.Model):
         related='product_id.pack_price_type',
         readonly=True
         )
-
     # Fields for common packs
     pack_depth = fields.Integer(
         'Depth',
