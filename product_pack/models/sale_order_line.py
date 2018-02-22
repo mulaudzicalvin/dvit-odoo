@@ -1,11 +1,8 @@
 # -*- encoding: utf-8 -*-
-##############################################################################
-# For copyright and license notices, see __openerp__.py file in root directory
-##############################################################################
+
 from odoo import fields, models, api, _
 from odoo.exceptions import UserError
 from odoo.tools import  float_compare
-
 
 
 class sale_order_line(models.Model):
