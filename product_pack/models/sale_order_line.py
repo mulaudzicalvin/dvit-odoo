@@ -105,7 +105,6 @@ class sale_order_line(models.Model):
     @api.one
     @api.onchange('pack_total')
     def _onchange_pack_line_ids(self):
-
         self.price_unit = self.pack_total
 
     @api.constrains('product_id')
@@ -116,8 +115,6 @@ class sale_order_line(models.Model):
             'none_detailed_assited_price']:
             # remove previus existing lines
             self.pack_line_ids.unlink()
-
-
             # create a sale pack line for each product pack line
             for pack_line in self.product_id.pack_line_ids:
                 price_unit = pack_line.product_id.lst_price
@@ -131,22 +128,6 @@ class sale_order_line(models.Model):
                     'price_subtotal': price_unit * quantity,
                     }
                 self.pack_line_ids.create(vals)
-
-    # @api.multi
-    # def get_sale_order_line_price(self, pack_line):
-    #     self.ensure_one()
-    #     # if self.product_id.pack_price_type == 'totalice_price':
-    #     for subline in pack_line.product_id.pack_line_ids:
-    #         price += self.get_sale_order_line_price(subline)
-    #
-    #     price = 0.0
-    #     subproduct = pack_line.product_id
-    #     order = self.order_id
-    #     qty = pack_line.quantity * self.product_uom_qty
-    #     pricelist = order.pricelist_id.id
-    #     price = self.env['product.pricelist'].price_get(subproduct.id, quantity, order.partner_id.id)[pricelist]
-    #
-    #     return price
 
     @api.constrains('product_id')
     def totalice_price(self):
