@@ -156,3 +156,8 @@ class sale_order_line(models.Model):
                 raise UserError(_('You can not remove a sale order line.\n\Discard changes and try setting the quantity to 0.'))
             line.pack_parent_line_id and line.pack_parent_line_id.remove_line_price_from_root_pack(line.pack_total_price, line.product_uom_qty)
         return super(sale_order_line, self).unlink()
+
+    @api.constrains('pack_parent_line_id')
+    def update_parent_total(self):
+        for line in self:
+            print '>>>>>> update_parent_total()', line
