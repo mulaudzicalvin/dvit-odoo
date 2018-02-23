@@ -13,11 +13,10 @@ class SaleOrderLine(models.Model):
 class SaleOrder(models.Model):
     _inherit = ["sale.order"]
 
-    @api.constrains('order_line','amount_total')
-    @api.onchange('order_line')
+    @api.constrains('order_line')
     def _check_duplicate(self):
-        for i in self.order_line:
-            i.duplicate = False
-            for j in self.order_line:
-                if i.product_id.id == j.product_id.id and i != j:
-                    i.duplicate=True
+        for line in self.order_line:
+            if any(l.id != line.id and l.product_id == line.product_id for l in line.order_id.order_line):
+                line.duplicate = True
+            else:
+                line.duplicate = False
