@@ -35,7 +35,7 @@ class sale_order(models.Model):
             for order in self:
                 ### we will recalculate all lines that have childs and totalice_price and depth is 0
                 for line in order.order_line.filtered(lambda l: l.pack_child_line_ids and
-                l.product_id.pack_price_type == 'totalice_price' and l.pack_depth == 0):
+                l.product_id.pack_price_type == 'totalice_price' and not l.pack_parent_line_id):
                     line.update_pack_line_total()
         return res
 
