@@ -90,6 +90,10 @@ class product_pack(models.Model):
             subproduct = subproduct.with_context(
                 lang=order.partner_id.lang)
         subproduct_name = subproduct.name
+        if subproduct.description_sale:
+            subproduct_name += '\n'+subproduct.description_sale
+        if subproduct.default_code:
+            subproduct_name = '['+subproduct.default_code+'] '+subproduct_name
 
         vals = {
             'order_id': order.id,
