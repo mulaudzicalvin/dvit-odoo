@@ -27,8 +27,8 @@
             <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done" statusbar_colors="{'exception':'red','cancel':'red'}"/>
           </header>
           <sheet>
-            <field name="pack_price_type" invisible="1"/>
-            <div attrs="{'invisible':[('pack_price_type', '!=', 'none_detailed_assited_price')]}">
+            <field name="pack_type" invisible="1"/>
+            <div attrs="{'invisible':[('pack_type', '!=', 'none_detailed_assited_price')]}">
               <div name="product_pack">
                 <label for="pack_line_ids"/>
                 <field name="pack_line_ids"/>
