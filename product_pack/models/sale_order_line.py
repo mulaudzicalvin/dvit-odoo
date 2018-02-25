@@ -44,7 +44,7 @@ class sale_order_line(models.Model):
     )
 
     @api.one
-    @api.constrains('product_id', 'price_unit', 'product_uom_qty')
+    @api.constrains('product_id', 'product_uom_qty')
     def expand_pack_line(self):
         detailed_packs = ['components_price', 'totalice_price', 'fixed_price']
         if (
@@ -140,19 +140,22 @@ class sale_order_line(models.Model):
                 self.product_id.id, self.product_uom_qty,
                 self.order_id.partner_id.id)[pricelist]
 
-    def remove_line_price_from_root_pack(self, amount, qty):
-        for line in self:
-            if line.pack_parent_line_id:
-                line.pack_parent_line_id.remove_line_price_from_root_pack(amount,qty)
-            if not line.pack_parent_line_id and line.product_id.pack_price_type == 'totalice_price':
-                line.price_unit -= (qty * amount) / line.product_uom_qty
-                line.total_line -= qty * amount
-                line.price_subtotal -= qty * amount * ( 1 - (line.discount / 100))
-
     @api.multi
-    def unlink(self):
+    def update_pack_line_total(self):
         for line in self:
-            if line.filtered(lambda x: x.state in ('sale', 'done')):
-                raise UserError(_('You can not remove a sale order line.\n\Discard changes and try setting the quantity to 0.'))
-            line.pack_parent_line_id and line.pack_parent_line_id.remove_line_price_from_root_pack(line.pack_total_price, line.product_uom_qty)
-        return super(sale_order_line, self).unlink()
+            line.price_unit = line.get_line_total()
+            if line.pack_parent_line_id:
+                line.price_unit = 0.0
+
+
+    def get_line_total(self):
+        total = 0.0
+        for child in self.pack_child_line_ids:
+            child.pack_depth = child.pack_parent_line_id.pack_depth +1
+            child.price_unit = 0.0
+            total += child.get_line_total()
+        if not self.pack_child_line_ids:
+            total += self.product_uom_qty * self.product_id.list_price
+            self.price_unit = 0.0
+
+        return total

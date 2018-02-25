@@ -22,11 +22,12 @@
     'name': 'DVIT Product Pack',
     'version': '10.0.2.1',
     'category': 'Product',
+    'website':'http://dvit.me',
     'sequence': 1,
     'summary': 'Product bundles and packages',
     'description': """
 Product Pack
-============
+================
 Based on INGADHOC's product_pack, Improved and fixed some features.
 currently this module is doing the following:
 - allow configuring a product as a package or bundle that contains multiple products
