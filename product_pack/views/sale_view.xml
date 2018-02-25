@@ -62,7 +62,7 @@
                 <field name="pack_parent_line_id" domain="[
                   ('product_id.pack','=',True),('product_id.pack_price_type','in',['totalice_price']),
                   ]" context="{'default_order_id': id or active_id}" options="{&quot;no_open&quot;: 1,&quot;no_create&quot;: 1, &quot;no_create_edit&quot;: 1}"/>
-                <field name="pack_depth" invisible="0"/>
+                <field name="pack_depth" invisible="1"/>
                 <button name="action_pack_detail" string="Detail" attrs="{'invisible':[('pack_type', '!=', 'none_detailed_assited_price')]}" icon="fa-folder" type="object"/>
             </xpath>
         </field>
