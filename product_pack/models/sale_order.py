@@ -24,7 +24,6 @@ class sale_order(models.Model):
             line.price_unit = line.env['product.pricelist'].price_get(
                 line.product_id.id, line.product_uom_qty,
                 line.order_id.partner_id.id)[line.order_id.pricelist_id.id]
-            # line.price_subtotal = line.price_unit * line.product_uom_qty
 
         return sale_copy
 
