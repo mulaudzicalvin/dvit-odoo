@@ -28,8 +28,6 @@ class sale_order(models.Model):
 
         return sale_copy
 
-
-
     def write(self, vals):
         old_lines = self.order_line
         res = super(sale_order, self).write(vals)
@@ -39,11 +37,7 @@ class sale_order(models.Model):
                 ### we will recalculate all lines that have childs and totalice_price and depth is 0
                 for line in order.order_line.filtered(lambda l: l.pack_child_line_ids and
                 l.product_id.pack_price_type == 'totalice_price' and l.pack_depth == 0):
-                    print '>>>>>> totalice_price line w depth 0: ', line.product_id.name
-                    # line.price_unit = 0.0
                     line.update_pack_line_total()
-
-
         return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
