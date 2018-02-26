@@ -37,11 +37,16 @@ class product_product(models.Model):
                     'Product id: %s') % self.id)
             pack_lines = pack_lines.mapped('product_id.pack_line_ids')
 
+    @api.multi
+    def write(self, vals):
+        res = super(product_product, self).write(vals)
+        if vals.get('standard_price') or vals.get('last_purchase_price'):
+            self.product_tmpl_id.set_parent_pack_price()
+        return res
 
 class product_template(models.Model):
     _inherit = 'product.template'
 
-    # TODO rename a pack_type
     pack_price_type = fields.Selection([
         ('components_price', 'Detailed - Components Prices'),
         ('totalice_price', 'Detailed - Totaliced Price'),
@@ -86,22 +91,6 @@ class product_template(models.Model):
                     'A "None Detailed - Assisted Price Pack" can not have a '
                     'pack as a child!'))
 
-        # TODO we also should check this
-        # check if we are configuring a pack for a product that is partof a
-        # assited pack
-        # if self.pack:
-        #     for product in self.product_variant_ids
-        #     parent_assited_packs = self.env['product.pack.line'].search([
-        #         ('product_id', '=', self.id),
-        #         ('parent_product_id.pack_price_type', '=',
-        #             'none_detailed_assited_price'),
-        #         ])
-        #     print 'parent_assited_packs', parent_assited_packs
-        #     if parent_assited_packs:
-        #         raise Warning(_(
-        #             'You can not set this product as pack because it is part'
-        #             ' of a "None Detailed - Assisted Price Pack"'))
-
     @api.one
     @api.constrains('company_id', 'product_variant_ids', 'used_pack_line_ids')
     def check_pack_line_company(self):
@@ -134,49 +123,64 @@ class product_template(models.Model):
                 vals['pack'] = prod.pack
             if vals['pack'] == True:
                 vals['type'] = 'service'
+
         return super(product_template, self).write(vals)
 
-    @api.model
-    def _price_get(self, products, ptype='list_price'):
-        res = super(product_template, self)._price_get(
-            products, ptype=ptype)
-        for product in products:
-            if (
-                    product.pack and
-                    product.pack_price_type in [
-                        'totalice_price',
-                        'none_detailed_assited_price',
-                        'none_detailed_totaliced_price']):
-                pack_price = 0.0
-                for pack_line in product.pack_line_ids:
-                    product_line_price = pack_line.product_id.price_get()[
-                            pack_line.product_id.id] * (
-                                1 - (pack_line.discount or 0.0) / 100.0)
-                    product_line_price
-                    pack_price += (product_line_price * pack_line.quantity)
-                res[product.id] = pack_price
-        return res
+    # @api.model
+    # def _price_get(self, products, ptype='list_price'):
+    #     res = super(product_template, self)._price_get(
+    #         products, ptype=ptype)
+    #     for product in products:
+    #         if (
+    #                 product.pack and
+    #                 product.pack_price_type in [
+    #                     'totalice_price',
+    #                     'none_detailed_assited_price',
+    #                     'none_detailed_totaliced_price']):
+    #             pack_price = 0.0
+    #             for pack_line in product.pack_line_ids:
+    #                 product_line_price = pack_line.product_id.price_get()[
+    #                         pack_line.product_id.id] * (
+    #                             1 - (pack_line.discount or 0.0) / 100.0)
+    #                 pack_price += (product_line_price * pack_line.quantity)
+    #             res[product.id] = pack_price
+    #     return res
 
     @api.onchange('pack_line_ids','pack_price_type','type','pack','list_price')
-    def set_pack_price(self):
+    def set_pack_price_from_childs(self):
+        none_detailed_types = [
+            'totalice_price',
+            'none_detailed_totaliced_price',
+            'none_detailed_assited_price']
         # This should work only in case of totalice or assited packs
         for prod in self:
-            for pline in prod.pack_line_ids.filtered(lambda l: l.product_id.pack):
-                pline.product_id.product_tmpl_id.set_pack_price()
-            if prod.pack and prod.pack_price_type in [
-                'totalice_price',
-                'none_detailed_totaliced_price',
-                'none_detailed_assited_price']:
-                prod.list_price = sum(l.product_id.list_price * l.quantity for l in prod.pack_line_ids)
-
             if prod.pack and prod.type != 'service':
                 prod.type = 'service'
+            for pline in prod.pack_line_ids.filtered(lambda l: l.product_id.pack):
+                pline.product_id.product_tmpl_id.set_pack_price_from_childs()
+            if prod.pack and prod.pack_price_type in none_detailed_types:
+                standard_price = sum(l.product_id.standard_price * l.quantity for l in prod.pack_line_ids)
+                prod.product_variant_ids.write({'standard_price': standard_price})
+                prod.list_price = sum(l.product_id.list_price * l.quantity for l in prod.pack_line_ids)
+                if hasattr(prod,'last_purchase_price'):
+                    last_purchase_price = sum(l.product_id.last_purchase_price * l.quantity for l in prod.pack_line_ids)
+                    prod.last_purchase_price = last_purchase_price > 0.0 and last_purchase_price or standard_price
 
-    @api.constrains('list_price')
+    @api.constrains('standard_price','list_price')
     def set_parent_pack_price(self):
-        for prod in self:
-            if not prod.pack: # if it's a pack > generates recursion
-                for pack in prod.used_pack_line_ids:
-                    pack.parent_product_id.product_tmpl_id.set_pack_price()
-            #TODO: update parent pack product if exist - generates recursion error
-            # working from Sale order line now
+        none_detailed_types = [
+            'totalice_price',
+            'none_detailed_totaliced_price',
+            'none_detailed_assited_price']
+        for parent_pack in self.used_pack_line_ids:
+            prod = parent_pack.parent_product_id.product_tmpl_id
+            if not prod.pack_price_type in none_detailed_types:
+                continue
+            standard_price = sum(l.product_id.standard_price * l.quantity for l in prod.pack_line_ids)
+            prod.product_variant_ids.write({'standard_price': standard_price})
+            prod.list_price = sum(l.product_id.list_price * l.quantity for l in prod.pack_line_ids)
+            if hasattr(prod,'last_purchase_price'):
+                last_purchase_price = sum(l.product_id.last_purchase_price * l.quantity for l in prod.pack_line_ids)
+                prod.last_purchase_price = last_purchase_price > 0.0 and last_purchase_price or standard_price
+            for root_pack in parent_pack.parent_product_id.product_tmpl_id.used_pack_line_ids:
+                root_pack.product_id.product_tmpl_id.set_parent_pack_price()

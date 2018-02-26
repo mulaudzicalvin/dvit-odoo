@@ -125,20 +125,6 @@ class sale_order_line(models.Model):
                     }
                 self.pack_line_ids.create(vals)
 
-    @api.constrains('product_id')
-    def totalice_price(self):
-        if self.product_id.pack_price_type in [
-            'totalice_price',
-            'none_detailed_totaliced_price',
-            'none_detailed_assited_price']:
-
-            order = self.order_id
-            pricelist = order.pricelist_id.id
-            self.product_id.product_tmpl_id.set_pack_price()
-
-            self.pack_total_price = self.env['product.pricelist'].price_get(
-                self.product_id.id, self.product_uom_qty,
-                self.order_id.partner_id.id)[pricelist]
 
     @api.multi
     def update_pack_line_total(self):

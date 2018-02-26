@@ -21,7 +21,12 @@ class AccountInvoice(models.Model):
                     unit_price = inv.currency_id.with_context(
                     date=inv._get_currency_rate_date()).compute(
                     abs(unit_price), inv.company_id.currency_id)
-                line.product_id.product_tmpl_id.last_purchase_price = unit_price
+                print '>>>>>> updating last_purchase_price and pack....'
+                if unit_price > 0.0:
+                    line.product_id.product_tmpl_id.last_purchase_price = unit_price
+                if hasattr(line.product_id.product_tmpl_id, 'pack'):
+                    line.product_id.product_tmpl_id.set_parent_pack_price()
+                print '>>>> update done.'
             res = super(AccountInvoice,self).action_invoice_open()
         return res
 
