@@ -11,7 +11,7 @@
     'website': "http://dvit.me",
     'category': 'Uncategorized',
     'version': '0.1',
-    'depends': ['sale'],
+    'depends': ['sale', 'account'],
     'data': [
         'views/views.xml',
     ],
