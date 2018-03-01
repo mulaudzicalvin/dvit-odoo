@@ -67,7 +67,13 @@
         <div style="direction:rtl; font-size: 13px !important;">
           <strong>
             <div style="width:300px; text-align:center;">
-              السادة/
+              <t t-if="doc.partner_id.company_type == 'company'">
+                السادة/
+              </t>
+              <t t-if="doc.partner_id.company_type == 'person'">
+                <span t-field="doc.partner_id.title"/>/
+              </t>
+              <span t-field="doc.partner_id.name"/>
               <p t-field="doc.partner_id.function"/>
               <p t-field="doc.partner_id.department_id.name"/>
               <t t-if="doc.partner_id.department_id.parent_id.name">
@@ -79,7 +85,7 @@
               <center>تحية طيبة وبعد،،،</center>
             </p>
             <p>نتشرف بتقديم العرض رقم
-              <span t-field="doc.date_order" t-options='{"format": "yyyy/MM/dd"}'/></p>
+              <span t-field="doc.name"/></p>
           </strong>
         </div>
       </xpath>
