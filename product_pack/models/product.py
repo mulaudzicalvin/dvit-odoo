@@ -1,7 +1,5 @@
 # -*- encoding: utf-8 -*-
-##############################################################################
-# For copyright and license notices, see __openerp__.py file in root directory
-##############################################################################
+
 from odoo import fields, models, api, _
 from odoo.exceptions import Warning
 import math
@@ -40,8 +38,14 @@ class product_product(models.Model):
     @api.multi
     def write(self, vals):
         res = super(product_product, self).write(vals)
-        if vals.get('standard_price') or vals.get('last_purchase_price'):
-            self.product_tmpl_id.set_parent_pack_price()
+        for prod in self:
+            if not prod.pack:
+                if vals.get('standard_price'):
+                    prod.product_tmpl_id.set_parent_pack_price()
+                if vals.get('last_purchase_price'):
+                    prod.product_tmpl_id.set_parent_pack_price()
+            if vals.get('pack_line_ids'):
+                prod.product_tmpl_id.set_pack_price_from_childs()
         return res
 
 class product_template(models.Model):
@@ -116,37 +120,13 @@ class product_template(models.Model):
         if vals.get('pack_line_ids', False):
             self.product_variant_ids.write(
                 {'pack_line_ids': vals.pop('pack_line_ids')})
-
-        for prod in self:
+        res = super(product_template, self).write(vals)
+        for prod in self.filtered(lambda p: p.pack and p.type != 'service'):
         # set type to service if it's a pack
-            if not 'pack' in vals:
-                vals['pack'] = prod.pack
-            if vals['pack'] == True:
-                vals['type'] = 'service'
+            prod.type = 'service'
+        return res
 
-        return super(product_template, self).write(vals)
-
-    # @api.model
-    # def _price_get(self, products, ptype='list_price'):
-    #     res = super(product_template, self)._price_get(
-    #         products, ptype=ptype)
-    #     for product in products:
-    #         if (
-    #                 product.pack and
-    #                 product.pack_price_type in [
-    #                     'totalice_price',
-    #                     'none_detailed_assited_price',
-    #                     'none_detailed_totaliced_price']):
-    #             pack_price = 0.0
-    #             for pack_line in product.pack_line_ids:
-    #                 product_line_price = pack_line.product_id.price_get()[
-    #                         pack_line.product_id.id] * (
-    #                             1 - (pack_line.discount or 0.0) / 100.0)
-    #                 pack_price += (product_line_price * pack_line.quantity)
-    #             res[product.id] = pack_price
-    #     return res
-
-    @api.onchange('pack_line_ids','pack_price_type','type','pack','list_price')
+    @api.onchange('pack_line_ids','pack_price_type','pack')
     def set_pack_price_from_childs(self):
         none_detailed_types = [
             'totalice_price',
@@ -161,6 +141,7 @@ class product_template(models.Model):
             if prod.pack and prod.pack_price_type in none_detailed_types:
                 standard_price = sum(l.product_id.standard_price * l.quantity for l in prod.pack_line_ids)
                 prod.product_variant_ids.write({'standard_price': standard_price})
+                prod.standard_price = standard_price
                 prod.list_price = sum(l.product_id.list_price * l.quantity for l in prod.pack_line_ids)
                 if hasattr(prod,'last_purchase_price'):
                     last_purchase_price = sum(l.product_id.last_purchase_price * l.quantity for l in prod.pack_line_ids)
@@ -178,6 +159,7 @@ class product_template(models.Model):
                 continue
             standard_price = sum(l.product_id.standard_price * l.quantity for l in prod.pack_line_ids)
             prod.product_variant_ids.write({'standard_price': standard_price})
+            prod.standard_price = standard_price
             prod.list_price = sum(l.product_id.list_price * l.quantity for l in prod.pack_line_ids)
             if hasattr(prod,'last_purchase_price'):
                 last_purchase_price = sum(l.product_id.last_purchase_price * l.quantity for l in prod.pack_line_ids)

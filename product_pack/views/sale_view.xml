@@ -58,7 +58,6 @@
         <!-- button to open line form -->
         <xpath expr="//tree//field[@name='price_subtotal']" position="after">
           <field name="pack_type" invisible="1"/>
-          <field name="pack_total_price" readonly="1"/>
           <field
             name="pack_parent_line_id"
             context="{'default_order_id':active_id}"

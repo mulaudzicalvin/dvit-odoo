@@ -27,7 +27,6 @@ class sale_order(models.Model):
         # recalculate remaining totalice_price pack lines
         for line in sale_copy.order_line.filtered(lambda l: l.pack_depth == 0 and
         l.product_id.pack_price_type == 'totalice_price'):
-            # print '>>>> up pack total line: ', line.id, line.product_id.name
             line.update_pack_line_total()
         # for the dvit_sale_line_duplicate - recalculate the duplicate status of all lines
         if hasattr(self.env['sale.order.line'],'duplicate'):
@@ -46,4 +45,31 @@ class sale_order(models.Model):
                     line.update_pack_line_total()
         return res
 
+    @api.multi
+    def action_confirm(self):
+        none_detailed_packs = ['none_detailed_totaliced_price', 'none_detailed_assited_price']
+        temp_lines = []
+        for order in self:
+            for line in order.order_line.filtered(lambda l: l.product_id.pack_price_type in none_detailed_packs):
+                for packline in line.product_id.pack_line_ids:
+                    price_unit = packline.product_id.lst_price
+                    quantity = packline.quantity * line.product_uom_qty
+                    orderline_vals = {
+                        'order_id': order.id,
+                        'name': packline.product_id.name,
+                        'product_id': packline.product_id.id,
+                        'product_uom_qty': quantity,
+                        'product_uom': packline.product_id.uom_id.id,
+                        'price_unit': 0.0,
+                        'discount': 0.0,
+                        'price_subtotal': 0.0,
+                    }
+                    temp_line = line.create(orderline_vals)
+                    temp_lines.append(temp_line)
+
+        res = super(sale_order, self).action_confirm()
+        for line in temp_lines:
+            line.write({"state":'cancel'})
+            line.unlink()
+        return True
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

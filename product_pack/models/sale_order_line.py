@@ -13,9 +13,6 @@ class sale_order_line(models.Model):
         string='Pack total',
         compute='_get_pack_total'
         )
-    pack_total_price = fields.Float(
-        string='Pack Unit Price',
-        )
     pack_line_ids = fields.One2many(
         'sale.order.line.pack.line',
         'order_line_id',

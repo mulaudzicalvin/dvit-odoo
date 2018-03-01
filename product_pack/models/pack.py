@@ -1,7 +1,5 @@
 # -*- encoding: utf-8 -*-
-##############################################################################
-# For copyright and license notices, see __openerp__.py file in root directory
-##############################################################################
+
 from odoo import fields, models, api
 import odoo.addons.decimal_precision as dp
 
@@ -68,8 +66,6 @@ class product_pack(models.Model):
             uom_id = False
             uom_qty = quantity
 
-        pack_total_price=0
-
         # if pack is fixed price or totlice price we don want amount on
         # pack lines
         if line.product_id.pack_price_type in ['fixed_price']:
@@ -77,7 +73,6 @@ class product_pack(models.Model):
             discount = 0.0
         elif line.product_id.pack_price_type in ['totalice_price']:
             pricelist = order.pricelist_id.id
-            pack_total_price = self.env['product.pricelist'].price_get(subproduct.id, quantity, order.partner_id.id)[pricelist]
             discount = 0.0
             price=0
         else:
@@ -106,7 +101,6 @@ class product_pack(models.Model):
             #     [(4, x.id) for x in line.procurement_ids]
             # ),
             'price_unit': price,
-            'pack_total_price': pack_total_price,
             'tax_id': tax_id,
             'address_allotment_id': False,
             'product_uom_qty': quantity,
