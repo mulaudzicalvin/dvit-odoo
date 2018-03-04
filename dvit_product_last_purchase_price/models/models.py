@@ -15,7 +15,8 @@ class AccountInvoice(models.Model):
         res = super(AccountInvoice,self).action_invoice_open()
         for inv in self.filtered(lambda i: i.type == 'in_invoice'):
             for line in inv.invoice_line_ids:
-                unit_price = line.price_unit if line.uom_id == line.product_id.uom_id else line.product_id.uom_id._compute_price(line.product_id.standard_price, line.uom_id)
+                unit_price = line.price_unit if line.uom_id == line.product_id.uom_id else \
+                line.uom_id._compute_price(line.price_unit, line.product_id.uom_id)
                 company_currency = inv.company_id.currency_id
                 if inv.currency_id != company_currency:
                     unit_price = inv.currency_id.with_context(
