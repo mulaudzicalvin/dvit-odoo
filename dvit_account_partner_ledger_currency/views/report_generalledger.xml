@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<template id="report_generalledger_inherit" inherit_id="account.report_generalledger">
+	    <xpath expr="//tbody/t/tr[1]/td[5]" position="replace">
+	        <td groups="base.group_multi_currency" class="text-right">
+	            <span t-esc="account['amount_currency'] if account['amount_currency'] > 0.00 else ''"/>
+	            <span t-esc="account['currency_code'] if account['amount_currency'] > 0.00 else ''"/>
+	        </td>
+	    </xpath>
+	</template>
+ 
+</odoo>
