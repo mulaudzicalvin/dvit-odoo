@@ -16,7 +16,8 @@
     "depends": ['project',
                 'project_stage_closed',
                 'project_task_default_stage',
-                'dvit_stock_picking_invoice'],
+                'dvit_stock_picking_invoice',
+                'dvit_stock_analytic'],
     "data": [
              "wizard/wizard.xml",
              "views/templates.xml",
