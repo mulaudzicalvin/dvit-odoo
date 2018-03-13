@@ -21,7 +21,6 @@ class StockMove(models.Model):
     def _prepare_account_move_line(self, qty, cost,
                                    credit_account_id, debit_account_id):
         self.ensure_one()
-        print '>>>>>> start'
         res = super(StockMove, self)._prepare_account_move_line(
             qty, cost, credit_account_id, debit_account_id)
         # Add analytic account in debit line
@@ -30,13 +29,11 @@ class StockMove(models.Model):
 
         len1=len(res)
         for num in range(0, len1):
-            print '>>>>>> for start'
-
-            # if res[num][2]["account_id"] != self.product_id.\
-            #         categ_id.property_stock_valuation_account_id.id:
-            res[num][2].update({
-                'analytic_account_id': self.picking_id.analytic_account_id.id,
-                })
+            if res[num][2]["account_id"] != self.product_id.\
+                    categ_id.property_stock_valuation_account_id.id:
+                res[num][2].update({
+                    'analytic_account_id': self.picking_id.analytic_account_id.id,
+                    })
         return res
 
 
@@ -47,4 +44,3 @@ class StockPiking(models.Model):
         string='Analytic Account',
         comodel_name='account.analytic.account',
     )
-

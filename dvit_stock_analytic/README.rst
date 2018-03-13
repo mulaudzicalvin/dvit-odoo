@@ -14,7 +14,7 @@ Usage
 =====
 
 To Assign an Analytic Account to a Stock Move
------------------------------------------
+---------------------------------------------------
 
 You need to:
 
@@ -22,7 +22,7 @@ You need to:
 #. Add or edit stock move. Fill **analytic account** field
 
 Assigned Journal Items created from Stock Move with Analytic Account
---------------------------------------------------------------------
+--------------------------------------------------------------------------
 
 If stock move automatically create journal entry, the journal entry will
 contain journal items with following rule:
