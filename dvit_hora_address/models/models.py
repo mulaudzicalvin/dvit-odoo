@@ -2,6 +2,17 @@
 
 from odoo import api, fields, models, _
 
+class SaleOrder(models.Model):
+    _inherit = 'sale.order'
+
+    country_id = fields.Many2one(related='partner_id.country_id', readonly=True, store=True)
+    state_id = fields.Many2one(related='partner_id.state_id', readonly=True, store=True)
+    city_id = fields.Many2one(related='partner_id.city_id', readonly=True, store=True)
+    zone_id = fields.Many2one(related='partner_id.zone_id', readonly=True, store=True)
+    building_id = fields.Many2one(related='partner_id.building_id', readonly=True, store=True)
+    sequence = fields.Integer(related='partner_id.building_id.sequence', readonly=True, store=True)
+    floor = fields.Char(related='partner_id.floor', readonly=True, store=True)
+
 class ResPartner(models.Model):
     _inherit = 'res.partner'
     building_id= fields.Many2one("res.zone.building", string="Buliding" )
@@ -42,6 +53,7 @@ class ResCountryCityZone(models.Model):
 
 class ResZoneBuilding(models.Model):
     _name = 'res.zone.building'
+    _order = 'sequence'
     name = fields.Char('Building No.',required=True)
     zone_id = fields.Many2one(comodel_name="res.country.city.zone", string="Zone" , required=True)
     sequence =fields.Integer("Sequence", default=None, required=True)
