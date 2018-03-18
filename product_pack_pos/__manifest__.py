@@ -14,6 +14,9 @@ Note: this module works with Fixed price packs only.
     'depends': ['product_pack', 'point_of_sale'],
     'data': [],
     'demo': [],
+    "images": [
+        'static/description/banner.png'
+    ],
     'installable': True,
     'auto_install': True,
     'application': False,

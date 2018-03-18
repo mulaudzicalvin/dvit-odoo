@@ -16,4 +16,7 @@
     'version': '10.0.0.4',
     'depends': ['account','stock',],
     'data': ['templates.xml',],
+    "images": [
+        'static/description/banner.png'
+    ],
 }

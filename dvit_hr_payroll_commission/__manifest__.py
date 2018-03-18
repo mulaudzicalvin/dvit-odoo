@@ -20,6 +20,9 @@
         'views/hr_payroll_view.xml',
         'data/hr.salary.rule.xml',
     ],
+    "images": [
+        'static/description/banner.png'
+    ],
     'installable': True,
     'auto_install': False,
 }

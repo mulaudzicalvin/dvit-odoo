@@ -15,5 +15,8 @@ Allow adding indirect overhead costs on BoM as a percent of its costs.
     "website": "http://dvit.me",
     "depends": ['dvit_product_cost_bom_auto'],
     "data": ["views/views.xml", ],
+    "images": [
+        'static/description/banner.png'
+    ],
     "installable": True,
 }

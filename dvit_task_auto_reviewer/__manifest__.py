@@ -13,4 +13,7 @@
     'depends': ['sale_timesheet','dvit_product_manager'],
     'data': ['views/template.xml'],
     'installable': True,
+    "images": [
+        'static/description/banner.png'
+    ],
 }

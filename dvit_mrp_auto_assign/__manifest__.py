@@ -12,5 +12,8 @@
     'website': 'http://dvit.me/',
     'depends': ['mrp','dvit_product_manager'],
     'data': [],
+    "images": [
+        'static/description/banner.png'
+    ],
     'installable': True,
 }

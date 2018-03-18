@@ -11,5 +11,8 @@
     'website': 'http://dvit.me/',
     'depends': ['account'],
     'data': ['views/templates.xml',],
+    "images": [
+        'static/description/banner.png'
+    ],
     'installable': True,
 }

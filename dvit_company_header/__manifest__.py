@@ -21,4 +21,7 @@
         'views/sale_report.xml',
         'views/invoice_report.xml',
     ],
+    "images": [
+        'static/description/banner.png'
+    ],
 }

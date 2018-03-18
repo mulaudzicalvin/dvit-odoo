@@ -10,5 +10,8 @@
     'author': "DVIT.ME",
     'website': 'http://dvit.me/',
     'depends': ['account', 'stock_account'],
+    "images": [
+        'static/description/banner.png'
+    ],
     'installable': True,
 }

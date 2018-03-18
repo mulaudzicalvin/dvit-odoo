@@ -8,5 +8,8 @@
     'website': 'http://dvit.me/',
     'depends': ['account'],
     'data': ['views/views.xml'],
+    "images": [
+        'static/description/banner.png'
+    ],
     'installable': True,
 }

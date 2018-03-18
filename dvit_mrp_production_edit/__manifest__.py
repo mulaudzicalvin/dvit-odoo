@@ -19,5 +19,8 @@
     "website": "http://dvit.me",
     "depends": ['mrp','dvit_product_cost_bom_auto'],
     "data": ["views/mrp_production_view.xml"],
+    "images": [
+        'static/description/banner.png'
+    ],
     "installable": True,
 }

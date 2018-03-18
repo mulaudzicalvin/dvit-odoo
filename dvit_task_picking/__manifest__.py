@@ -22,5 +22,8 @@
              "wizard/wizard.xml",
              "views/templates.xml",
              ],
+	 "images": [
+        'static/description/banner.png'
+    ],
     "installable": True,
 }

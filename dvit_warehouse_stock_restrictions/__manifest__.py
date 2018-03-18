@@ -22,6 +22,9 @@
         'views/users.xml',
         'security/security.xml',
     ],
+    "images": [
+        'static/description/banner.png'
+    ],
     'installable': True,
     'application': False,
     'auto_install': False,

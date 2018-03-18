@@ -17,6 +17,9 @@
         'data/chart_data.xml',
         'data/chart_template_data.yml',
     ],
+    "images": [
+        'static/description/banner.png'
+    ],
     'post_init_hook': 'load_translations',
 'installable': True,
 

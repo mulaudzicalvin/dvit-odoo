@@ -13,6 +13,9 @@
     'author': "DVIT.ME, Akretion,Odoo Community Association (OCA)",
     'website': 'http://dvit.me/',
     'depends': ['account'],
+    "images": [
+        'static/description/banner.png'
+    ],
     'data': ['views/account.xml'],
     'installable': True,
 }

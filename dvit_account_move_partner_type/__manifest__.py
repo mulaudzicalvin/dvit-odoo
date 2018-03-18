@@ -10,6 +10,9 @@
     'author': "DVIT.ME",
     'website': 'http://dvit.me/',
     'depends': ['account'],
+    "images": [
+        'static/description/banner.png'
+    ],
     'data': [
         'views/views.xml',
         ],
