@@ -1,6 +1,8 @@
 #################
 ## Eclipse
 #################
+.eric6project
+.travis.yml
 .idea
 .tags
 *.pydevproject
