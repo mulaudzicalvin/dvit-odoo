@@ -17,10 +17,12 @@
     'depends': ['website_sale'],
 
     'data': [
+        'data/res.country.city.csv',
+        'data/data.xml',
         'views/views.xml',
         'views/templates.xml',
         'security/ir.model.access.csv',
-        'data/res.country.city.csv'
+
 
     ],
 }

@@ -19,6 +19,30 @@ odoo.define('dvit_hora_address.website_sale', function(require) {
       };
     })();
 
+    $(document).ready(function() {
+        try {
+            $("#delivery_date").datepicker({
+                minDate: +0,
+                maxDate: +2,
+            });
+        } catch (e) {}
+
+        $('.btn-primary').bind("click", function(event) {
+            var delivery_date = $('#delivery_date').val();
+            var delivery_period = $('#delivery_period').val();
+            if (delivery_date.length > 0 && delivery_period.length > 0){
+              ajax.jsonRpc('/shop/delivery_date', 'call', {
+                'delivery_date': delivery_date,
+                'delivery_period': delivery_period
+              });
+              } else {
+                event.stopPropagation();
+                event.preventDefault();
+                alert("Deliver date & time must be set!!");
+            }
+        });
+    });
+
     if ($(".checkout_autoformat").length) {
       var selectStates = $("select[name='state_id']");
       var selectCities = $("select[name='city_id']");

@@ -8,6 +8,11 @@ class SaleOrderLine(models.Model):
     date_order = fields.Datetime(related="order_id.date_order", )
 
 
+class delivery_period(models.Model):
+    _name = 'delivery.period'
+    _description = 'Time Periods'
+
+    name = fields.Char(string="Name", )
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
@@ -19,6 +24,8 @@ class SaleOrder(models.Model):
     building_id = fields.Many2one(related='partner_id.building_id', readonly=True, store=True)
     sequence = fields.Integer(related='partner_id.building_id.sequence', readonly=True, store=True)
     floor = fields.Char(related='partner_id.floor', readonly=True, store=True)
+    delivery_period = fields.Many2one(string="Delivery Time",comodel_name="delivery.period",)
+    delivery_date = fields.Date(string="Delivery Date", )
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'

@@ -2,6 +2,9 @@
   <data>
     <!-- Sale shipping report -->
     <report id="report_sale_shipping" string="Shipping Report" model="sale.order" report_type="qweb-pdf" file="dvit_hora_address.report_sale_shipping_doc" name="dvit_hora_address.report_sale_shipping_doc"/>
+    <record id="report_sale_shipping" model="ir.actions.report.xml">
+        <field name="paperformat_id" ref="dvit_hora_address.paperformat_delivery"/>
+    </record>
 
     <template id="report_sale_shipping_doc">
       <t t-call="report.html_container">
@@ -22,10 +25,10 @@
                       <thead>
                         <!-- <tr> <th>Customer Information</th> </tr> -->
                         <tr>
-                          <td >
+                          <td style="colspan:5;">
                             <b>Name:</b> <span t-field="doc.partner_id.name"/> -
-                            <b>Phone:</b> <span t-field="doc.partner_id.phone"/> -
-                            <b>Mobile:</b> <span t-field="doc.partner_id.mobile"/> -
+                            <t t-if="doc.partner_id.phone"><b>Phone:</b> <span t-field="doc.partner_id.phone"/> -</t>
+                            <t t-if="doc.partner_id.mobile"><b>Mobile:</b> <span t-field="doc.partner_id.mobile"/> -</t>
                             <b>Floor:</b> <span t-field="doc.floor"/> -
                             <b>Building:</b> <span t-field="doc.building_id"/> -
                             <b>Zone:</b> <span t-field="doc.zone_id"/> -
@@ -33,7 +36,8 @@
                           </td>
                           <td style="colspan:5;">
                             <b>Order #:</b> <span t-field="doc.name"/> -
-                            <b>Date: </b> <span t-field="doc.date_order"/> .
+                            <b>Deliver On: </b> <span t-field="doc.delivery_date"/> -
+                            <span t-field="doc.delivery_period"/>.
                           </td>
                         </tr>
                         <tr xid="header_row">
@@ -129,6 +133,44 @@
       </xpath>
     </template>
 
+    <!-- order delivery_period & date -->
+      <template id="cart" inherit_id="website_sale.cart">
+        <xpath expr="//t[@t-call='website_sale.cart_lines']" position="before">
+          <div id="delivery_date_div" t-if="website_sale_order and website_sale_order.website_order_line">
+            <div class="row" >
+
+              <div class="row">
+                  <div class='col-md-4'>
+                      <div class="form-group">
+                          <label class="control-label" for="delivery_date">Delivery Date</label>
+                          <div class='input-group date'>
+                            <span class="input-group-addon" id='delivery_date_icon'
+                                  onclick="$('#delivery_date').datepicker('show');">
+                                <span class="fa fa-calendar"></span>
+                            </span>
+                              <input type='text' class="form-control" id='delivery_date' readonly="True"/>
+                              <span>
+                                <select id="delivery_period" name="delivery_period" class="form-control" data-init="1">
+                                  <option value="">Time...</option>
+                                  <t t-foreach="periods" t-as="p">
+                                    <option t-att-value="p.id">
+                                      <t t-esc="p.name"/>
+                                    </option>
+                                  </t>
+                                </select>
+                              </span>
+
+                          </div>
+                      </div>
+                  </div>
+               </div>
+            </div>
+          </div>
+        </xpath>
+
+      </template>
+
+    <!-- address info -->
     <template id="address" inherit_id="website_sale.address">
       <xpath expr="//label[@for='zip']/.." position="replace"></xpath>
       <xpath expr="//label[@for='vat']/.." position="replace"></xpath>
