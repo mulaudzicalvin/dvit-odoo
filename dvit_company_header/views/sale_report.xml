@@ -28,7 +28,7 @@
 
         <template id="external_layout_header" inherit_id="report.external_layout_header">
           <xpath expr="//div[@class='header']" position="replace">
-            <div class="header">
+            <div class="header" style="text-align:center; border-bottom: 4px solid black;">
                 <img t-if="company.header" t-att-src="'data:image/png;base64,%s' % company.header"
                      style="max-height:4cm;width:100%;max-width:21cm;"/>
             </div>
