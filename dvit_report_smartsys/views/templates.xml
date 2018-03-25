@@ -64,9 +64,9 @@
         <t t-set="packs" t-value="any([l.product_id.pack for l in doc.order_line])"/>
         <t t-set="taxes" t-value="any([l.tax_id for l in doc.order_line])"/>
         <t t-set="lcount" t-value="0"/>
-        <div style="direction:rtl; font-size: 13px !important;">
+        <div class="row" style="direction:rtl; font-size: 13px !important;">
           <strong>
-            <div style="width:300px; text-align:center;">
+            <div class="col-sm pull-right" style="margin-right:30px; text-align:center; direction:rtl;">
               <t t-if="doc.partner_id.company_type == 'company'">
                 السادة/
               </t>
@@ -81,12 +81,19 @@
               </t>
               <p t-field="doc.partner_id.parent_id.name"/>
             </div>
-            <p>
-              <center>تحية طيبة وبعد،،،</center>
-            </p>
-            <p>نتشرف بتقديم العرض رقم
-              <span t-field="doc.name"/></p>
           </strong>
+        </div>
+        <p style="text-align:right; direction:rtl;">
+          <center>،،،تحية طيبة وبعد</center>
+        </p>
+        <div class="row">
+          <div class="col-md-4 pull-right" style="direction:rtl;">
+            <strong>
+            <p style="margin-right: 20px; text-align:right; direction:rtl;">نتشرف بتقديم العرض رقم
+              <span t-field="doc.name"/>
+            </p>
+            </strong>
+          </div>
         </div>
       </xpath>
 
