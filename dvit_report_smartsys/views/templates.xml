@@ -1,8 +1,5 @@
 <odoo>
   <data>
-    <!-- <template inherit_id="sale_comment_template.report_saleorder_document_comments" id="dvit_report_sale_comment">
-
-    </template> -->
 
     <template inherit_id="dvit_sale_discount.report_saleorder_discount" id="dvit_report_smartsys_discount">
       <xpath expr="//span[@t-field='l.total_line']/.." position="attributes">
@@ -62,9 +59,9 @@
         <hr color="black" style="padding:1px; margin:1px;"></hr>
         <br/><br/>
       </xpath>
-        <xpath expr="//div[@class='page']" position="attributes">
-          <attribute name="style">font-size: 11px !important;</attribute>
-        </xpath>
+      <xpath expr="//div[@class='page']" position="attributes">
+        <attribute name="style">font-size: 11px !important;</attribute>
+      </xpath>
 
       <xpath expr="//t[@t-set='display_discount']" position="after">
         <t t-set="packs" t-value="any([l.product_id.pack for l in doc.order_line])"/>
@@ -95,9 +92,9 @@
         <div class="row">
           <div class="col-md-4 pull-right" style="direction:rtl;">
             <strong>
-            <p style="margin-right: 20px; text-align:right; direction:rtl;">نتشرف بتقديم العرض رقم
-              <span t-field="doc.name"/>
-            </p>
+              <p style="margin-right: 20px; text-align:right; direction:rtl;">نتشرف بتقديم العرض رقم
+                <span t-field="doc.name"/>
+              </p>
             </strong>
           </div>
         </div>
@@ -228,9 +225,9 @@
       </xpath>
 
       <xpath expr="//span[@t-field='l.product_uom_qty']" position="replace">
-          <t t-set="lqty" t-value="(l.pack_parent_line_id.product_uom_qty > 0) and l.product_uom_qty/l.pack_parent_line_id.product_uom_qty or 0"/>
-          <span t-if="l.pack_parent_line_id and not l.hide_info" t-esc="lqty"/>
-          <span t-if="not l.pack_parent_line_id and not l.hide_info" t-field="l.product_uom_qty"/>
+        <t t-set="lqty" t-value="(l.pack_parent_line_id.product_uom_qty > 0) and l.product_uom_qty/l.pack_parent_line_id.product_uom_qty or 0"/>
+        <span t-if="l.pack_parent_line_id and not l.hide_info" t-esc="lqty"/>
+        <span t-if="not l.pack_parent_line_id and not l.hide_info" t-field="l.product_uom_qty"/>
       </xpath>
       <xpath expr="//span[@t-field='l.name']" position="replace">
         <span t-if="xyz_will_not_show" t-field="l.product_id.description_sale"/>
@@ -241,12 +238,14 @@
       </xpath>
 
       <xpath expr="//p[@t-if='doc.note2']" position="replace">
-        <p t-if="doc.note2 and not doc.show_price">
-          <span t-field="doc.note2"/>
-        </p>
-        <p t-if="doc.note3 and doc.show_price">
-          <span t-field="doc.note3"/>
-        </p>
+        <div dir="rtl">
+          <p t-if="doc.note2 and not doc.show_price">
+            <span t-field="doc.note2"/>
+          </p>
+          <p t-if="doc.note3 and doc.show_price">
+            <span t-field="doc.note3"/>
+          </p>
+        </div>
       </xpath>
 
     </template>
