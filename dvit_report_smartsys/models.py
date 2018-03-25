@@ -5,6 +5,7 @@ class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     is_optional = fields.Boolean(string="Optional", copy=True)
+    hide_info = fields.Boolean(string="Hide Info.", copy=True)
 
     @api.constrains('is_optional')
     def _onchange_optional(self):
@@ -48,6 +49,25 @@ class SaleOrder(models.Model):
         default='proposal',
     )
 
+    note3 = fields.Html(string="Financial Terms", )
+    comment_template3_id = fields.Many2one(
+        string="Financial Terms",
+        comodel_name="base.comment.template",
+    )
+
+    @api.onchange('comment_template3_id')
+    def load_comment_template3_id(self):
+        self.note3 = self.comment_template3_id.text
+
+
+    @api.constrains('order_line')
+    def _check_duplicate(self):
+        for line in self.order_line:
+            if any(l.id != line.id and l.product_id == line.product_id and line.pack_parent_line_id == l.pack_parent_line_id for l in line.order_id.order_line):
+                line.duplicate = True
+            else:
+                line.duplicate = False
+
     @api.depends('order_line.price_total')
     def _amount_all(self):
         """
@@ -81,5 +101,5 @@ class SaleOrder(models.Model):
 class productTemplate(models.Model):
     _inherit = 'product.template'
 
-    desc_catalog = fields.Text(string="Catalogue Description", )
-    desc_proposal = fields.Text(string="Proposal Description", )
+    desc_catalog = fields.Html(string="Catalogue Description", )
+    desc_proposal = fields.Html(string="Proposal Description", )
