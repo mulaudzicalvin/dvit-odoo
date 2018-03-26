@@ -126,7 +126,7 @@ class sale_order_line(models.Model):
     @api.multi
     def update_pack_line_total(self):
         for line in self:
-            line.price_unit = line.get_line_total()
+            line.price_unit = line.get_line_total() / line.product_uom_qty
             if line.pack_parent_line_id:
                 line.price_unit = 0.0
 
@@ -138,7 +138,7 @@ class sale_order_line(models.Model):
             child.price_unit = 0.0
             total += child.get_line_total()
         if not self.pack_child_line_ids:
-            total += self.product_uom_qty * self.product_id.list_price
+            total += self.product_id.list_price * self.product_uom_qty
             self.price_unit = 0.0
 
         return total
