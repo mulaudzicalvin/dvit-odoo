@@ -17,7 +17,7 @@ class SaleOrderLine(models.Model):
         for line in self:
             if line.is_optional:
                 continue
-            line.price_unit = line.get_line_total()
+            line.price_unit = line.get_line_total() / line.product_uom_qty
             if line.pack_parent_line_id:
                 line.price_unit = 0.0
 
