@@ -22,13 +22,10 @@
           </group>
           <label for="ref_uom" string="Main UoM"/>
           <field name="ref_uom" required="1" class="oe_inline"/>
-          <!-- <label for="line_ids" string="Additional UoMs"/> -->
           <field name="line_ids">
             <tree string="Unit of Measures" editable="top">
               <field name="uom" required="1"/>
-              <!-- <field name="uom_type" required="1"/> -->
               <field name="qty" required="1"/>
-              <!-- <field name="factor_inv" attrs="{'invisible':[('uom_type','!=','bigger')], 'readolny':[('uom_type','!=','bigger')],}"/> <field name="factor" attrs="{'invisible':[('uom_type','!=','smaller')], 'readolny':[('uom_type','!=','smaller')]}"/> -->
             </tree>
           </field>
           <footer>
