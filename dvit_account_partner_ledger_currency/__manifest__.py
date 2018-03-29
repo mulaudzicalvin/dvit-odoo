@@ -23,7 +23,7 @@
     'name' : 'dvit account partner ledger currency',
     'version' : '0.1',
     'summary': 'dvit account partner ledger currency',
-    'licenses': 'AGPL-3',
+    'license': 'AGPL-3',
     'description': "Merge 2 modules - Cybrosys partner_ledger_filter and BroadTech partner_ledger_currency",
     'category': 'Accounting',
     'author': 'DVIT.ME, Cybrosys, BroadTech',
