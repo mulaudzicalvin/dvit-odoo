@@ -5,8 +5,6 @@
     "version": "10.0.1.0.0",
     "category": "Manufacturing",
     "license": "AGPL-3",
-    "price": 75.0,
-    "currency": 'EUR',
     'summary': 'Allow creating PO with raw materials from Manufacturing Orders.',
     'description': """
     Allow creating PO with raw materials from Manufacturing Orders.

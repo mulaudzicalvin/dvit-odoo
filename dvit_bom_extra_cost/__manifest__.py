@@ -5,8 +5,6 @@
     "version": "10.0.1.0.0",
     "category": "Manufacturing",
     "license": "AGPL-3",
-    "price": 15.0,
-    "currency": 'EUR',
     'summary': 'Allow adding indirect overhead costs on BoM as a percent of its costs.',
     'description': """
 Allow adding indirect overhead costs on BoM as a percent of its costs.

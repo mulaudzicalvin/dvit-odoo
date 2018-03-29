@@ -16,8 +16,6 @@
 
      """,
      "license": "AGPL-3",
-     "price": 35.0,
-     "currency": 'EUR',
     'version': '10.0.2.0',
     'category': 'Point of Sale',
     'author': 'DVIT.me',

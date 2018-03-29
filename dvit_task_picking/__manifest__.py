@@ -5,8 +5,6 @@
     "version": "10.0.1.0.0",
     "category": "Project Management",
     "license": "AGPL-3",
-    "price": 25.0,
-    "currency": 'EUR',
     'summary': 'Allow creating transfers to a task.',
     'description': """
     Create and link transfers to a task.

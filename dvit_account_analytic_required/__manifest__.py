@@ -8,8 +8,6 @@
     'version': '10.0.1.0',
     'category': 'Analytic Accounting',
     'license': 'AGPL-3',
-    'price': 5.0,
-    'currency': 'EUR',
     'author': "DVIT.ME, Akretion,Odoo Community Association (OCA)",
     'website': 'http://dvit.me/',
     'depends': ['account'],

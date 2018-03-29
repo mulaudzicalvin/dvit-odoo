@@ -10,8 +10,6 @@
     'category': 'Human Resources',
     'author': ["DVIT.ME", "Open Net Sarl"],
     'license': 'AGPL-3',
-    'price': 35.0,
-    'currency': 'EUR',
     'depends': ['hr_payroll_account'],
     'version': '10.0.3.0',
     'website': 'http://dvit.me',

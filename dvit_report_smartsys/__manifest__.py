@@ -6,8 +6,6 @@
     'license': 'AGPL-3',
     'author': "DVIT.ME",
     'website': 'http://dvit.me/',
-    "price": 500.0,
-    "currency": 'EUR',
     'depends': [
         'product_pack',
         'partner_contact_department',

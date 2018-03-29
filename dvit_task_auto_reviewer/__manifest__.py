@@ -6,8 +6,6 @@
     'version': '10.0.1.0',
     'category': 'Project',
     'license': 'AGPL-3',
-    'price': 15.0,
-    'currency': 'EUR',
     'author': "DVIT.ME",
     'website': 'http://dvit.me/',
     'depends': ['sale_timesheet','dvit_product_manager'],

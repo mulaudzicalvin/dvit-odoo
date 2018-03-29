@@ -2,9 +2,7 @@
     'name': 'Invoice Number to words',
     'version': '0.1',
     "license": "AGPL-3",
-    "price": 5.0,
-    "currency": 'EUR',
-    'category': 'Accounting',
+ 	'category': 'Accounting',
     'summary': """
     Show invoice Total in words. """,
     'description': """

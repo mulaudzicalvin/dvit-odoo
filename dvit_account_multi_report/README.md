@@ -49,6 +49,3 @@ Bug Tracker
 Contributors
 ------------
 * Florent de Labarre
-
-Maintainer
-----------

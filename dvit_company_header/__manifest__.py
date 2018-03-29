@@ -11,8 +11,6 @@
     'version': '10.0.1.1',
     'category': 'Accounting',
     'license': 'AGPL-3',
-    'price': 75.0,
-    'currency': 'EUR',
     'author': "DVIT.ME",
     'website': 'http://dvit.me/',
     'depends': ['sale','account'],

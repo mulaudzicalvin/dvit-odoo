@@ -8,8 +8,6 @@
         same as it was in v8 .
     """,
     "license": "AGPL-3",
-    "price": 35.0,
-    "currency": 'EUR',
     'author': "dvit.me",
     'website': "https://dvit.me",
     'category': 'Stock',
