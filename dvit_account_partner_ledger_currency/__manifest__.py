@@ -24,9 +24,9 @@
     'version' : '0.1',
     'summary': 'dvit account partner ledger currency',
     'sequence': 1,
-    'description': "Merge 2 modules - partner_ledger_filter and partner_ledger_currency",
+    'description': "Merge 2 modules - Cybrosys partner_ledger_filter and BroadTech partner_ledger_currency",
     'category': 'Accounting',
-    'author': 'DVIT.ME',
+    'author': 'DVIT.ME, Cybrosys, BroadTech',
     'website': 'http://www.dvit.me/',
     'depends' : ['account'],
     'data': [
@@ -35,7 +35,6 @@
         'wizard/account_report_general_ledger_view.xml'
         ],
 
-    'images': ['static/description/banner.jpg'],
     'installable': True,
     'application': False,
     'auto_install': True,
