@@ -230,8 +230,8 @@
         <span t-if="not l.pack_parent_line_id and not l.hide_info" t-field="l.product_uom_qty"/>
       </xpath>
       <xpath expr="//span[@t-field='l.name']" position="replace">
-        <span t-if="xyz_will_not_show" t-field="l.product_id.description_sale"/>
-        <span t-field="l.product_id.description_sale"/>
+        <span t-if="xyz_will_not_show" t-field="l.name"/>
+        <span t-esc="l.product_id.description_sale and l.product_id.description_sale or l.product_id.name"/>
       </xpath>
       <xpath expr="//span[@t-field='l.product_id.default_code']" position="replace">
         <span t-if="not l.hide_info" t-field="l.product_id.default_code"/>
@@ -254,7 +254,7 @@
     <report id="report_sale_catalog" string="Catalogue / Proposal" model="sale.order" report_type="qweb-pdf" file="dvit_report_smartsys.report_saleorder_catalog" name="dvit_report_smartsys.report_saleorder_catalog"/>
 
     <template id="report_sale_catalog_document" primary="True" priority="9999" inherit_id="report_saleorder_smartsys">
-      <xpath expr="//span[@t-field='l.product_id.description_sale']/.." position="replace">
+      <xpath expr="//span[contains(@t-esc,'l.product_id.description_sale')]/.." position="replace">
         <td t-att-style="style">
           <span t-if="doc.print_type == 'catalogue' and l.product_id.product_tmpl_id.desc_catalog" t-field="l.product_id.product_tmpl_id.desc_catalog"/>
           <span t-if="doc.print_type == 'proposal' and l.product_id.product_tmpl_id.desc_proposal" t-field="l.product_id.product_tmpl_id.desc_proposal"/>

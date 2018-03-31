@@ -37,6 +37,17 @@ class SaleOrderLine(models.Model):
 
         return total
 
+    def get_line_root(self):
+        # get the root parent pack line of a line
+        for line in self:
+            root = None
+            if line.pack_parent_line_id:
+                root = line.pack_parent_line_id.get_line_root()
+            if not line.pack_parent_line_id:
+                root = line
+        return root
+
+
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
@@ -59,11 +70,15 @@ class SaleOrder(models.Model):
     def load_comment_template3_id(self):
         self.note3 = self.comment_template3_id.text
 
-
     @api.constrains('order_line')
     def _check_duplicate(self):
+        # Here we check duplicates on the level on recursive packages
+        # So that duplicate lines under the same pack or have the same root pack will be colored
         for line in self.order_line:
-            if any(l.id != line.id and l.product_id == line.product_id and line.pack_parent_line_id == l.pack_parent_line_id for l in line.order_id.order_line):
+            if any(l.id != line.id and l.product_id == line.product_id and \
+            ( l.pack_parent_line_id == line.pack_parent_line_id or \
+            l.get_line_root() == line.get_line_root() ) \
+            for l in line.order_id.order_line ):
                 line.duplicate = True
             else:
                 line.duplicate = False
