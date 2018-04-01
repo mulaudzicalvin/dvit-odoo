@@ -22,7 +22,7 @@ class WizProdUoM(models.TransientModel):
         'name': self.ref_uom,
         'uom_type': 'reference',
         'category_id': uom_categ_id.id,
-        'rounding': 0.01,
+        'rounding': 0.001,
         'factor': 1,
         'factor_inv': 1,
         })
@@ -37,7 +37,7 @@ class WizProdUoM(models.TransientModel):
             'factor_inv': line.qty > 0 and line.qty or (1/abs(line.qty)),
             'factor': line.qty < 0 and abs(line.qty) or (1/abs(line.qty)),
             'category_id': uom_categ_id.id,
-            'rounding': 0.01,
+            'rounding': 0.001,
             })
 
         return True
