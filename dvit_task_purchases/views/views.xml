@@ -39,7 +39,8 @@
       <field name="inherit_id" ref="project.view_task_form2"/>
       <field name="arch" type="xml">
         <xpath expr="//page[@name='extra_info']" position="after">
-          <page name="purchase_orders" string="Purchase Orders">
+          <page name="purchase_orders" string="Purchase Orders" groups="purchase.group_purchase_user
+">
             <button name="%(purchase_wizard_action)d" class="oe_inline oe_highlight oe_stat_button" string="Add Purchase Order" type="action"/>
             <field name="purchase_ids" readonly="True"/>
           </page>
