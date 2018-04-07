@@ -6,7 +6,7 @@ from odoo.exceptions import Warning
 class ResUsers(models.Model):
     _inherit = 'res.users'
 
-    restrict_locations = fields.Boolean('Restrict Location', readonly="1")
+    restrict_locations = fields.Boolean('Restrict Locations', readonly="1")
 
     stock_location_ids = fields.Many2many(
         'stock.location',
@@ -17,38 +17,37 @@ class ResUsers(models.Model):
 
     default_picking_type_ids = fields.Many2many(
         'stock.picking.type', 'stock_picking_type_users_rel',
-        'user_id', 'picking_type_id', string='Default Warehouse Operations')
+        'user_id', 'picking_type_id', string='Warehouse Operations')
 
-    @api.multi
+
+    @api.constrains('stock_location_ids')
     def tgl_restrict(self):
-        self.restrict_locations = not self.restrict_locations
-        model_data = self.env['ir.model.data']
-        res_groups = self.env['res.groups']
-        restrict_group = model_data.search([('name', '=', 'stock_restrictions_group')]).res_id
-        current_group=res_groups.browse(restrict_group)
-        if self.restrict_locations:
-            current_group=res_groups.browse(restrict_group)
+        # self.restrict_locations = not self.restrict_locations
+        # res_groups = self.env['res.groups']
+        restrict_group = self.env.ref('dvit_warehouse_stock_restrictions.stock_restrictions_group')
+        current_group = restrict_group
+        if self.stock_location_ids:
+            # Due to strange behaviuor, we must remove the user from the group then
+            # re-add him again to get restrictions applied
+            current_group.write({'users':  [(3, self.id)]})
+            self.groups_id =[(3, restrict_group.id)]
+            self.default_picking_type_ids = False
+            self.restrict_locations = 0
+            ## re-add
             current_group.write({'users':  [(4, self.id)]})
-            self.groups_id =[(4, restrict_group)]
+            self.groups_id =[(4, restrict_group.id)]
+            # by default select all oprtations related to the selected location or its parent
+            pick_types = self.env['stock.picking.type'].search(['|','|','|',
+            ('default_location_src_id','in',[l.id for l in self.stock_location_ids]),
+            ('default_location_src_id.location_id','in',[l.id for l in self.stock_location_ids]),
+            ('default_location_dest_id','in',[l.id for l in self.stock_location_ids]),
+            ('default_location_dest_id.location_id','in',[l.id for l in self.stock_location_ids]),
+            ])
+            self.default_picking_type_ids += pick_types
+            self.restrict_locations = 1
+
         else:
             current_group.write({'users':  [(3, self.id)]})
-
-# Removed as we use rules to restrict access
-# class stock_move(models.Model):
-#     _inherit = 'stock.move'
-#
-#     @api.one
-#     @api.constrains('state', 'location_id', 'location_dest_id')
-#     def check_user_location_rights(self):
-#         if self.state == 'draft':
-#             return True
-#         user_locations = self.env.user.stock_location_ids
-#         if self.env.user.restrict_locations:
-#             message = _(
-#                 'Invalid Location. You cannot process this move since you do '
-#                 'not control the location "%s". '
-#                 'Please contact your Adminstrator.')
-#             if self.location_id not in user_locations:
-#                 raise Warning(message % self.location_id.name)
-#             elif self.location_dest_id not in user_locations:
-#                 raise Warning(message % self.location_dest_id.name)
+            self.groups_id =[(3, restrict_group.id)]
+            self.default_picking_type_ids = False
+            self.restrict_locations = 0

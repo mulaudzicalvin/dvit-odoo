@@ -7,7 +7,7 @@
         </record>
 
         <record id="filter_user_stock_picking_type_allowed" model="ir.rule">
-            <field name="name">Filter Stock Picking Type Allowed</field>
+            <field name="name">Warehouse Restrictions Picking Types</field>
             <field name="model_id" search="[('model','=','stock.picking.type')]" model="ir.model"/>
             <field name="groups"
                    eval="[(4, ref('dvit_warehouse_stock_restrictions.stock_restrictions_group'))]"/>
@@ -15,7 +15,7 @@
         </record>
 
         <record id="filter_user_stock_picking_allowed" model="ir.rule">
-            <field name="name">Filter Stock Picking Allowed</field>
+            <field name="name">Warehouse Restrictions Pickings</field>
             <field name="model_id" search="[('model','=','stock.picking')]" model="ir.model"/>
             <field name="groups" eval="[(4, ref('dvit_warehouse_stock_restrictions.stock_restrictions_group'))]"/>
             <field name="domain_force">
@@ -29,14 +29,15 @@
         </record>
 
         <record id="filter_user_stock_location_allowed" model="ir.rule">
-            <field name="name">Filter Stock location Allowed</field>
+            <field name="name">Warehouse Restrictions locations</field>
             <field name="model_id" search="[('model','=','stock.location')]" model="ir.model"/>
             <field name="groups" eval="[(4, ref('dvit_warehouse_stock_restrictions.stock_restrictions_group'))]"/>
             <field name="domain_force">
               ['|','|',
-              ('id','in', [ p.id for p in user.stock_location_ids ]),
+              ('id','in', [ l.id for l in user.stock_location_ids ]),
               ('location_id','in', [ l.id for l in user.stock_location_ids ]),
-              ('usage','not in',['internal','transit'])]
+              <!-- ('usage','not in',['internal','transit']), -->
+              ]
             </field>
         </record>
 
