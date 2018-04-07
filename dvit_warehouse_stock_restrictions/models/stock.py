@@ -20,6 +20,19 @@ class ResUsers(models.Model):
         'user_id', 'picking_type_id', string='Warehouse Operations')
 
 
+    @api.constrains('default_picking_type_ids')
+    def update_restrict(self):
+        restrict_group = self.env.ref('dvit_warehouse_stock_restrictions.stock_restrictions_group')
+        current_group = restrict_group
+        if self.stock_location_ids:
+            current_group.write({'users':  [(3, self.id)]})
+            self.groups_id =[(3, restrict_group.id)]
+            self.restrict_locations = 0
+            ##
+            current_group.write({'users':  [(4, self.id)]})
+            self.groups_id =[(4, restrict_group.id)]
+            self.restrict_locations = 1
+
     @api.constrains('stock_location_ids')
     def tgl_restrict(self):
         # self.restrict_locations = not self.restrict_locations
@@ -34,8 +47,6 @@ class ResUsers(models.Model):
             self.default_picking_type_ids = False
             self.restrict_locations = 0
             ## re-add
-            current_group.write({'users':  [(4, self.id)]})
-            self.groups_id =[(4, restrict_group.id)]
             # by default select all oprtations related to the selected location or its parent
             pick_types = self.env['stock.picking.type'].search(['|','|','|',
             ('default_location_src_id','in',[l.id for l in self.stock_location_ids]),
@@ -43,6 +54,8 @@ class ResUsers(models.Model):
             ('default_location_dest_id','in',[l.id for l in self.stock_location_ids]),
             ('default_location_dest_id.location_id','in',[l.id for l in self.stock_location_ids]),
             ])
+            current_group.write({'users':  [(4, self.id)]})
+            self.groups_id =[(4, restrict_group.id)]
             self.default_picking_type_ids += pick_types
             self.restrict_locations = 1
 

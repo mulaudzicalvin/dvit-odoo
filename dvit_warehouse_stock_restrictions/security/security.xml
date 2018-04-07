@@ -33,10 +33,9 @@
             <field name="model_id" search="[('model','=','stock.location')]" model="ir.model"/>
             <field name="groups" eval="[(4, ref('dvit_warehouse_stock_restrictions.stock_restrictions_group'))]"/>
             <field name="domain_force">
-              ['|','|',
+              ['|',
               ('id','in', [ l.id for l in user.stock_location_ids ]),
               ('location_id','in', [ l.id for l in user.stock_location_ids ]),
-              <!-- ('usage','not in',['internal','transit']), -->
               ]
             </field>
         </record>
