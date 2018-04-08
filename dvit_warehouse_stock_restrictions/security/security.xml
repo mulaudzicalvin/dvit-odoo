@@ -4,6 +4,7 @@
         <record id="stock_restrictions_group" model="res.groups">
             <field name="name">Warehouse Restrictions</field>
             <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="category_id" ref="base.module_category_theme_hidden"/>
         </record>
 
         <record id="filter_user_stock_picking_type_allowed" model="ir.rule">
