@@ -11,7 +11,7 @@
             <field name="model_id" search="[('model','=','stock.picking.type')]" model="ir.model"/>
             <field name="groups"
                    eval="[(4, ref('dvit_warehouse_stock_restrictions.stock_restrictions_group'))]"/>
-            <field name="domain_force">[('id','in', [ p.id for p in user.default_picking_type_ids ])]</field>
+            <field name="domain_force">[('id','in', user.default_picking_type_ids.ids)]</field>
         </record>
 
         <record id="filter_user_stock_picking_allowed" model="ir.rule">
@@ -19,12 +19,12 @@
             <field name="model_id" search="[('model','=','stock.picking')]" model="ir.model"/>
             <field name="groups" eval="[(4, ref('dvit_warehouse_stock_restrictions.stock_restrictions_group'))]"/>
             <field name="domain_force">
-              [('picking_type_id','in', [ p.id for p in user.default_picking_type_ids ]),
+              [('picking_type_id','in', user.default_picking_type_ids.ids),
               '|','|','|',
-              ('location_id','in',[l.id for l in user.stock_location_ids]),
-              ('location_dest_id','in',[l.id for l in user.stock_location_ids]),
-              ('location_id.location_id','in',[l.id for l in user.stock_location_ids]),
-              ('location_dest_id.location_id','in',[l.id for l in user.stock_location_ids])]
+              ('location_id','in', user.stock_location_ids.ids),
+              ('location_dest_id','in', user.stock_location_ids.ids),
+              ('location_id.location_id','in', user.stock_location_ids.ids),
+              ('location_dest_id.location_id','in', user.stock_location_ids.ids)]
             </field>
         </record>
 
@@ -34,8 +34,8 @@
             <field name="groups" eval="[(4, ref('dvit_warehouse_stock_restrictions.stock_restrictions_group'))]"/>
             <field name="domain_force">
               ['|',
-              ('id','in', [ l.id for l in user.stock_location_ids ]),
-              ('location_id','in', [ l.id for l in user.stock_location_ids ]),
+              ('id','in', user.stock_location_ids.ids),
+              ('location_id','in', user.stock_location_ids.ids),
               ]
             </field>
         </record>
