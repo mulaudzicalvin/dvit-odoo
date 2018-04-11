@@ -48,7 +48,7 @@ class ResUsers(models.Model):
             self.restrict_locations = 0
             ## re-add
             # by default select all oprtations related to the selected location or its parent
-            pick_types = self.env['stock.picking.type'].search(['|','|','|',
+            pick_types = self.env['stock.picking.type'].sudo().search(['|','|','|',
             ('default_location_src_id','in',[l.id for l in self.stock_location_ids]),
             ('default_location_src_id.location_id','in',[l.id for l in self.stock_location_ids]),
             ('default_location_dest_id','in',[l.id for l in self.stock_location_ids]),
