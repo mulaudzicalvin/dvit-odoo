@@ -213,6 +213,7 @@ class AccountPartnerLedger(models.TransientModel):
     _inherit = "account.report.partner.ledger"
 
     partner_ids = fields.Many2many('res.partner', 'partner_ledger_partner_rel', 'id', 'partner_id', string='Partners')
+    reconciled = fields.Boolean(string="Field name", default=1)
 
     def _print_report(self, data):
         data = self.pre_print_report(data)
